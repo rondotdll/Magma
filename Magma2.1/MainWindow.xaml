@@ -1,0 +1,263 @@
+﻿<Window x:Class="Magma2._1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Magma2._1"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:Avalon="http://icsharpcode.net/sharpdevelop/avalonedit"
+        xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+        fw:AcrylicWindow.Enabled="True" fw:AcrylicWindow.AcrylicWindowStyle="None" fw:AcrylicWindow.NoiseOpacity="0"
+        fw:AcrylicWindow.TintColor="#FF141517" fw:AcrylicWindow.TintOpacity="0.5" fw:AcrylicWindow.FallbackColor="#80141517"
+        Title="MagmaKit" ResizeMode="NoResize" Height="460" Width="825" WindowStyle="None" AllowsTransparency="True" Background="#00000000" Initialized="Window_Initialized">
+    <Window.Resources>
+        <Style TargetType="Image">
+            <Setter Property="Height" Value="64" />
+            <Setter Property="Width" Value="64" />
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
+        </Style>
+    </Window.Resources>
+
+    <Window.BorderBrush>
+        <LinearGradientBrush x:Name="brush">
+            <LinearGradientBrush.GradientStops>
+                <GradientStop Color="#33FF3500" />
+                <GradientStop Color="#33FF8C00" />
+            </LinearGradientBrush.GradientStops>
+        </LinearGradientBrush>
+    </Window.BorderBrush>
+
+    <Grid>
+
+        <!-- TitleBar Buttons Container -->
+
+        <Rectangle x:Name="DragBar" Width="775" Height="10" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 0 0 0" MouseDown="DragBar_MouseDown">
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+                    <GradientStop Color="#FFFF3500" Offset="1"/>
+                    <GradientStop Color="DarkOrange" Offset="0"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+
+        </Rectangle>
+
+        <Grid Width="675" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150 10 0 0">
+
+            <!-- ExecutorButtons -->
+
+            <Button x:Name="AttachButton" Width="30" Height="30" Padding="0" Foreground="#7FFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" >
+                <materialDesign:PackIcon Width="18" Height="18" Kind="VectorLink"/>
+            </Button>
+
+            <!-- Divider Dot -->
+
+            <Rectangle Width="5" Height="5" RadiusX="5" RadiusY="5" Margin="48 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Fill="#2FFFFFFF" Stroke="{x:Null}"></Rectangle>
+
+            <Button x:Name="SaveScriptButton" Width="30" Height="30" Padding="0" Foreground="#7FFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Margin="60,0,0,0" VerticalAlignment="Center" >
+                <materialDesign:PackIcon Width="18" Height="18" Kind="Floppy"/>
+            </Button>
+            <Button x:Name="LoadScriptButton" Width="30" Height="30" Padding="0" Foreground="#7FFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Margin="100,0,0,0" VerticalAlignment="Center" >
+                <materialDesign:PackIcon Width="18" Height="18" Kind="FolderOpen"/>
+            </Button>
+            <Button x:Name="ClearScriptButton" Width="30" Height="30" Padding="0" Foreground="#7FFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Margin="140,0,0,0" VerticalAlignment="Center" >
+                <materialDesign:PackIcon Width="18" Height="18" Kind="EraserVariant"/>
+            </Button>
+            <Button x:Name="ExecuteButton" Width="30" Height="30" Padding="0" Foreground="#7FFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Margin="180,0,0,0" VerticalAlignment="Center" >
+                <materialDesign:PackIcon Width="18" Height="18" Kind="Firework"/>
+            </Button>
+
+            <Label FontFamily="Microsoft YaHei UI Light" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FF5df0a7">Injected</Label>
+
+            <!-- Window Function Buttons (Close, Minimize, Pin) -->
+
+            <Button  x:Name="CloseButton" Width="30" Height="30" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Click="CloseButton_Click" >
+                <materialDesign:PackIcon Width="20" Height="20" Kind="CloseThick" Foreground="White"/>
+            </Button>
+            <Button  x:Name="MinimizeButton" Width="30" Height="30" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Right" Margin="0,10,50,0" VerticalAlignment="Top" Click="MinimizeButton_Click" >
+                <materialDesign:PackIcon Width="20" Height="20" Kind="ArrowDownThick" Foreground="White"/>
+            </Button>
+            <Button  x:Name="KeepOnTopButton" Width="30" Height="30" Padding="0" Foreground="#7FFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Right" Margin="0,10,90,0" VerticalAlignment="Top" Click="KeepOnTopButton_Click" >
+                <materialDesign:PackIcon Width="20" Height="20" Kind="Pin"/>
+            </Button>
+
+        </Grid>
+
+        <Grid Width="150" Height="315" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="0.5*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="0.25*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="1" x:Name="InjectorButton" Width="50" Height="50" Padding="0" Foreground="#AFFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                    <materialDesign:PackIcon Width="35" Height="35" Kind="Cube"/>
+                </Button>
+                <Button Grid.Column="2" x:Name="ExecutorButton" Width="50" Height="50" Padding="0" Foreground="#AFFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                    <materialDesign:PackIcon Width="35" Height="35" Kind="LanguageLua"/>
+                </Button>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="0.25*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="1" Grid.Row="1" x:Name="DDoSButton" Width="50" Height="50" Padding="0" Foreground="#AFFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                    <materialDesign:PackIcon Width="35" Height="35" Kind="Nuke"/>
+                </Button>
+
+                <Button Grid.Column="2" Grid.Row="1" x:Name="DoxButton" Width="50" Height="50" Padding="0" Foreground="#AFFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                    <materialDesign:PackIcon Width="35" Height="35" Kind="AccountSearch"/>
+                </Button>
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="0.25*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="1" Grid.Row="1" x:Name="VCheckButton" Width="50" Height="50" Padding="0" Foreground="#AFFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                    <materialDesign:PackIcon Width="35" Height="35" Kind="Harddisk"/>
+                </Button>
+
+                <Button Grid.Column="2" Grid.Row="1" x:Name="HardwareButton" Width="50" Height="50" Padding="0" Foreground="#AFFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                    <materialDesign:PackIcon Width="35" Height="35" Kind="ShieldBug"/>
+                </Button>
+            </Grid>
+
+            <Button Margin="5 0 0 5" Grid.Column="2" Grid.Row="3" x:Name="SettingsButton" Width="25" Height="25" Padding="0" Foreground="#AFFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Bottom" >
+                <materialDesign:PackIcon Width="20" Height="20" Kind="Cog"/>
+            </Button>
+
+            <Label HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="#4FFFFFFF" Height="25" Margin="0 0 7 7.5" Grid.Row="3" FontFamily="Yu Gothic UI" FontWeight="UltraBlack" FontSize="14" FontStretch="UltraExpanded">2 . 1 . 0</Label>
+
+        </Grid>
+
+        <!-- Main Area Grid -->
+
+        <Grid HorizontalAlignment="Right" Height="400"  VerticalAlignment="Bottom" Width="675">
+            <Border Margin="0 0 0 0" BorderBrush="{x:Null}" BorderThickness="0">
+                <Border.Effect>
+                    <DropShadowEffect Direction="315" BlurRadius="25" Opacity="1" Color="Black" ShadowDepth="4" RenderingBias="Quality" />
+                </Border.Effect>
+                <Rectangle Margin="0 0 0 0" Fill="#FF282A2F" Stroke="Transparent"/>
+            </Border>
+            <Button x:Name="CollapseButton" Panel.ZIndex="5" BorderThickness="0" Background="Transparent" HorizontalAlignment="Right" VerticalAlignment="Top" Width="25" Height="25" Padding="0" Foreground="#7FFFFFFF" Click="CollapseButton_Click">
+                <materialDesign:PackIcon x:Name="CollapseButtonIcon" Width="15" Height="15" Kind="ArrowRightThick"/>
+            </Button>
+
+            <!-- Executor Grid -->
+
+            <Grid x:Name="ExecutorGrid" Width="675" Height="400" Visibility="Visible">
+                <Grid x:Name="TextBoxContainer" Width="495" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <Avalon:TextEditor x:Name="ScriptTextBox" Margin="10,10,0,10" ShowLineNumbers="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Background="{x:Null}" LineNumbersForeground="#2FFFFFFF" Foreground="#999999" FontFamily="Consolas" />
+                </Grid>
+                <Grid x:Name="ScriptsContainer" HorizontalAlignment="Right" Width="180" VerticalAlignment="Stretch" Margin="0 0 0 0">
+                    <Label x:Name="ScriptFolder" HorizontalAlignment="Center" Margin="0 15 0 0" VerticalAlignment="Top" FontSize="26" Foreground="#AFFFFFFF" FontFamily="Microsoft YaHei Light">Scripts</Label>
+                    <ListBox x:Name="ScriptsListBox" Height="320" Margin="10 0 10 10" Padding="2" Foreground="#AFFFFFFF" VerticalAlignment="Bottom" SelectionChanged="ScriptsListBox_SelectionChanged">
+
+                    </ListBox>
+                </Grid>
+            </Grid>
+
+            <!-- Config Grid -->
+
+            <Grid x:Name="ConfigGrid" Width="0" Height="0" Visibility="Hidden">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" FontFamily="Microsoft YaHei UI" Margin="10 15 15 15" Foreground="#FFFFFFFF" FontSize="16" FontWeight="Bold">EXECUTOR API</Label>
+                <ComboBox Height="25" Foreground="#9FFFFFFF" Grid.Column="0" Margin="15 45 15 15" VerticalAlignment="Top" materialDesign:ColorZoneAssist.Mode="Dark" BorderBrush="#7FFFFFFF" Grid.ColumnSpan="1" FontFamily="Microsoft YaHei">
+                    <ComboBoxItem IsEnabled="False" FontWeight="Bold" FontFamily="Consolas">[-] Keyless APIs [-]</ComboBoxItem>
+                    <ComboBoxItem IsSelected="True">Anemo (CheatSquad v2)</ComboBoxItem>
+                    <ComboBoxItem>EasyExploits</ComboBoxItem>
+                    <ComboBoxItem>WeAreDevs</ComboBoxItem>
+                    <ComboBoxItem>CheatSquad</ComboBoxItem>
+                    <ComboBoxItem IsEnabled="False" FontWeight="Bold" FontFamily="Consolas">[+] Premium APIs [+]</ComboBoxItem>
+                    <ComboBoxItem>ClubDark</ComboBoxItem>
+                </ComboBox>
+                <Label Grid.Column="1" Grid.ColumnSpan="2" FontFamily="Microsoft YaHei" Margin="10 15 15 15" Foreground="#FFFFFFFF" FontSize="16" FontWeight="Bold">SCRIPTS FOLDER DIRECTORY</Label>
+                <TextBox Margin="15 45 15 0" Padding="0 2 0 0" VerticalAlignment="Top" Grid.Column="1" Height="25" Grid.ColumnSpan="2" BorderBrush="#7FFFFFFF" Foreground="#9FFFFFFF" CaretBrush="#9FFFFFFF" FontFamily="Microsoft YaHei">./Scripts</TextBox>
+                <Label Grid.Column="2" FontFamily="Microsoft YaHei UI" Margin="10 90 15 15" Foreground="#FFFFFFFF" FontSize="16" FontWeight="Bold">THEME</Label>
+                <ComboBox Height="25" Foreground="#9FFFFFFF" Grid.Column="2" Margin="15 120 15 15" VerticalAlignment="Top" materialDesign:ColorZoneAssist.Mode="Dark" BorderBrush="#7FFFFFFF" Grid.ColumnSpan="1" FontFamily="Microsoft YaHei">
+                    <ComboBoxItem IsSelected="True">Not316tb Dark</ComboBoxItem>
+                    <ComboBoxItem>Not316tb Light</ComboBoxItem>
+                    <ComboBoxItem>Magma Classic</ComboBoxItem>
+                </ComboBox>
+                <Label Grid.Column="0" FontFamily="Microsoft YaHei UI" Margin="10 90 15 15" Foreground="#FFFFFFFF" FontSize="16" FontWeight="Bold">INJECTOR MODE</Label>
+                <ComboBox Height="25" Foreground="#9FFFFFFF" Grid.Column="0" Margin="15 120 15 15" VerticalAlignment="Top" materialDesign:ColorZoneAssist.Mode="Dark" BorderBrush="#7FFFFFFF" Grid.ColumnSpan="1" FontFamily="Microsoft YaHei">
+                    <ComboBoxItem>Really Easy Mode</ComboBoxItem>
+                    <ComboBoxItem IsSelected="True">Easy Mode</ComboBoxItem>
+                    <ComboBoxItem>Advanced Mode</ComboBoxItem>
+                </ComboBox>
+                <Label Grid.Column="0" FontFamily="Microsoft YaHei UI" Margin="10 160 15 15" Foreground="#FFFFFFFF" FontSize="16" FontWeight="Bold">ADVANCED UNFOCUS</Label>
+                <Label x:Name="UnfocusLabel" Grid.Column="0" Grid.ColumnSpan="2" FontFamily="Microsoft YaHei UI" Margin="195 160 15 15" Foreground="#FFFFFFFF" FontSize="16" FontWeight="Light">- Disabled</Label>
+                <Slider x:Name="AdvancedUnfocus" Grid.Column="0" Grid.ColumnSpan="2" Margin="15 190 15 15" ValueChanged="AdvancedUnfocus_ValueChanged" ></Slider>
+            </Grid>
+
+            <!-- Injector Grids -->
+            <!-- Really Easy Injector -->
+            <Grid Width="0" Height="0" Visibility="Hidden">
+                <Canvas x:Name="TF2" Height="Auto" Width="Auto" Margin="373,88,135,88" Opacity="0.5">
+                    <Canvas.Background>
+                        <ImageBrush ImageSource="TF2.png"/>
+                    </Canvas.Background>
+                    <Canvas.Effect>
+                        <DropShadowEffect BlurRadius="50" Direction="0" ShadowDepth="0" Color="#FF141517"/>
+                    </Canvas.Effect>
+                </Canvas>
+                <Canvas x:Name="CSGO" Height="Auto" Width="Auto" Margin="65,107,472,109" Opacity="0.25">
+                    <Canvas.Background>
+                        <ImageBrush ImageSource="CSGO.png"/>
+                    </Canvas.Background>
+                    <Canvas.Effect>
+                        <DropShadowEffect BlurRadius="50" Direction="0" ShadowDepth="0" Color="#FF141517"/>
+                    </Canvas.Effect>
+                </Canvas>
+                <Canvas x:Name="GTAV" Height="Auto" Width="Auto" Margin="135,88,373,88" Opacity="0.5">
+                    <Canvas.Background>
+                        <ImageBrush ImageSource="GTAV.png"/>
+                    </Canvas.Background>
+                    <Canvas.Effect>
+                        <DropShadowEffect BlurRadius="50" Direction="0" ShadowDepth="0" Color="#FF141517"/>
+                    </Canvas.Effect>
+                </Canvas>
+                <Canvas x:Name="GMOD" Height="Auto" Width="Auto" Margin="228,53,227,53">
+                    <Canvas.Background>
+                        <ImageBrush ImageSource="GMOD.png"/>
+                    </Canvas.Background>
+                    <Canvas.Effect>
+                        <DropShadowEffect BlurRadius="50" Direction="0" ShadowDepth="0" Color="#FF141517"/>
+                    </Canvas.Effect>
+                </Canvas>
+                <Button  x:Name="REInjectRight" Width="40" Panel.ZIndex="5" Height="40" Padding="0" Background="#19FFFFFF" BorderBrush="{x:Null}" Margin="600,0,35,0" VerticalAlignment="Center" Click="REInjectRight_Click">
+                    <materialDesign:PackIcon Width="30" Height="30" Kind="ArrowRightThick" Foreground="White"/>
+                </Button>
+                <Button  x:Name="REInjectLeft" Width="40" Panel.ZIndex="5" Height="40" Padding="0" Background="#19FFFFFF" BorderBrush="{x:Null}" HorizontalAlignment="Left" Margin="35,0,600,0" VerticalAlignment="Center" Click="REInjectLeft_Click">
+                    <materialDesign:PackIcon Width="30" Height="30" Kind="ArrowLeftThick" Foreground="White"/>
+                </Button>
+                <Label x:Name="REInjectorLabel" FontFamily="Microsoft YaHei UI Light" FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="#FF5df0a7" Content="IdiotBox" Margin="0,359,0,0"/>
+                <Button  x:Name="REInjectSelect" Panel.ZIndex="5" Height="40" Padding="0" Background="#3FFFFFFF" BorderBrush="{x:Null}" Margin="288,290,287,0" VerticalAlignment="Top" Click="REInjectSelect_Click">
+                    <materialDesign:PackIcon Width="30" Height="30" Kind="CheckThick" Foreground="White"/>
+                </Button>
+            </Grid>
+
+        </Grid>
+        <Image Height="Auto" Width="Auto" Margin="30,40,710,335" Source="magma2.png" Stretch="UniformToFill"/>
+
+    </Grid>
+</Window>
