@@ -129,19 +129,19 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="GMOD.png" />
+    <Resource Include="Images\GMOD.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="TF2.png" />
+    <Resource Include="Images\TF2.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="GTAV.png" />
+    <Resource Include="Images\GTAV.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="CSGO.png" />
+    <Resource Include="Images\CSGO.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="magma2.png" />
+    <Resource Include="Images\Magma.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Lua.xshd" />
