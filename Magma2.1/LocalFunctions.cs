@@ -33,6 +33,5 @@ namespace Magma2._1
                 i++;
             }
         }
-
     }
 }

@@ -40,19 +40,14 @@
     <Reference Include="AnemoAPI">
       <HintPath>apis\AnemoAPI.dll</HintPath>
     </Reference>
-    <Reference Include="ClubDarkAPI">
-      <HintPath>apis\ClubDarkAPI.dll</HintPath>
-    </Reference>
-    <Reference Include="EasyExploits">
-      <HintPath>apis\EasyExploits.dll</HintPath>
-    </Reference>
     <Reference Include="FluentWPF, Version=0.10.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentWPF.0.10.1\lib\net45\FluentWPF.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.AvalonEdit, Version=6.1.1.20, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
       <HintPath>..\packages\AvalonEdit.6.1.1\lib\net45\ICSharpCode.AvalonEdit.dll</HintPath>
     </Reference>
-    <Reference Include="KrnlAPI">
+    <Reference Include="KrnlAPI, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>apis\KrnlAPI.dll</HintPath>
     </Reference>
     <Reference Include="MaterialDesignColors, Version=2.0.3.2, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">

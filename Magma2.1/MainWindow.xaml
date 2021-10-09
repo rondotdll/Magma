@@ -52,7 +52,7 @@
 
             <!-- Divider Dot -->
 
-            <Rectangle Width="5" Height="5" RadiusX="5" RadiusY="5" Margin="48 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Fill="#2FFFFFFF" Stroke="{x:Null}"></Rectangle>
+            <Rectangle x:Name="DivRectangle" Width="5" Height="5" RadiusX="5" RadiusY="5" Margin="48 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Fill="#2FFFFFFF" Stroke="{x:Null}"></Rectangle>
 
             <Button x:Name="SaveScriptButton" Width="30" Height="30" Padding="0" Foreground="#7FFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Margin="60,0,0,0" VerticalAlignment="Center" >
                 <materialDesign:PackIcon Width="18" Height="18" Kind="Floppy"/>
@@ -67,7 +67,7 @@
                 <materialDesign:PackIcon Width="18" Height="18" Kind="Firework"/>
             </Button>
 
-            <Label FontFamily="Microsoft YaHei UI Light" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FF5df0a7">Injected</Label>
+            <Label x:Name="StatusLabel" FontFamily="Microsoft YaHei UI Light" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FF5df0a7">Injected</Label>
 
             <!-- Window Function Buttons (Close, Minimize, Pin) -->
 
@@ -98,10 +98,10 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="0.25*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="1" x:Name="InjectorButton" Width="50" Height="50" Padding="0" Foreground="#AFFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                <Button Grid.Column="1" x:Name="InjectorButton" Width="50" Height="50" Padding="0" Foreground="#AFFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" Click="InjectorButton_Click" >
                     <materialDesign:PackIcon Width="35" Height="35" Kind="Cube"/>
                 </Button>
-                <Button Grid.Column="2" x:Name="ExecutorButton" Width="50" Height="50" Padding="0" Foreground="#AFFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                <Button Grid.Column="2" x:Name="ExecutorButton" Width="50" Height="50" Padding="0" Foreground="#AFFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ExecutorButton_Click" >
                     <materialDesign:PackIcon Width="35" Height="35" Kind="LanguageLua"/>
                 </Button>
             </Grid>
@@ -128,16 +128,16 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="0.25*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="1" Grid.Row="1" x:Name="VCheckButton" Width="50" Height="50" Padding="0" Foreground="#AFFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                <Button Grid.Column="1" Grid.Row="1" x:Name="HardwareButton" Width="50" Height="50" Padding="0" Foreground="#AFFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" >
                     <materialDesign:PackIcon Width="35" Height="35" Kind="Harddisk"/>
                 </Button>
 
-                <Button Grid.Column="2" Grid.Row="1" x:Name="HardwareButton" Width="50" Height="50" Padding="0" Foreground="#AFFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                <Button Grid.Column="2" Grid.Row="1" x:Name="VCheckButton" Width="50" Height="50" Padding="0" Foreground="#AFFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" >
                     <materialDesign:PackIcon Width="35" Height="35" Kind="ShieldBug"/>
                 </Button>
             </Grid>
 
-            <Button Margin="5 0 0 5" Grid.Column="2" Grid.Row="3" x:Name="SettingsButton" Width="25" Height="25" Padding="0" Foreground="#AFFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Bottom" >
+            <Button Margin="5 0 0 5" Grid.Column="2" Grid.Row="3" x:Name="SettingsButton" Width="25" Height="25" Padding="0" Foreground="#AFFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="SettingsButton_Click" >
                 <materialDesign:PackIcon Width="20" Height="20" Kind="Cog"/>
             </Button>
 
@@ -174,7 +174,7 @@
 
             <!-- Config Grid -->
 
-            <Grid x:Name="ConfigGrid" Width="0" Height="0" Visibility="Hidden">
+            <Grid x:Name="ConfigGrid" Width="675" Height="400" Visibility="Visible">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -182,21 +182,15 @@
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0" FontFamily="Microsoft YaHei UI" Margin="10 15 15 15" Foreground="#FFFFFFFF" FontSize="16" FontWeight="Bold">EXECUTOR API</Label>
                 <ComboBox Height="25" Foreground="#9FFFFFFF" Grid.Column="0" Margin="15 45 15 15" VerticalAlignment="Top" materialDesign:ColorZoneAssist.Mode="Dark" BorderBrush="#7FFFFFFF" Grid.ColumnSpan="1" FontFamily="Microsoft YaHei">
-                    <ComboBoxItem IsEnabled="False" FontWeight="Bold" FontFamily="Consolas">[-] Keyless APIs [-]</ComboBoxItem>
-                    <ComboBoxItem IsSelected="True">Anemo (CheatSquad v2)</ComboBoxItem>
-                    <ComboBoxItem>EasyExploits</ComboBoxItem>
-                    <ComboBoxItem>WeAreDevs</ComboBoxItem>
-                    <ComboBoxItem>CheatSquad</ComboBoxItem>
-                    <ComboBoxItem IsEnabled="False" FontWeight="Bold" FontFamily="Consolas">[+] Premium APIs [+]</ComboBoxItem>
-                    <ComboBoxItem>ClubDark</ComboBoxItem>
+                    <ComboBoxItem IsSelected="True">Anemo API</ComboBoxItem>
+                    <ComboBoxItem>KRNL API</ComboBoxItem>
                 </ComboBox>
                 <Label Grid.Column="1" Grid.ColumnSpan="2" FontFamily="Microsoft YaHei" Margin="10 15 15 15" Foreground="#FFFFFFFF" FontSize="16" FontWeight="Bold">SCRIPTS FOLDER DIRECTORY</Label>
                 <TextBox Margin="15 45 15 0" Padding="0 2 0 0" VerticalAlignment="Top" Grid.Column="1" Height="25" Grid.ColumnSpan="2" BorderBrush="#7FFFFFFF" Foreground="#9FFFFFFF" CaretBrush="#9FFFFFFF" FontFamily="Microsoft YaHei">./Scripts</TextBox>
                 <Label Grid.Column="2" FontFamily="Microsoft YaHei UI" Margin="10 90 15 15" Foreground="#FFFFFFFF" FontSize="16" FontWeight="Bold">THEME</Label>
                 <ComboBox Height="25" Foreground="#9FFFFFFF" Grid.Column="2" Margin="15 120 15 15" VerticalAlignment="Top" materialDesign:ColorZoneAssist.Mode="Dark" BorderBrush="#7FFFFFFF" Grid.ColumnSpan="1" FontFamily="Microsoft YaHei">
-                    <ComboBoxItem IsSelected="True">Not316tb Dark</ComboBoxItem>
-                    <ComboBoxItem>Not316tb Light</ComboBoxItem>
-                    <ComboBoxItem>Magma Classic</ComboBoxItem>
+                    <ComboBoxItem IsSelected="True">Studio 7</ComboBoxItem>
+                    <ComboBoxItem>Not316tb</ComboBoxItem>
                 </ComboBox>
                 <Label Grid.Column="0" FontFamily="Microsoft YaHei UI" Margin="10 90 15 15" Foreground="#FFFFFFFF" FontSize="16" FontWeight="Bold">INJECTOR MODE</Label>
                 <ComboBox Height="25" Foreground="#9FFFFFFF" Grid.Column="0" Margin="15 120 15 15" VerticalAlignment="Top" materialDesign:ColorZoneAssist.Mode="Dark" BorderBrush="#7FFFFFFF" Grid.ColumnSpan="1" FontFamily="Microsoft YaHei">
@@ -207,11 +201,14 @@
                 <Label Grid.Column="0" FontFamily="Microsoft YaHei UI" Margin="10 160 15 15" Foreground="#FFFFFFFF" FontSize="16" FontWeight="Bold">ADVANCED UNFOCUS</Label>
                 <Label x:Name="UnfocusLabel" Grid.Column="0" Grid.ColumnSpan="2" FontFamily="Microsoft YaHei UI" Margin="195 160 15 15" Foreground="#FFFFFFFF" FontSize="16" FontWeight="Light">- Disabled</Label>
                 <Slider x:Name="AdvancedUnfocus" Grid.Column="0" Grid.ColumnSpan="2" Margin="15 190 15 15" ValueChanged="AdvancedUnfocus_ValueChanged" ></Slider>
+                <Label Grid.Column="1" Grid.ColumnSpan="2" FontFamily="Microsoft YaHei" Margin="10,225,15,-195" Foreground="#FFFFFFFF" FontSize="16" FontWeight="Bold" Content="VIRUSTOTAL API KEY"/>
+                <TextBox Margin="15,255,15,0" Padding="0 2 0 0" VerticalAlignment="Top" Grid.Column="1" Height="25" Grid.ColumnSpan="2" BorderBrush="#7FFFFFFF" Foreground="#9FFFFFFF" CaretBrush="#9FFFFFFF" FontFamily="Microsoft YaHei" Text="7a780004227b97d809c2e213899861deo29e10a4c08h27b1343785b8c1e17864"/>
+                <Button Content="?" Padding="0" HorizontalAlignment="Left" Margin="195,226,0,0" VerticalAlignment="Top" Width="25" Grid.Column="1" Height="25" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#3FFFFFFF" FontWeight="Bold" FontSize="16"/>
             </Grid>
 
             <!-- Injector Grids -->
             <!-- Really Easy Injector -->
-            <Grid Width="675" Height="400" Visibility="Visible">
+            <Grid x:Name="ReallyEasyInjectorGrid" Width="0" Height="0" Visibility="Hidden">
                 <Canvas x:Name="TF2" Height="Auto" Width="Auto" Margin="373,88,135,88" Opacity="0.5">
                     <Canvas.Background>
                         <ImageBrush ImageSource="Images/TF2.png"/>
@@ -255,7 +252,80 @@
                     <materialDesign:PackIcon Width="30" Height="30" Kind="CheckThick" Foreground="White"/>
                 </Button>
             </Grid>
+            <!-- Easy Injector -->
+            <Grid x:Name="EasyInjectorGrid" Width="0" Height="0" Visibility="Hidden">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="DLLs" HorizontalAlignment="Left" Margin="40,30,0,0" VerticalAlignment="Top" FontFamily="Microsoft YaHei UI" FontSize="42" FontWeight="Bold" Foreground="#DDFFFFFF" Height="69" Width="122"/>
 
+                <Label Grid.Column="1"  Content="Game" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft YaHei UI" FontSize="42" FontWeight="Bold" Foreground="#DDFFFFFF" Height="69" Width="148" Margin="10,30,0,0"/>
+                <Label Grid.Column="1" Content="Inject" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft YaHei UI" FontSize="42" FontWeight="Bold" Foreground="#DDFFFFFF" Height="69" Width="142" Margin="10,166,0,0" RenderTransformOrigin="0.498,0.998"/>
+                <Button x:Name="EInjectButton" Grid.Column="1" Background="#3FFFFFFF" VerticalAlignment="Top" Padding="0"  Margin="10,235,40,0" BorderBrush="{x:Null}" Height="47">
+                    <materialDesign:PackIcon Width="32" Height="32" Kind="Needle" Foreground="White"/>
+                </Button>
+                <Button x:Name="EInjectAbout" Grid.Column="1" Content="About" VerticalAlignment="Top" Margin="10,334,179,0" Background="#19FFFFFF" BorderBrush="{x:Null}" Foreground="White"/>
+                <Button x:Name="EinjectConfig" Grid.Column="1" Content="Configure" VerticalAlignment="Top" Margin="115,334,40,0" BorderBrush="{x:Null}" Background="#19FFFFFF" Foreground="White"/>
+                <Button x:Name="EInjectVCheck" Grid.Column="1" Background="#26FFFFFF" VerticalAlignment="Top" Padding="0"  Margin="10,297,145,0" BorderBrush="{x:Null}" Height="32">
+                    <materialDesign:PackIcon Width="20" Height="20" Kind="ShieldBug" Foreground="White"/>
+                </Button>
+                <Button x:Name="EInjectKill" Grid.Column="1" Background="#26FFFFFF" VerticalAlignment="Top" Padding="0"  Margin="149,297,40,0" BorderBrush="{x:Null}" Height="32">
+                    <materialDesign:PackIcon Width="20" Height="20" Kind="SkullScan" Foreground="White"/>
+                </Button>
+                <Label Content="Name" Padding="12, 0, 0, 0"  VerticalContentAlignment="Center"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,96,0,0" Width="212" Height="40" FontFamily="Microsoft YaHei UI" FontSize="17" Foreground="#BFFFFFFF" Background="#19FFFFFF"/>
+                <Label Content="Type" Padding="12, 0, 0, 0" VerticalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="262,96,0,0" Width="95" Height="40" FontFamily="Microsoft YaHei UI" FontSize="17" Foreground="#BFFFFFFF" Background="#0CFFFFFF"/>
+                <ListBox Grid.Column="0" HorizontalAlignment="Left" Height="170" VerticalAlignment="Top" Width="212" Margin="40,146,0,0" Background="#14FFFFFF"/>
+                <ListBox Grid.Column="0" HorizontalAlignment="Left" Height="170" VerticalAlignment="Top" Width="95" Margin="262,146,0,0" Background="#0CFFFFFF"/>
+                <Button x:Name="EinjectAdd" Content="Add" VerticalAlignment="Top" Margin="40,326,236,0" BorderBrush="{x:Null}" Background="#19FFFFFF" Foreground="White" Height="40"/>
+                <Button x:Name="EinjectRemove" Content="Remove" VerticalAlignment="Top" Margin="155,326,121,0" BorderBrush="{x:Null}" Background="#19FFFFFF" Foreground="White" Height="40"/>
+                <Button x:Name="EinjectClear" Content="Clear" VerticalAlignment="Top" Margin="270,326,29,0" BorderBrush="{x:Null}" Background="#19FFFFFF" Foreground="White" Height="40"/>
+                <ComboBox VerticalContentAlignment="Center" Padding="10 0 0 0" VerticalAlignment="Top" materialDesign:ColorZoneAssist.Mode="Dark" Grid.Column="1" Margin="10,99,0,0" Height="38" Background="#26FFFFFF" BorderBrush="{x:Null}" HorizontalAlignment="Left" Width="239" FontFamily="Microsoft YaHei" FontSize="16" Foreground="#CCFFFFFF">
+                    <ComboBoxItem FontSize="14">Apex Legends</ComboBoxItem>
+                    <ComboBoxItem FontSize="14">BattleField V</ComboBoxItem>
+                    <ComboBoxItem FontSize="14">Call Of Duty</ComboBoxItem>
+                    <ComboBoxItem FontSize="14">CS:GO</ComboBoxItem>
+                    <ComboBoxItem FontSize="14">Garry's Mod</ComboBoxItem>
+                    <ComboBoxItem FontSize="14">GTA V</ComboBoxItem>
+                    <ComboBoxItem FontSize="14">Half-Life 2</ComboBoxItem>
+                    <ComboBoxItem FontSize="14">Team Fortress 2</ComboBoxItem>
+                    <ComboBoxItem FontSize="14">Valorant</ComboBoxItem>
+                </ComboBox>
+                <materialDesign:PackIcon Width="20" Height="20" Kind="ChevronDown" Foreground="White" Grid.Column="1" Margin="220,108,0,0" HorizontalAlignment="Left"/>
+            </Grid>
+            <!-- Advanced Injector -->
+            <Grid x:Name="AdvancedInjectorGrid" Width="0" Height="0" Visibility="Hidden">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="DLLs" HorizontalAlignment="Left" Margin="40,30,0,0" VerticalAlignment="Top" FontFamily="Microsoft YaHei UI" FontSize="42" FontWeight="Bold" Foreground="#DDFFFFFF" Height="69" Width="122"/>
+
+                <Label Grid.Column="1"  Content="Process" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft YaHei UI" FontSize="42" FontWeight="Bold" Foreground="#DDFFFFFF" Height="69" Width="239" Margin="10,30,0,0"/>
+                <Label Grid.Column="1" Content="Inject" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft YaHei UI" FontSize="42" FontWeight="Bold" Foreground="#DDFFFFFF" Height="69" Width="142" Margin="10,166,0,0" RenderTransformOrigin="0.498,0.998"/>
+                <Button x:Name="AInjectButton" Grid.Column="1" Background="#3FFFFFFF" VerticalAlignment="Top" Padding="0"  Margin="10,235,40,0" BorderBrush="{x:Null}" Height="47">
+                    <materialDesign:PackIcon Width="32" Height="32" Kind="Needle" Foreground="White"/>
+                </Button>
+                <Button x:Name="AInjectAbout" Grid.Column="1" Content="About" VerticalAlignment="Top" Margin="10,334,179,0" Background="#19FFFFFF" BorderBrush="{x:Null}" Foreground="White"/>
+                <Button x:Name="AinjectConfig" Grid.Column="1" Content="Configure" VerticalAlignment="Top" Margin="115,334,40,0" BorderBrush="{x:Null}" Background="#19FFFFFF" Foreground="White"/>
+                <Button x:Name="AInjectVCheck" Grid.Column="1" Background="#26FFFFFF" VerticalAlignment="Top" Padding="0"  Margin="10,297,145,0" BorderBrush="{x:Null}" Height="32">
+                    <materialDesign:PackIcon Width="20" Height="20" Kind="ShieldBug" Foreground="White"/>
+                </Button>
+                <Button x:Name="AInjectKill" Grid.Column="1" Background="#26FFFFFF" VerticalAlignment="Top" Padding="0"  Margin="149,297,40,0" BorderBrush="{x:Null}" Height="32">
+                    <materialDesign:PackIcon Width="20" Height="20" Kind="SkullScan" Foreground="White"/>
+                </Button>
+                <Label Content="Name" Padding="12, 0, 0, 0"  VerticalContentAlignment="Center"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,96,0,0" Width="212" Height="40" FontFamily="Microsoft YaHei UI" FontSize="17" Foreground="#BFFFFFFF" Background="#19FFFFFF"/>
+                <Label Content="Type" Padding="12, 0, 0, 0" VerticalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="262,96,0,0" Width="95" Height="40" FontFamily="Microsoft YaHei UI" FontSize="17" Foreground="#BFFFFFFF" Background="#0CFFFFFF"/>
+                <ListBox Grid.Column="0" HorizontalAlignment="Left" Height="170" VerticalAlignment="Top" Width="212" Margin="40,146,0,0" Background="#14FFFFFF"/>
+                <ListBox Grid.Column="0" HorizontalAlignment="Left" Height="170" VerticalAlignment="Top" Width="95" Margin="262,146,0,0" Background="#0CFFFFFF"/>
+                <Button x:Name="AInjectAdd" Content="Add" VerticalAlignment="Top" Margin="40,326,236,0" BorderBrush="{x:Null}" Background="#19FFFFFF" Foreground="White" Height="40"/>
+                <Button x:Name="AInjectRemove" Content="Remove" VerticalAlignment="Top" Margin="156,326,120,0" BorderBrush="{x:Null}" Background="#19FFFFFF" Foreground="White" Height="40"/>
+                <Button x:Name="AInjectClear" Content="Clear" VerticalAlignment="Top" Margin="272,326,27,0" BorderBrush="{x:Null}" Background="#19FFFFFF" Foreground="White" Height="40"/>
+                <ComboBox VerticalContentAlignment="Center" Padding="10 0 0 0" VerticalAlignment="Top" materialDesign:ColorZoneAssist.Mode="Dark" Grid.Column="1" Margin="10,99,0,0" Height="38" Background="#26FFFFFF" BorderBrush="{x:Null}" HorizontalAlignment="Left" Width="239" FontFamily="Microsoft YaHei" FontSize="16" Foreground="#CCFFFFFF">
+
+                </ComboBox>
+                <materialDesign:PackIcon Width="20" Height="20" Kind="ChevronDown" Foreground="White" Grid.Column="1" Margin="220,108,0,0" HorizontalAlignment="Left"/>
+            </Grid>
         </Grid>
         <Image Height="Auto" Width="Auto" Margin="30,40,710,335" Source="Images/Magma.png" Stretch="UniformToFill"/>
 

@@ -1,11 +1,9 @@
 ﻿using System;
+using KrnlAPI;
 using AnemoAPI;
 using System.IO;
 using System.Linq;
 using System.Text;
-using ClubDarkAPI;
-using EasyExploits;
-using WeAreDevs_API;
 using System.Windows;
 using System.Windows.Data;
 using MaterialDesignThemes;
@@ -32,9 +30,7 @@ namespace Magma2._1
     {
 
         public static AnemoAPI.Anemo ANMO = new AnemoAPI.Anemo();
-        public static EasyExploits.Module EZXP = new EasyExploits.Module();
-        public static ClubDarkAPI.ExploitAPI CDRK = new ClubDarkAPI.ExploitAPI();
-        public static WeAreDevs_API.ExploitAPI WRD = new WeAreDevs_API.ExploitAPI();
+        public static MainAPI KRNL = new MainAPI();
 
         public int CarouselID = 2;
 
@@ -53,7 +49,6 @@ namespace Magma2._1
             {
                 this.DragMove();
             }
-
         }
 
         private void Window_Initialized(object sender, EventArgs e)
@@ -67,12 +62,12 @@ namespace Magma2._1
 
             if (!File.Exists(System.IO.Path.GetFullPath("config ( DO NOT EDIT! ).txt")))
             {
-                File.WriteAllText(System.IO.Path.GetFullPath("config ( DO NOT EDIT! ).txt"), "classic\nanmo\nfalse\nfalse\n./Scripts\nfalse");
+                File.WriteAllText(System.IO.Path.GetFullPath("config ( DO NOT EDIT! ).txt"), "classic\nanmo\nfalse\nfalse\n./Scripts\nfalse\nreallyeasy");
             }
 
-            if (File.ReadLines(System.IO.Path.GetFullPath("config ( DO NOT EDIT! ).txt")).Count() <= 5)
+            if (File.ReadLines(System.IO.Path.GetFullPath("config ( DO NOT EDIT! ).txt")).Count() < 7)
             {
-                File.WriteAllText(System.IO.Path.GetFullPath("config ( DO NOT EDIT! ).txt"), "classic\nezxp\nfalse\nfalse\n./Scripts\nfalse");
+                File.WriteAllText(System.IO.Path.GetFullPath("config ( DO NOT EDIT! ).txt"), "classic\nezxp\nfalse\nfalse\n./Scripts\nfalse\nreallyeasy");
             }
 
             /* Import And Read Config File */
@@ -146,6 +141,7 @@ namespace Magma2._1
                 LocalFunctions.PopulateListBox(ScriptsListBox, config[4], "*.txt");
                 LocalFunctions.PopulateListBox(ScriptsListBox, config[4], "*.lua");
             }
+            ChangeScreen("executor");
 
         }
 
@@ -223,40 +219,174 @@ namespace Magma2._1
 
         }
 
-        private void HideConfig(object sender, EventArgs e)
+        private void InjectorButton_Click(object sender, RoutedEventArgs e)
         {
-            ConfigGrid.Visibility = Visibility.Hidden;
-
+            ChangeScreen("injector");
         }
 
-        private void ShowConfig(object sender, EventArgs e)
+        private void ExecutorButton_Click(object sender, RoutedEventArgs e)
         {
-            ConfigGrid.Visibility = Visibility.Visible;
+            ChangeScreen("executor");
         }
-
-        private void HideExecutor(object sender, EventArgs e)
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
-            ConfigGrid.Visibility = Visibility.Hidden;
-        }
-
-        private void ShowExecutor(object sender, EventArgs e)
-        {
-            ConfigGrid.Visibility = Visibility.Visible;
+            ChangeScreen("config");
         }
 
         private void ChangeScreen(string Screen)
         {
             if (Screen.ToLower() == "config" || Screen.ToLower() == "0")
             {
-                ConfigGrid.Visibility = Visibility.Visible;
-                ConfigGrid.Height = 400;
-                ConfigGrid.Width = 675;
+                SaveScriptButton.Visibility = Visibility.Hidden;
+                LoadScriptButton.Visibility = Visibility.Hidden;
+                ClearScriptButton.Visibility = Visibility.Hidden;
+                ExecuteButton.Visibility = Visibility.Hidden;
+                AttachButton.Visibility = Visibility.Hidden;
+                StatusLabel.Visibility = Visibility.Hidden;
+                CollapseButton.Visibility = Visibility.Hidden;
 
-                ExecutorGrid.Visibility = Visibility.Hidden;
-                ExecutorGrid.Height = 0;
+                ConfigGrid.Width = 675;
+                ConfigGrid.Height = 400;
+                ConfigGrid.Visibility = Visibility.Visible;
+
                 ExecutorGrid.Width = 0;
+                ExecutorGrid.Height = 0;
+                ExecutorGrid.Visibility = Visibility.Hidden;
+
+                ReallyEasyInjectorGrid.Width = 0;
+                ReallyEasyInjectorGrid.Height = 0;
+                ReallyEasyInjectorGrid.Visibility = Visibility.Hidden;
+
+                EasyInjectorGrid.Width = 0;
+                EasyInjectorGrid.Height = 0;
+                EasyInjectorGrid.Visibility = Visibility.Hidden;
+
+                AdvancedInjectorGrid.Width = 0;
+                AdvancedInjectorGrid.Height = 0;
+                AdvancedInjectorGrid.Visibility = Visibility.Hidden;
+            }
+            else if (Screen.ToLower() == "executor" || Screen.ToLower() == "1")
+            {
+                SaveScriptButton.Visibility = Visibility.Visible;
+                LoadScriptButton.Visibility = Visibility.Visible;
+                ClearScriptButton.Visibility = Visibility.Visible;
+                ExecuteButton.Visibility = Visibility.Visible;
+                AttachButton.Visibility = Visibility.Visible;
+                StatusLabel.Visibility = Visibility.Visible;
+                CollapseButton.Visibility = Visibility.Visible;
+
+                ConfigGrid.Width = 0;
+                ConfigGrid.Height = 0;
+                ConfigGrid.Visibility = Visibility.Hidden;
+
+                ExecutorGrid.Width = 675;
+                ExecutorGrid.Height = 400;
+                ExecutorGrid.Visibility = Visibility.Visible;
+
+                ReallyEasyInjectorGrid.Width = 0;
+                ReallyEasyInjectorGrid.Height = 0;
+                ReallyEasyInjectorGrid.Visibility = Visibility.Hidden;
+
+                EasyInjectorGrid.Width = 0;
+                EasyInjectorGrid.Height = 0;
+                EasyInjectorGrid.Visibility = Visibility.Hidden;
+
+                AdvancedInjectorGrid.Width = 0;
+                AdvancedInjectorGrid.Height = 0;
+                AdvancedInjectorGrid.Visibility = Visibility.Hidden;
+            }
+            else if ((Screen.ToLower() == "injector" || Screen.ToLower() == "2") && config[6] == "reallyeasy")
+            {
+                SaveScriptButton.Visibility = Visibility.Hidden;
+                LoadScriptButton.Visibility = Visibility.Hidden;
+                ClearScriptButton.Visibility = Visibility.Hidden;
+                ExecuteButton.Visibility = Visibility.Hidden;
+                AttachButton.Visibility = Visibility.Hidden;
+                StatusLabel.Visibility = Visibility.Hidden;
+                CollapseButton.Visibility = Visibility.Hidden;
+
+                ConfigGrid.Width = 0;
+                ConfigGrid.Height = 0;
+                ConfigGrid.Visibility = Visibility.Hidden;
+
+                ExecutorGrid.Width = 0;
+                ExecutorGrid.Height = 0;
+                ExecutorGrid.Visibility = Visibility.Hidden;
+
+                ReallyEasyInjectorGrid.Width = 675;
+                ReallyEasyInjectorGrid.Height = 400;
+                ReallyEasyInjectorGrid.Visibility = Visibility.Visible;
+
+                EasyInjectorGrid.Width = 0;
+                EasyInjectorGrid.Height = 0;
+                EasyInjectorGrid.Visibility = Visibility.Hidden;
+
+                AdvancedInjectorGrid.Width = 0;
+                AdvancedInjectorGrid.Height = 0;
+                AdvancedInjectorGrid.Visibility = Visibility.Hidden;
+            }
+            else if ((Screen.ToLower() == "injector" || Screen.ToLower() == "2") && config[6] == "easy")
+            {
+                SaveScriptButton.Visibility = Visibility.Hidden;
+                LoadScriptButton.Visibility = Visibility.Hidden;
+                ClearScriptButton.Visibility = Visibility.Hidden;
+                ExecuteButton.Visibility = Visibility.Hidden;
+                AttachButton.Visibility = Visibility.Hidden;
+                StatusLabel.Visibility = Visibility.Hidden;
+                CollapseButton.Visibility = Visibility.Hidden;
+
+                ConfigGrid.Width = 0;
+                ConfigGrid.Height = 0;
+                ConfigGrid.Visibility = Visibility.Hidden;
+
+                ExecutorGrid.Width = 0;
+                ExecutorGrid.Height = 0;
+                ExecutorGrid.Visibility = Visibility.Hidden;
+
+                ReallyEasyInjectorGrid.Width = 0;
+                ReallyEasyInjectorGrid.Height = 0;
+                ReallyEasyInjectorGrid.Visibility = Visibility.Hidden;
+
+                EasyInjectorGrid.Width = 675;
+                EasyInjectorGrid.Height = 400;
+                EasyInjectorGrid.Visibility = Visibility.Visible;
+
+                AdvancedInjectorGrid.Width = 0;
+                AdvancedInjectorGrid.Height = 0;
+                AdvancedInjectorGrid.Visibility = Visibility.Hidden;
+            }
+            else if ((Screen.ToLower() == "injector" || Screen.ToLower() == "2") && config[6] == "advanced")
+            {
+                SaveScriptButton.Visibility = Visibility.Hidden;
+                LoadScriptButton.Visibility = Visibility.Hidden;
+                ClearScriptButton.Visibility = Visibility.Hidden;
+                ExecuteButton.Visibility = Visibility.Hidden;
+                AttachButton.Visibility = Visibility.Hidden;
+                StatusLabel.Visibility = Visibility.Hidden;
+                CollapseButton.Visibility = Visibility.Hidden;
+
+                ConfigGrid.Width = 0;
+                ConfigGrid.Height = 0;
+                ConfigGrid.Visibility = Visibility.Hidden;
+
+                ExecutorGrid.Width = 0;
+                ExecutorGrid.Height = 0;
+                ExecutorGrid.Visibility = Visibility.Hidden;
+
+                ReallyEasyInjectorGrid.Width = 0;
+                ReallyEasyInjectorGrid.Height = 0;
+                ReallyEasyInjectorGrid.Visibility = Visibility.Hidden;
+
+                EasyInjectorGrid.Width = 0;
+                EasyInjectorGrid.Height = 0;
+                EasyInjectorGrid.Visibility = Visibility.Hidden;
+
+                AdvancedInjectorGrid.Width = 400;
+                AdvancedInjectorGrid.Height = 675;
+                AdvancedInjectorGrid.Visibility = Visibility.Visible;
             }
         }
+
 
         private void AdvancedUnfocus_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
@@ -670,5 +800,6 @@ namespace Magma2._1
                 }
             }
         }
+
     }
 }
