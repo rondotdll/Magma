@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Animation;
 using System.Net;
+using Microsoft.Win32;
 using System.Diagnostics;
 
 namespace Magma2._1
@@ -35,6 +36,8 @@ namespace Magma2._1
         public int CarouselID = 2;
 
         string[] config;
+        List<string> dlls = new List<string>();
+        List<int> procs = new List<int>();
         public bool setTopClicked = false;
         public bool ScriptsCollapsed = false;
 
@@ -801,5 +804,58 @@ namespace Magma2._1
             }
         }
 
+        private void EInjectAdd_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.InitialDirectory = System.IO.Path.GetFullPath("./DLLs");
+            openFileDialog.Filter = "Dynamic Library Link File (*.dll)|*.dll";
+            openFileDialog.FilterIndex = 1;
+            openFileDialog.RestoreDirectory = true;
+            if (openFileDialog.ShowDialog() == false)
+            {
+                return;
+            }
+
+            try
+            {
+
+                string temp = openFileDialog.FileName;
+                ListViewItem xItem = new ListViewItem();
+                xItem.Padding = new Thickness(12, 12, 6, 12);
+                xItem.Content = System.IO.Path.GetFileName(temp);
+
+                dlls.Add(temp);
+
+                EInjectDllNames.Items.Add(xItem);
+
+                if (BasicInject.GetDllMachineType(temp).Equals(BasicInject.MachineType.IMAGE_FILE_MACHINE_I386))
+                {
+                    ListViewItem tempItem = new ListViewItem();
+
+                    tempItem.Content = "32bit";
+                    tempItem.Focusable = false;
+                    tempItem.IsEnabled = false;
+                    tempItem.Padding =  new Thickness(12, 12, 6, 12);
+
+                    EInjectDllTypes.Items.Add(tempItem);
+                }
+                else if (BasicInject.GetDllMachineType(temp).Equals(BasicInject.MachineType.IMAGE_FILE_MACHINE_IA64))
+                {
+                    ListViewItem tempItem = new ListViewItem();
+
+                    tempItem.Content = "64bit";
+                    tempItem.Focusable = false;
+                    tempItem.IsEnabled = false;
+                    tempItem.Padding = new Thickness(12, 12, 6, 12);
+
+                    EInjectDllTypes.Items.Add(tempItem);
+                }
+            }
+            catch (Exception ex)
+            {
+                int num = (int)MessageBox.Show("An unexpected error has occured", $"{ex}", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            }
+        }
     }
 }

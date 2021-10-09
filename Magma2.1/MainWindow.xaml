@@ -174,7 +174,7 @@
 
             <!-- Config Grid -->
 
-            <Grid x:Name="ConfigGrid" Width="675" Height="400" Visibility="Visible">
+            <Grid x:Name="ConfigGrid" Width="0" Height="0" Visibility="Hidden">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -253,7 +253,7 @@
                 </Button>
             </Grid>
             <!-- Easy Injector -->
-            <Grid x:Name="EasyInjectorGrid" Width="0" Height="0" Visibility="Hidden">
+            <Grid x:Name="EasyInjectorGrid" Width="675" Height="400" Visibility="Visible">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="4*"/>
                     <ColumnDefinition Width="3*"/>
@@ -273,13 +273,13 @@
                 <Button x:Name="EInjectKill" Grid.Column="1" Background="#26FFFFFF" VerticalAlignment="Top" Padding="0"  Margin="149,297,40,0" BorderBrush="{x:Null}" Height="32">
                     <materialDesign:PackIcon Width="20" Height="20" Kind="SkullScan" Foreground="White"/>
                 </Button>
-                <Label Content="Name" Padding="12, 0, 0, 0"  VerticalContentAlignment="Center"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,96,0,0" Width="212" Height="40" FontFamily="Microsoft YaHei UI" FontSize="17" Foreground="#BFFFFFFF" Background="#19FFFFFF"/>
-                <Label Content="Type" Padding="12, 0, 0, 0" VerticalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="262,96,0,0" Width="95" Height="40" FontFamily="Microsoft YaHei UI" FontSize="17" Foreground="#BFFFFFFF" Background="#0CFFFFFF"/>
-                <ListBox Grid.Column="0" HorizontalAlignment="Left" Height="170" VerticalAlignment="Top" Width="212" Margin="40,146,0,0" Background="#14FFFFFF"/>
-                <ListBox Grid.Column="0" HorizontalAlignment="Left" Height="170" VerticalAlignment="Top" Width="95" Margin="262,146,0,0" Background="#0CFFFFFF"/>
-                <Button x:Name="EinjectAdd" Content="Add" VerticalAlignment="Top" Margin="40,326,236,0" BorderBrush="{x:Null}" Background="#19FFFFFF" Foreground="White" Height="40"/>
-                <Button x:Name="EinjectRemove" Content="Remove" VerticalAlignment="Top" Margin="155,326,121,0" BorderBrush="{x:Null}" Background="#19FFFFFF" Foreground="White" Height="40"/>
-                <Button x:Name="EinjectClear" Content="Clear" VerticalAlignment="Top" Margin="270,326,29,0" BorderBrush="{x:Null}" Background="#19FFFFFF" Foreground="White" Height="40"/>
+                <Label Content="Name" Padding="12, 0, 0, 0"  VerticalContentAlignment="Center"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,96,0,0" Width="212" Height="40" FontFamily="Microsoft YaHei UI" FontSize="17" Foreground="#BFFFFFFF" Background="#19FFFFFF" FontWeight="Bold"/>
+                <Label Content="Type" Padding="12, 0, 0, 0" VerticalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="262,96,0,0" Width="95" Height="40" FontFamily="Microsoft YaHei UI" FontSize="17" Foreground="#BFFFFFFF" Background="#0CFFFFFF" FontWeight="Bold"/>
+                <ListBox x:Name="EInjectDllNames" Grid.Column="0" HorizontalAlignment="Left" Height="170" VerticalAlignment="Top" Width="212" Margin="40,146,0,0" Background="#14FFFFFF" Foreground="#A5FFFFFF" FontSize="14" FontFamily="Microsoft YaHei UI"/>
+                <ListBox x:Name="EInjectDllTypes" Grid.Column="0" HorizontalAlignment="Left" Height="170" VerticalAlignment="Top" Width="95" Margin="262,146,0,0" Background="#0CFFFFFF" Foreground="#A5FFFFFF" FontSize="14" FontFamily="Microsoft YaHei UI"/>
+                <Button x:Name="EInjectAdd" Content="Add" VerticalAlignment="Top" Margin="40,326,236,0" BorderBrush="{x:Null}" Background="#19FFFFFF" Foreground="White" Height="40" Click="EInjectAdd_Click"/>
+                <Button x:Name="EInjectRemove" Content="Remove" VerticalAlignment="Top" Margin="155,326,121,0" BorderBrush="{x:Null}" Background="#19FFFFFF" Foreground="White" Height="40"/>
+                <Button x:Name="EInjectClear" Content="Clear" VerticalAlignment="Top" Margin="270,326,29,0" BorderBrush="{x:Null}" Background="#19FFFFFF" Foreground="White" Height="40"/>
                 <ComboBox VerticalContentAlignment="Center" Padding="10 0 0 0" VerticalAlignment="Top" materialDesign:ColorZoneAssist.Mode="Dark" Grid.Column="1" Margin="10,99,0,0" Height="38" Background="#26FFFFFF" BorderBrush="{x:Null}" HorizontalAlignment="Left" Width="239" FontFamily="Microsoft YaHei" FontSize="16" Foreground="#CCFFFFFF">
                     <ComboBoxItem FontSize="14">Apex Legends</ComboBoxItem>
                     <ComboBoxItem FontSize="14">BattleField V</ComboBoxItem>
@@ -316,8 +316,8 @@
                 </Button>
                 <Label Content="Name" Padding="12, 0, 0, 0"  VerticalContentAlignment="Center"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,96,0,0" Width="212" Height="40" FontFamily="Microsoft YaHei UI" FontSize="17" Foreground="#BFFFFFFF" Background="#19FFFFFF"/>
                 <Label Content="Type" Padding="12, 0, 0, 0" VerticalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="262,96,0,0" Width="95" Height="40" FontFamily="Microsoft YaHei UI" FontSize="17" Foreground="#BFFFFFFF" Background="#0CFFFFFF"/>
-                <ListBox Grid.Column="0" HorizontalAlignment="Left" Height="170" VerticalAlignment="Top" Width="212" Margin="40,146,0,0" Background="#14FFFFFF"/>
-                <ListBox Grid.Column="0" HorizontalAlignment="Left" Height="170" VerticalAlignment="Top" Width="95" Margin="262,146,0,0" Background="#0CFFFFFF"/>
+                <ListBox x:Name="AInjectDllNames" Grid.Column="0" HorizontalAlignment="Left" Height="170" VerticalAlignment="Top" Width="212" Margin="40,146,0,0" Background="#14FFFFFF" Foreground="#A5FFFFFF"/>
+                <ListBox x:Name="AInjectDllTypes" Grid.Column="0" HorizontalAlignment="Left" Height="170" VerticalAlignment="Top" Width="95" Margin="262,146,0,0" Background="#0CFFFFFF" Foreground="#A5FFFFFF"/>
                 <Button x:Name="AInjectAdd" Content="Add" VerticalAlignment="Top" Margin="40,326,236,0" BorderBrush="{x:Null}" Background="#19FFFFFF" Foreground="White" Height="40"/>
                 <Button x:Name="AInjectRemove" Content="Remove" VerticalAlignment="Top" Margin="156,326,120,0" BorderBrush="{x:Null}" Background="#19FFFFFF" Foreground="White" Height="40"/>
                 <Button x:Name="AInjectClear" Content="Clear" VerticalAlignment="Top" Margin="272,326,27,0" BorderBrush="{x:Null}" Background="#19FFFFFF" Foreground="White" Height="40"/>
