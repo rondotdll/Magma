@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Magma2._1
+namespace Magma
 {
     /// <summary>
     /// Interaction logic for App.xaml

@@ -23,7 +23,7 @@
 	</RuleSet>
 
 	<RuleSet>
-		
+
 		<Span color="Comment" ruleSet="CommentMarkerSet" multiline="true">
 			<Begin>--\[[=]*\[</Begin>
 			<End>\][=]*]</End>
@@ -130,10 +130,10 @@
 		<Rule color="Regular">
 			[?,\.;()\[\]{}\-/~!|&amp;]+
 		</Rule>
-		
+
 		<Rule color="Cyan">
 			[=+\-&lt;&gt;%^*#]+
 		</Rule>
-		
+
 	</RuleSet>
 </SyntaxDefinition>

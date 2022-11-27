@@ -1,0 +1,21 @@
+﻿<Page x:Class="Magma.Executor"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Magma"
+      xmlns:Avalon="http://icsharpcode.net/sharpdevelop/avalonedit"
+      mc:Ignorable="d" 
+      d:DesignHeight="336" d:DesignWidth="686"
+      Title="Executor" Initialized="Page_Initialized">
+
+    <Grid Background="#00282A2F">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="1.5*"/>
+        </Grid.ColumnDefinitions>
+        <Avalon:TextEditor Grid.Column="0" Margin="10, 10, 0, 0" x:Name="ScriptTextBox" ShowLineNumbers="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Background="{x:Null}" LineNumbersForeground="#2FFFFFFF" Foreground="#999999" FontFamily="Consolas" />
+
+        <Rectangle Grid.Column="1" Fill="#33000000"></Rectangle>
+    </Grid>
+</Page>
