@@ -130,7 +130,7 @@ namespace Magma
                     return false;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Probably dwmapi.dll not found (incompatible OS)
                 return false;

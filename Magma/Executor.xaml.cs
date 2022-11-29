@@ -11,8 +11,15 @@ using System.Xml;
 using System.Xml.Schema;
 using System.Linq;
 using System.Text;
-using Magma.LuaHelper;
 using System.IO;
+using ICSharpCode.AvalonEdit.Folding;
+using System.Timers;
+using System.Windows.Threading;
+using ICSharpCode.AvalonEdit.Rendering;
+using ICSharpCode.AvalonEdit.Document;
+using System.Windows;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Magma
 {
@@ -24,224 +31,209 @@ namespace Magma
         public Executor()
         {
             InitializeComponent();
+            
+            //TypingTimer = new DispatcherTimer();
+            //TypingTimer.Stop();
+            //TypingTimer.Interval = new TimeSpan(0, 0, 0, 3);
+            //TypingTimer.Tick += new EventHandler(UpdateFoldsOnTick);
         }
-
-        public CompletionWindow ComplWin;
+        static BraceFoldingStrategy foldingStrategy = new BraceFoldingStrategy();
+        public static int LineCount;
 
         private void Page_Initialized(object sender, EventArgs e)
         {
+            // While support for code folding does exist it's kinda clunky and bad, so I've disabled it for now.
+
+            //foldingManager = FoldingManager.Install(ScriptTextBox.TextArea);
+            //foldingStrategy.UpdateFoldings(foldingManager, ScriptTextBox.Document);
+
             ScriptTextBox.TextArea.TextView.LinkTextForegroundBrush = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF80CBC4"));
             ScriptTextBox.SyntaxHighlighting = Avalon.LoadEditorTheme("LuaPalenight");
-            ScriptTextBox.TextArea.TextEntering += TextArea_TextEntered;
-            ScriptTextBox.TextArea.TextEntered += TextArea_TextEntered;
 
-            XmlSchemaSet schemas = new XmlSchemaSet();
-            schemas.Add("", Avalon.LoadSchemaSet("Schema"));
-            schemas.Compile();
-            XsdInformation = LuaHelper.XsdParser.AnalyseSchema(schemas);
+            LineCount = ScriptTextBox.LineCount;
 
-
-            ScriptTextBox.TextChanged += IntelliSense;
-            ScriptTextBox.TextArea.TextEntered += TextArea_TextEntered;
+            ScriptTextBox.TextArea.TextEntering += textEditor_TextArea_TextEntering;
+            ScriptTextBox.TextArea.TextEntered += textEditor_TextArea_TextEntered;
         }
 
-        public List<XsdElementInformation> XsdInformation { get; set; }
-
-        private void TextArea_TextEntered(object sender, TextCompositionEventArgs e)
+        private void ScriptTextBox_TextChanged(object sender, EventArgs e)
         {
-            var _editor = ScriptTextBox;
-
-            try
+            if (LineCount < ScriptTextBox.LineCount)
             {
+                int CursorOffset = ScriptTextBox.CaretOffset;
+                var ScriptDoc = ScriptTextBox.Document;
+                DocumentLine CurrentLine = ScriptDoc.GetLineByOffset(CursorOffset);
+                DocumentLine PreviousLine = ScriptDoc.GetLineByOffset(CursorOffset).PreviousLine;
 
-                switch (e.Text)
+                if (
+                    ScriptDoc.GetText(PreviousLine.Offset, PreviousLine.Length).Replace("\r", "").Replace("\n", "").EndsWith("then") || 
+                    ScriptDoc.GetText(PreviousLine.Offset, PreviousLine.Length).Replace("\r", "").Replace("\n", "").EndsWith("do") ||
+                    ScriptDoc.GetText(PreviousLine.Offset, PreviousLine.Length).Replace("\r", "").Replace("\n", "").EndsWith("[[") ||
+                    ScriptDoc.GetText(PreviousLine.Offset, PreviousLine.Length).Replace("\r", "").Replace("\n", "").EndsWith("{") ||
+                    ScriptDoc.GetText(PreviousLine.Offset, PreviousLine.Length).Replace("\r", "").Replace("\n", "").EndsWith("("))
                 {
-                    case ">":
-                        {
-                            //auto-insert closing element
-                            int offset = _editor.CaretOffset;
-                            string s = LuaHelper.XmlParser.GetElementAtCursor(_editor.Text, offset - 1);
-                            if (!string.IsNullOrWhiteSpace(s) && "!--" != s)
-                            {
-                                if (!LuaHelper.XmlParser.IsClosingElement(_editor.Text, offset - 1, s))
-                                {
-                                    string endElement = "</" + s + ">";
-                                    var rightOfCursor = _editor.Text.Substring(offset, Math.Max(0, Math.Min(endElement.Length + 50, _editor.Text.Length) - offset - 1)).TrimStart();
-                                    if (!rightOfCursor.StartsWith(endElement))
-                                    {
-                                        _editor.TextArea.Document.Insert(offset, endElement);
-                                        _editor.CaretOffset = offset;
-                                    }
-                                }
-                            }
-                            break;
-                        }
-                    case "/":
-                        {
-                            int offset = _editor.CaretOffset;
-                            if (_editor.Text.Length > offset + 2 && _editor.Text[offset] == '>')
-                            {
-                                //remove closing tag if exist
-                                string s = LuaHelper.XmlParser.GetElementAtCursor(_editor.Text, offset - 1);
-                                if (!string.IsNullOrWhiteSpace(s))
-                                {
-                                    //search closing end tag. Element must be empty (whitespace allowed)  
-                                    //"<hallo>  </hallo>" --> enter '/' --> "<hallo/>  "
-                                    string expectedEndTag = "</" + s + ">";
-                                    for (int i = offset + 1; i < _editor.Text.Length - expectedEndTag.Length + 1; i++)
-                                    {
-                                        if (!char.IsWhiteSpace(_editor.Text[i]))
-                                        {
-                                            if (_editor.Text.Substring(i, expectedEndTag.Length) == expectedEndTag)
-                                            {
-                                                //remove already existing endTag
-                                                _editor.Document.Remove(i, expectedEndTag.Length);
-                                            }
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                            break;
-                        }
-                    case "<":
-                        var parentElement = LuaHelper.XmlParser.GetParentElementPath(_editor.Text);
-                        var elementAutocompleteList = ProvidePossibleElementsAutocomplete(parentElement);
+                    ScriptTextBox.Document.Text = ScriptTextBox.Document.Text.Insert(CursorOffset, "\t");
+                }
+                else if (
+                    ScriptDoc.GetText(PreviousLine.Offset, PreviousLine.Length).Replace("\r", "").Replace("\n", "").EndsWith("end") ||
+                    ScriptDoc.GetText(PreviousLine.Offset, PreviousLine.Length).Replace("\r", "").Replace("\n", "").EndsWith("]]") ||
+                    ScriptDoc.GetText(PreviousLine.Offset, PreviousLine.Length).Replace("\r", "").Replace("\n", "").EndsWith("}") ||
+                    ScriptDoc.GetText(PreviousLine.Offset, PreviousLine.Length).Replace("\r", "").Replace("\n", "").EndsWith(")"))
+                {
+                    ScriptTextBox.Document.Text = ScriptTextBox.Document.Text.Remove(CursorOffset - 1);
+                }
+            }
 
-                        InvokeCompletionWindow(elementAutocompleteList, false);
+            LineCount = ScriptTextBox.LineCount;
+        }
 
+        CompletionWindow completionWindow;
+
+        public bool IsEqualToChars(char input, char[] list)
+        {
+            bool output = false;
+            
+            foreach(char c in list)
+            {
+                output = (input == c);
+                if (output)
+                    break;
+            }
+
+            return output;
+        }
+
+        void textEditor_TextArea_TextEntered(object sender, TextCompositionEventArgs e)
+        {
+            int initial = Extra.CloneInt(ScriptTextBox.CaretOffset); 
+
+            if (IsEqualToChars(e.Text[0], (Globals.AllowedChars + Globals.AllowedChars.ToUpper()).ToCharArray()) || e.Text == ".")
+            {
+                // Open code completion after the user has pressed dot:
+                completionWindow = new CompletionWindow(ScriptTextBox.TextArea);
+                completionWindow.FontSize = 12;
+                completionWindow.FontFamily = new FontFamily("Consolas");
+
+                completionWindow.BorderThickness = new Thickness(0, 0, 0, 0);
+                completionWindow.WindowStyle = WindowStyle.None;
+                completionWindow.Background = new SolidColorBrush(Color.FromArgb(255, 33, 34, 39));
+                completionWindow.Foreground = ScriptTextBox.Foreground;
+                completionWindow.ResizeMode = ResizeMode.NoResize;
+
+                completionWindow.KeyDown += completionWindow_KeyDown;
+
+                IList<ICompletionData> data = completionWindow.CompletionList.CompletionData;
+
+
+                Globals.SearchString = "";
+                for (int n = 1; n <= ScriptTextBox.CaretOffset && IsEqualToChars(Char.ToLower(ScriptTextBox.Document.GetCharAt(ScriptTextBox.CaretOffset - n)), Globals.AllowedChars.ToCharArray()); n++) {
+                    Globals.SearchString = ScriptTextBox.Document.Text[ScriptTextBox.CaretOffset - n] + Globals.SearchString;
+                }
+
+                int i = 0;
+                foreach (CompletionItem item in Globals.MasterCompletionList.AsParallel().Where(item => item.Name.StartsWith(Globals.SearchString)).ToList())
+                {
+                    if (i >= 5)
                         break;
-                    case " ":
-                        {
-                            var currentElement = LuaHelper.XmlParser.GetActiveElementStartPath(_editor.Text, _editor.CaretOffset);
-                            var attributeautocompletelist = ProvidePossibleAttributesAutocomplete(currentElement);
-                            InvokeCompletionWindow(attributeautocompletelist, true);
-                            break;
-                        }
-
+             
+                    data.Add(new AutoCompleteObject(item.Name + $" [{item.Type}]", item.Description, item.Type));
+                    i++;
                 }
-            }
-            catch (Exception exc)
-            {
+                //data.Add(new AutoCompleteObject("print", "function"));
+                //data.Add(new AutoCompleteObject("Item"));
+                //data.Add(new AutoCompleteObject("Item"));
 
-            }
-
-            if (e.Text.Length > 0)
-            {
-                char c = e.Text[0];
-                if (!(char.IsLetterOrDigit(c) || char.IsPunctuation(c)))
-                {
-                    e.Handled = true;
-                }
-            }
-        }
-
-        private void InvokeCompletionWindow(List<Tuple<string, string>> elementAutocompleteList, bool isAttribute)
-        {
-            var completionWindow = new CompletionWindow(ScriptTextBox.TextArea);
-            IList<ICompletionData> data = completionWindow.CompletionList.CompletionData;
-            if (elementAutocompleteList.Any())
-            {
-                foreach (var autocompleteelement in elementAutocompleteList)
-                {
-                    data.Add(new XmlCompletionData(autocompleteelement.Item1, autocompleteelement.Item2, isAttribute));
-                }
+                if (data.Count == 0)
+                    return;
+                    //data.Add(new AutoCompleteObject("EMPTY", "EMPTY"));
+                
                 completionWindow.Show();
-                completionWindow.Closed += delegate { completionWindow = null; };
+                completionWindow.CompletionList.SelectedItem = data[0];
+                completionWindow.Closed += delegate {
+                    completionWindow = null;
+                };
+            } else if (e.Text == "\"")
+            {
+                bool eval = false;
+
+                try
+                {
+                    eval = ScriptTextBox.Document.GetCharAt(ScriptTextBox.CaretOffset) == '"';
+                }
+                catch
+                {                
+                }
+
+                if (eval)
+                {
+                    ScriptTextBox.Text = ScriptTextBox.Text.Remove(ScriptTextBox.CaretOffset, 1);
+                    ScriptTextBox.CaretOffset = initial;
+                }
+                else
+                {
+                    ScriptTextBox.Text = ScriptTextBox.Text.Insert(ScriptTextBox.CaretOffset, "\"");
+                    ScriptTextBox.CaretOffset = initial;
+                }
             }
         }
 
-        public List<Tuple<string, string>> ProvidePossibleElementsAutocomplete(XmlElementInformation path)
+        void textEditor_TextArea_TextEntering(object sender, TextCompositionEventArgs e)
         {
-            List<Tuple<string, string>> result = new List<Tuple<string, string>>();
-
-            if (path.IsEmpty)
+            if (e.Text.Length > 0 && completionWindow != null)
             {
-                var xsdResultForGivenElementPath = XsdInformation.FirstOrDefault(x => x.IsRoot);
-
-                if (xsdResultForGivenElementPath != null)
+                if (!char.IsLetterOrDigit(e.Text[0]))
                 {
-                    result.Add(new Tuple<string, string>(xsdResultForGivenElementPath.Name, xsdResultForGivenElementPath.DataType));
+                    // Whenever a non-letter is typed while the completion window is open,
+                    // insert the currently selected element.
+                    completionWindow.CompletionList.RequestInsertion(e);
                 }
+            }
+            // Do not set e.Handled=true.
+            // We still want to insert the character that was typed.
+        }
+
+        void completionWindow_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Up)
+            {
+
+            } else if (e.Key == Key.Down)
+            {
+
+            } else if (e.Key == Key.Tab || e.Key == Key.Return || e.Key == Key.Enter)
+            {
+                e.Handled = true;
             }
             else
             {
-                StringBuilder xpath = new StringBuilder();
-                xpath.Append("/");
-                foreach (var element in path.Elements)
-                {
-                    xpath.Append("/" + element.Name);
-                }
-
-                var xsdResultForGivenElementPath = XsdInformation.FirstOrDefault(x => x.XPathLikeKey.ToLowerInvariant() == xpath.ToString().ToLowerInvariant());
-
-                if (xsdResultForGivenElementPath != null)
-                {
-                    foreach (var xsdInformationElement in xsdResultForGivenElementPath.Elements)
-                    {
-                        result.Add(new Tuple<string, string>(xsdInformationElement.Name, xsdInformationElement.DataType));
-                    }
-                }
+                completionWindow.Close();
             }
-
-
-            return result;
         }
 
-        public List<Tuple<string, string>> ProvidePossibleAttributesAutocomplete(XmlElementInformation path)
+        // While support for code folding does exist it's kinda clunky and bad, so I've disabled it for now.
+
+        /*
+        static FoldingManager foldingManager;
+        private static DispatcherTimer TypingTimer;
+        
+        private void ScriptTextBox_TextChanged(object sender, EventArgs e)
         {
-            List<Tuple<string, string>> result = new List<Tuple<string, string>>();
-
-            if (path.IsEmpty)
-            {
-                var xsdResultForGivenElementPath = XsdInformation.FirstOrDefault(x => x.IsRoot);
-
-                if (xsdResultForGivenElementPath != null)
-                {
-                    foreach (var xsdInformationAttribute in xsdResultForGivenElementPath.Attributes)
-                    {
-                        result.Add(new Tuple<string, string>(xsdInformationAttribute.Name, xsdInformationAttribute.DataType));
-                    }
-                }
-            }
-            else
-            {
-                StringBuilder xpath = new StringBuilder();
-                xpath.Append("/");
-                foreach (var element in path.Elements)
-                {
-                    xpath.Append("/" + element.Name);
-                }
-
-                var xsdResultForGivenElementPath = XsdInformation.FirstOrDefault(x => x.XPathLikeKey.ToLowerInvariant() == xpath.ToString().ToLowerInvariant());
-
-                if (xsdResultForGivenElementPath != null)
-                {
-                    foreach (var xsdInformationAttribute in xsdResultForGivenElementPath.Attributes)
-                    {
-                        result.Add(new Tuple<string, string>(xsdInformationAttribute.Name, xsdInformationAttribute.DataType));
-                    }
-                }
-            }
-
-
-            return result;
+            TypingTimer.Start();
         }
 
-        private void IntelliSense(object sender, EventArgs eventArgs)
+        private void ScriptTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            //var GetActiveElementStartPath = XmlParser.GetActiveElementStartPath(textEditor.Text, textEditor.TextArea.Caret.Offset);
-            //var GetParentElementPath = XmlParser.GetParentElementPath(textEditor.Text);
-
-            //var GetElementAtCursor = XmlParser.GetElementAtCursor(textEditor.Text, textEditor.TextArea.Caret.Offset);
-
-            //StringBuilder builder = new StringBuilder();
-            //builder.AppendLine("GetActiveElementStartPath: " + GetActiveElementStartPath.ToString());
-            //builder.AppendLine("GetParentElementPath: " + GetParentElementPath.ToString());
-            //builder.AppendLine("GetElementAtCursor: " + GetElementAtCursor.ToString());
-            //this.CurrentPath.Text = builder.ToString();
+            TypingTimer.Stop();
 
         }
+
+        private void UpdateFoldsOnTick(object sender, EventArgs e)
+        {
+            foldingStrategy.UpdateFoldings(foldingManager, ScriptTextBox.Document);
+            TypingTimer.Stop();
+        }
+
+        */
     }
 
     

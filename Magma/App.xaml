@@ -13,7 +13,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="{x:Type Button}"  BasedOn="{StaticResource MaterialDesignRaisedDarkButton}"></Style>
+            <FontFamily x:Key="JBMono" >pack://application:,,,/Fonts/#JetBrains Mono</FontFamily>
         </ResourceDictionary>
-        
     </Application.Resources>
 </Application>

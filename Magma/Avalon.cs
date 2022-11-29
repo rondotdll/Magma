@@ -12,6 +12,11 @@ using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using System.IO;
 using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Controls;
+using ICSharpCode.AvalonEdit;
+using System.Diagnostics;
 
 namespace Magma
 {
@@ -38,21 +43,28 @@ namespace Magma
         }
     }
 
-    public class MyCompletionData : ICompletionData
+    public class AutoCompleteObject : ICompletionData
     {
-        public MyCompletionData(string text, string description, string imgsource = "Images.GenericIcon")
+        public AutoCompleteObject(string text, string description, string type = "string")
         {
+            BitmapImage BMImage = new BitmapImage(new Uri($"pack://application:,,,/Images/{type}.png"));
+            
             this.Text = text;
+            this.Image = BMImage;
+            this.Type = type;
             this.Description = description;
         }
 
         public System.Windows.Media.ImageSource Image
         {
-            get { return null; }
+            get; private set;
         }
 
+        public double Priority => throw new NotImplementedException();
+
         public string Text { get; private set; }
-        public object Description { get; private set; }
+
+        private string Type { get; set; }
 
         // Use this property if you want to show a fancy UIElement in the list.
         public object Content
@@ -60,13 +72,28 @@ namespace Magma
             get { return this.Text; }
         }
 
-
-        public double Priority => throw new NotImplementedException();
+        public object Description
+        {
+            get; private set;
+        }
 
         public void Complete(TextArea textArea, ISegment completionSegment,
             EventArgs insertionRequestEventArgs)
         {
-            textArea.Document.Replace(completionSegment, this.Text);
+            int initial = Extra.CloneInt(textArea.Caret.Offset);
+
+            textArea.Document.Text = textArea.Document.Text.Remove(textArea.Caret.Offset - (Globals.SearchString.Length), Globals.SearchString.Length);
+            textArea.Caret.Offset = textArea.Caret.Offset - (Globals.SearchString.Length - (initial - textArea.Caret.Offset));
+
+            if (this.Type == "function")
+            {
+                textArea.Document.Insert(textArea.Caret.Offset, this.Text.Split('[')[0].Trim(' ') + "() ");
+                textArea.Caret.Location = new TextLocation(textArea.Caret.Location.Line, textArea.Caret.Column - 2);
+            }
+            else
+            {
+                textArea.Document.Insert(textArea.Caret.Offset, this.Text.Split('[')[0].Trim(' ') + " ");
+            }
         }
     }
 }

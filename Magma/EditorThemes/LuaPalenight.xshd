@@ -71,6 +71,7 @@
 			<Word>break</Word>
 			<Word>do</Word>
 			<Word>else</Word>
+            <Word>global</Word>
 			<Word>elseif</Word>
 			<Word>end</Word>
 			<Word>false</Word>

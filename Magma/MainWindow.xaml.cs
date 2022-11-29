@@ -21,9 +21,33 @@ namespace Magma
     /// </summary>
     public partial class MainWindow : Window
     {
+        
+
         public MainWindow()
         {
             InitializeComponent();
+            foreach (CompletionItem item in Globals.Keywords)
+            {
+                Globals.MasterCompletionList.Add(item);
+            }
+            foreach (CompletionItem item in Globals.Functions)
+            {
+                Globals.MasterCompletionList.Add(item);
+            }
+            foreach (CompletionItem item in Globals.Properties)
+            {
+                Globals.MasterCompletionList.Add(item);
+            }
+            foreach (CompletionItem item in Globals.Keywords)
+            {
+                Globals.MasterCompletionList.Add(item);
+            }
+            foreach (CompletionItem item in Globals.Logic)
+            {
+                Globals.MasterCompletionList.Add(item);
+            }
+
+            Globals.MasterCompletionList = Globals.MasterCompletionList.AsParallel().OrderBy(obj => obj.Type).ToList();
         }
 
         private void Window_Initialized(object sender, EventArgs e)
@@ -42,7 +66,7 @@ namespace Magma
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Internal.EnableBlur(this);
-            MainContainer.Navigate(new Executor());
+            MainContainer.Navigate(Globals.ExecutorPage);
         }
 
         private void Rectangle_MouseDown(object sender, MouseButtonEventArgs e)

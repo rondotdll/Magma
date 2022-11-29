@@ -8,13 +8,12 @@
       mc:Ignorable="d" 
       d:DesignHeight="336" d:DesignWidth="686"
       Title="Executor" Initialized="Page_Initialized">
-
     <Grid Background="#00282A2F">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5*"/>
             <ColumnDefinition Width="1.5*"/>
         </Grid.ColumnDefinitions>
-        <Avalon:TextEditor Grid.Column="0" Margin="10, 10, 0, 0" x:Name="ScriptTextBox" ShowLineNumbers="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Background="{x:Null}" LineNumbersForeground="#2FFFFFFF" Foreground="#999999" FontFamily="Consolas" />
+        <Avalon:TextEditor  Grid.Column="0" Margin="10, 10, 0, 0" FontSize="12" FontFamily="{StaticResource JBMono}" x:Name="ScriptTextBox" ShowLineNumbers="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Background="{x:Null}" LineNumbersForeground="#2FFFFFFF" Foreground="#999999" TextChanged="ScriptTextBox_TextChanged" />
 
         <Rectangle Grid.Column="1" Fill="#33000000"></Rectangle>
     </Grid>
