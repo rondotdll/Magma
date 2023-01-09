@@ -95,6 +95,7 @@
 
 		<Keywords color="Red">
 			<Word>self</Word>
+			<Word>game</Word>
 		</Keywords>
 
 		<Rule color="Blue">

@@ -45,14 +45,23 @@ namespace Magma
 
     public class AutoCompleteObject : ICompletionData
     {
-        public AutoCompleteObject(string text, string description, string type = "string")
+        public AutoCompleteObject(string text, string description, string type = "string", string usage = "")
         {
-            BitmapImage BMImage = new BitmapImage(new Uri($"pack://application:,,,/Images/{type}.png"));
+            BitmapImage BMImage = new BitmapImage(new Uri($"pack://application:,,,/Images/{type.Replace("special", "object")}.png"));
             
-            this.Text = text;
+            this.Text = text + usage;
             this.Image = BMImage;
             this.Type = type;
-            this.Description = description;
+            this.Usage = usage;
+            
+            if (this.Type != "keyword")
+            {
+                this.Description = $"[{this.Type}]\n{description}";
+            }
+            else
+            {
+                this.Description = $"[{this.Type}]";
+            }
         }
 
         public System.Windows.Media.ImageSource Image
@@ -64,12 +73,17 @@ namespace Magma
 
         public string Text { get; private set; }
 
+        public string Usage { get; private set; }
+
         private string Type { get; set; }
 
         // Use this property if you want to show a fancy UIElement in the list.
         public object Content
         {
-            get { return this.Text; }
+            get {
+
+                return this.Text;
+            }
         }
 
         public object Description
@@ -90,9 +104,13 @@ namespace Magma
                 textArea.Document.Insert(textArea.Caret.Offset, this.Text.Split('[')[0].Trim(' ') + "() ");
                 textArea.Caret.Location = new TextLocation(textArea.Caret.Location.Line, textArea.Caret.Column - 2);
             }
-            else
+            else if (this.Type == "string")
             {
                 textArea.Document.Insert(textArea.Caret.Offset, this.Text.Split('[')[0].Trim(' ') + " ");
+            } 
+            else
+            {
+                textArea.Document.Insert(textArea.Caret.Offset, this.Text.Split('[')[0].Trim(' '));
             }
         }
     }

@@ -25,16 +25,14 @@ namespace Magma
 
         public MainWindow()
         {
+            /* Special***
+             * Keyword
+             * Function
+             * Types
+             */
+
             InitializeComponent();
-            foreach (CompletionItem item in Globals.Keywords)
-            {
-                Globals.MasterCompletionList.Add(item);
-            }
-            foreach (CompletionItem item in Globals.Functions)
-            {
-                Globals.MasterCompletionList.Add(item);
-            }
-            foreach (CompletionItem item in Globals.Properties)
+            foreach (CompletionItem item in Globals.Special)
             {
                 Globals.MasterCompletionList.Add(item);
             }
@@ -46,8 +44,19 @@ namespace Magma
             {
                 Globals.MasterCompletionList.Add(item);
             }
-
-            Globals.MasterCompletionList = Globals.MasterCompletionList.AsParallel().OrderBy(obj => obj.Type).ToList();
+            foreach (CompletionItem item in Globals.Functions)
+            {
+                Globals.MasterCompletionList.Add(item);
+            }
+            foreach (CompletionItem item in Globals.Types)
+            {
+                Globals.MasterCompletionList.Add(item);
+            }
+            foreach (CompletionItem item in Globals.Strings)
+            {
+                Globals.MasterCompletionList.Add(item);
+            }
+            
         }
 
         private void Window_Initialized(object sender, EventArgs e)

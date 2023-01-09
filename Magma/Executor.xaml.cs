@@ -119,6 +119,7 @@ namespace Magma
                 completionWindow.Background = new SolidColorBrush(Color.FromArgb(255, 33, 34, 39));
                 completionWindow.Foreground = ScriptTextBox.Foreground;
                 completionWindow.ResizeMode = ResizeMode.NoResize;
+                completionWindow.Width = Math.Round(.3 * Application.Current.MainWindow.Width);
 
                 completionWindow.KeyDown += completionWindow_KeyDown;
 
@@ -131,12 +132,12 @@ namespace Magma
                 }
 
                 int i = 0;
-                foreach (CompletionItem item in Globals.MasterCompletionList.AsParallel().Where(item => item.Name.StartsWith(Globals.SearchString)).ToList())
+                foreach (CompletionItem item in Globals.MasterCompletionList.AsParallel().Where(obj => obj.Name.StartsWith(Globals.SearchString)).OrderBy(obj => Globals.TypePriority.IndexOf(obj.Type)).ThenBy(obj => obj.Name).ToList())
                 {
                     if (i >= 5)
                         break;
              
-                    data.Add(new AutoCompleteObject(item.Name + $" [{item.Type}]", item.Description, item.Type));
+                    data.Add(new AutoCompleteObject(item.Name, item.Description, item.Type, item.Usage));
                     i++;
                 }
                 //data.Add(new AutoCompleteObject("print", "function"));
