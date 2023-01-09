@@ -13,36 +13,33 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\eyestep">
-      <UniqueIdentifier>{6f74d355-edd6-4ea0-af36-2a6d5ff20571}</UniqueIdentifier>
+    <Filter Include="Eyestep">
+      <UniqueIdentifier>{c276e9a8-9d2a-4be2-9f78-05c3e3b48f9c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\scheduler">
-      <UniqueIdentifier>{728b5f88-0af2-410b-9b16-d99d5ed7b1e8}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="inject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="eyestep.cpp">
-      <Filter>Source Files\eyestep</Filter>
-    </ClCompile>
-    <ClCompile Include="eyestep_utility.cpp">
-      <Filter>Source Files\eyestep</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="addresses.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="scheduler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="eyestep.h">
-      <Filter>Source Files\eyestep</Filter>
+      <Filter>Eyestep</Filter>
     </ClInclude>
     <ClInclude Include="eyestep_utility.h">
-      <Filter>Source Files\eyestep</Filter>
+      <Filter>Eyestep</Filter>
     </ClInclude>
-    <ClInclude Include="scheduler.h">
-      <Filter>Source Files\scheduler</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="eyestep.cpp">
+      <Filter>Eyestep</Filter>
+    </ClCompile>
+    <ClCompile Include="eyestep_utility.cpp">
+      <Filter>Eyestep</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
