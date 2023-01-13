@@ -101,16 +101,16 @@ namespace Magma
 
             if (this.Type == "function")
             {
-                textArea.Document.Insert(textArea.Caret.Offset, this.Text.Split('[')[0].Trim(' ') + "() ");
-                textArea.Caret.Location = new TextLocation(textArea.Caret.Location.Line, textArea.Caret.Column - 2);
+                textArea.Document.Insert(textArea.Caret.Offset, this.Text.Split('(')[0].Trim(' ') + "()");
+                textArea.Caret.Location = new TextLocation(textArea.Caret.Location.Line, textArea.Caret.Column - 1);
             }
             else if (this.Type == "string")
             {
-                textArea.Document.Insert(textArea.Caret.Offset, this.Text.Split('[')[0].Trim(' ') + " ");
+                textArea.Document.Insert(textArea.Caret.Offset, this.Text.Split('(')[0].Trim(' ') + " ");
             } 
             else
             {
-                textArea.Document.Insert(textArea.Caret.Offset, this.Text.Split('[')[0].Trim(' '));
+                textArea.Document.Insert(textArea.Caret.Offset, this.Text.Split('(')[0].Trim(' '));
             }
         }
     }

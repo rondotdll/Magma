@@ -37,10 +37,12 @@ namespace Magma
             //TypingTimer.Interval = new TimeSpan(0, 0, 0, 3);
             //TypingTimer.Tick += new EventHandler(UpdateFoldsOnTick);
         }
+
         static BraceFoldingStrategy foldingStrategy = new BraceFoldingStrategy();
         public static int LineCount;
+        public static bool ctrlPressed = false;
 
-        private void Page_Initialized(object sender, EventArgs e)
+        private void ExecutorPage_Initialized(object sender, EventArgs e)
         {
             // While support for code folding does exist it's kinda clunky and bad, so I've disabled it for now.
 
@@ -140,20 +142,17 @@ namespace Magma
                     data.Add(new AutoCompleteObject(item.Name, item.Description, item.Type, item.Usage));
                     i++;
                 }
-                //data.Add(new AutoCompleteObject("print", "function"));
-                //data.Add(new AutoCompleteObject("Item"));
-                //data.Add(new AutoCompleteObject("Item"));
 
                 if (data.Count == 0)
-                    return;
-                    //data.Add(new AutoCompleteObject("EMPTY", "EMPTY"));
+                    return;    
                 
                 completionWindow.Show();
                 completionWindow.CompletionList.SelectedItem = data[0];
                 completionWindow.Closed += delegate {
                     completionWindow = null;
                 };
-            } else if (e.Text == "\"")
+            } 
+            else if (e.Text == "\"")
             {
                 bool eval = false;
 
@@ -208,6 +207,73 @@ namespace Magma
             else
             {
                 completionWindow.Close();
+            }
+        }
+
+        private void ScriptTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.LeftCtrl)
+            { 
+                ctrlPressed = true;
+            } 
+            else if (e.Key == Key.OemPlus && ctrlPressed)
+            {
+                ScriptTextBox.FontSize++;
+                e.Handled = true;
+                return;
+            }
+            else if (e.Key == Key.OemMinus && ctrlPressed)
+            {
+                ScriptTextBox.FontSize--;
+                e.Handled = true;
+                return;
+            }
+            else if (e.Key == Key.D0 && ctrlPressed)
+            {
+                ScriptTextBox.FontSize = 12;
+                e.Handled = true;
+                return;
+            }
+        }
+        
+        private void ScriptTextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.LeftCtrl)
+            {
+                ctrlPressed = false;
+            }
+        }
+
+        private void ExecutorPage_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if ((e.NewSize.Width / 4) > 350)
+            {
+                ExecutorGrid.ColumnDefinitions.Clear();
+                ExecutorGrid.ColumnDefinitions.Add(new ColumnDefinition()
+                {
+                    Width = new GridLength(1, GridUnitType.Star)
+                });
+
+                ExecutorGrid.ColumnDefinitions.Add(new ColumnDefinition()
+                {
+                    Width = new GridLength(350, GridUnitType.Pixel)
+                });
+                ScriptsListBox.FontSize = 14;
+                ScriptsListBox.Padding = new Thickness(16, 8, 16, 16);
+            } else
+            {
+                ExecutorGrid.ColumnDefinitions.Clear();
+                ExecutorGrid.ColumnDefinitions.Add(new ColumnDefinition()
+                {
+                    Width = new GridLength(5, GridUnitType.Star)
+                });
+
+                ExecutorGrid.ColumnDefinitions.Add(new ColumnDefinition()
+                {
+                    Width = new GridLength(1.5, GridUnitType.Star)
+                });
+                ScriptsListBox.FontSize = 12;
+                ScriptsListBox.Padding = new Thickness(8, 0, 8, 8);
             }
         }
 

@@ -11,6 +11,7 @@ namespace Magma
         public static bool IsUserTyping = false;
         public static string SearchString = "";
         public static Executor ExecutorPage = new Executor();
+        public static Injector InjectorPage = new Injector();
         public static string AllowedChars = "abcdefghijklmnopqrstuvwxyz";
 
         public static List<string> TypePriority = new List<string>(){

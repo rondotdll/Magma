@@ -9,11 +9,11 @@
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d" WindowStyle="None" AllowsTransparency="True" BorderThickness="1" ResizeMode="CanResize"
         MinHeight="402" MinWidth="802" Height="402" Width="802"
-        Title="MainWindow" Initialized="Window_Initialized" Loaded="Window_Loaded" Background="{x:Null}" StateChanged="Window_StateChanged" >
+        Title="MainWindow" Initialized="Window_Initialized" Loaded="Window_Loaded" Background="Transparent" StateChanged="Window_StateChanged" >
     <Window.Resources>
         <LinearGradientBrush x:Key="MagmaGradient" StartPoint="0,0" EndPoint="1,1">
-            <GradientStop Color="#FFF53A16" Offset="1"/>
-            <GradientStop Color="#FFE69138" />
+            <GradientStop Color="{StaticResource MagmaDarkOrange}" Offset="1"/>
+            <GradientStop Color="{StaticResource MagmaLightOrange}" />
         </LinearGradientBrush>
     </Window.Resources>
     <WindowChrome.WindowChrome>
@@ -25,7 +25,7 @@
             <GradientStop Color="#7FE69138" />
         </LinearGradientBrush>
     </Window.BorderBrush>
-    <Grid x:Name="OuterGrid" ClipToBounds="True">
+    <Grid x:Name="OuterGrid" IsHitTestVisible="True" ClipToBounds="True">
         <Rectangle x:Name="TopBar" Height="10" Margin="35,0,0,0" VerticalAlignment="Top" MouseDown="Rectangle_MouseDown" Fill="{StaticResource MagmaGradient}"/>
         <Image HorizontalAlignment="Left" Height="65" VerticalAlignment="Top" Width="65" Source="/Images/Magma.png" Margin="15,30,0,0"/>
         <Grid Margin="100, 50, 0, 0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -37,31 +37,34 @@
                 </Border>
         </Grid>
         <Grid Margin="100, 10, 0, 0" Height="40" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+            <Grid x:Name="InjectorStatusBar" Visibility="Hidden">
+                
+            </Grid>
             <!-- ExecutorButtons -->
+            <Grid x:Name="ExecutorStatusBar" Visibility="Visible">
+                <Button x:Name="AttachButton" Width="30" Height="30" Padding="0" Foreground="#7FFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" >
+                    <materialDesign:PackIcon Width="18" Height="18" Kind="VectorLink"/>
+                </Button>
 
-            <Button x:Name="AttachButton" Width="30" Height="30" Padding="0" Foreground="#7FFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" >
-                <materialDesign:PackIcon Width="18" Height="18" Kind="VectorLink"/>
-            </Button>
+                <!-- Divider Dot -->
 
-            <!-- Divider Dot -->
+                <Rectangle x:Name="DivRectangle" Width="5" Height="5" RadiusX="5" RadiusY="5" Margin="48 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Fill="#2FFFFFFF" Stroke="{x:Null}"></Rectangle>
 
-            <Rectangle x:Name="DivRectangle" Width="5" Height="5" RadiusX="5" RadiusY="5" Margin="48 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Fill="#2FFFFFFF" Stroke="{x:Null}"></Rectangle>
+                <Button x:Name="SaveScriptButton" Width="30" Height="30" Padding="0" Foreground="#7FFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Margin="60,0,0,0" VerticalAlignment="Center" >
+                    <materialDesign:PackIcon Width="18" Height="18" Kind="Floppy"/>
+                </Button>
+                <Button x:Name="LoadScriptButton" Width="30" Height="30" Padding="0" Foreground="#7FFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Margin="100,0,0,0" VerticalAlignment="Center" >
+                    <materialDesign:PackIcon Width="18" Height="18" Kind="FolderOpen"/>
+                </Button>
+                <Button x:Name="ClearScriptButton" Width="30" Height="30" Padding="0" Foreground="#7FFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Margin="140,0,0,0" VerticalAlignment="Center" >
+                    <materialDesign:PackIcon Width="18" Height="18" Kind="EraserVariant"/>
+                </Button>
+                <Button x:Name="ExecuteButton" Width="30" Height="30" Padding="0" Foreground="#7FFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Margin="180,0,0,0" VerticalAlignment="Center" >
+                    <materialDesign:PackIcon Width="18" Height="18" Kind="Firework"/>
+                </Button>
 
-            <Button x:Name="SaveScriptButton" Width="30" Height="30" Padding="0" Foreground="#7FFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Margin="60,0,0,0" VerticalAlignment="Center" >
-                <materialDesign:PackIcon Width="18" Height="18" Kind="Floppy"/>
-            </Button>
-            <Button x:Name="LoadScriptButton" Width="30" Height="30" Padding="0" Foreground="#7FFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Margin="100,0,0,0" VerticalAlignment="Center" >
-                <materialDesign:PackIcon Width="18" Height="18" Kind="FolderOpen"/>
-            </Button>
-            <Button x:Name="ClearScriptButton" Width="30" Height="30" Padding="0" Foreground="#7FFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Margin="140,0,0,0" VerticalAlignment="Center" >
-                <materialDesign:PackIcon Width="18" Height="18" Kind="EraserVariant"/>
-            </Button>
-            <Button x:Name="ExecuteButton" Width="30" Height="30" Padding="0" Foreground="#7FFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Margin="180,0,0,0" VerticalAlignment="Center" >
-                <materialDesign:PackIcon Width="18" Height="18" Kind="Firework"/>
-            </Button>
-
-            <Label x:Name="StatusLabel" FontFamily="Nirmala UI Semilight" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FF5df0a7">Injected</Label>
-
+                <Label x:Name="StatusLabel" FontFamily="{StaticResource QuickSand}" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FF5df0a7">Injected</Label>
+            </Grid>
             <!-- Window Function Buttons (Close, Minimize, Pin) -->
 
             <Button  x:Name="CloseButton" Width="30" Height="30" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Center" Click="CloseButton_Click" >
@@ -74,6 +77,22 @@
                 <materialDesign:PackIcon Width="20" Height="20" Kind="Pin"/>
             </Button>
 
+        </Grid>
+        <Grid Width="94" HorizontalAlignment="Left" Margin="2,99,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0" HorizontalContentAlignment="Center" BorderThickness="0" Margin="0 0 0 10" Height="55" Padding="0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Foreground="#CCE4E8F0" Background="{x:Null}" BorderBrush="{x:Null}">
+                    <iconPacks:Material Width="35" Height="35" Kind="LanguageLua" />
+            </Button>
+            <Button Grid.Row="1" HorizontalContentAlignment="Center" BorderThickness="0" Margin="0 10 0 0" Height="55" Padding="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Foreground="#59E4E8F0" Background="{x:Null}" BorderBrush="{x:Null}">
+                <iconPacks:Material Width="35" Height="35" Kind="Cube" />
+            </Button>
+            <Button Grid.Row="2" HorizontalContentAlignment="Center" Width="40" BorderThickness="0" Margin="1 0 0 24" Height="40" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="#3FE4E8F0" BorderBrush="{x:Null}" Background="{x:Null}">
+                <iconPacks:Material Width="20" Height="20" Kind="Cog" />
+            </Button>
         </Grid>
     </Grid>
 </Window>

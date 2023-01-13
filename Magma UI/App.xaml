@@ -14,6 +14,10 @@
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="{x:Type Button}"  BasedOn="{StaticResource MaterialDesignRaisedDarkButton}"></Style>
             <FontFamily x:Key="JBMono" >pack://application:,,,/Fonts/#JetBrains Mono</FontFamily>
+            <FontFamily x:Key="QuickSand" >pack://application:,,,/Fonts/#Quicksand</FontFamily>
+            <Color x:Key="MagmaDarkOrange">#FFF53A16</Color>
+            <Color x:Key="MagmaOrange">#FFED6526</Color>
+            <Color x:Key="MagmaLightOrange">#FFE69138</Color>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

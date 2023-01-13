@@ -54,7 +54,7 @@ auto __stdcall DllMain(void*, std::uint32_t call_reason, void*) -> bool
 	int print_call = EyeStep::util::nextCall(EyeStep::scanner::scan_xrefs("Video recording stopped")[0], false, false);
 	int print_address = base_offset + EyeStep::util::raslr(print_call - 0x400000);
 
-	printf("[INF] Stabalized 1 of 7 mainframes.\n", ">   ", print_address);
+	printf("[INF] Stabalized 1 of 7 mainframes.\n>   {:x}", print_address);
 
 	typedef int(__cdecl* print_func)(int, const char*, ...);
 	print_func rbx_print = (print_func)(print_address);

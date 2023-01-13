@@ -75,7 +75,7 @@ namespace Magma
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Internal.EnableBlur(this);
-            MainContainer.Navigate(Globals.ExecutorPage);
+            MainContainer.Navigate(Globals.InjectorPage);
         }
 
         private void Rectangle_MouseDown(object sender, MouseButtonEventArgs e)
