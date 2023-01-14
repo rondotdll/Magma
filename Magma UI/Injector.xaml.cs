@@ -20,14 +20,17 @@ namespace Magma
     /// </summary>
     public partial class Injector : Page
     {
+
+        private CheatManager GameCheats;
+
         public Injector()
         {
             InitializeComponent();
         }
 
-        private void InjectorPage_Initialized(object sender, EventArgs e)
+        private void InjectorPage_Loaded(object sender, EventArgs e)
         {
-            CheatCollection GameCheats = new CheatCollection(ref CheatsContainer, "");
+             GameCheats = new CheatManager(this, "");
         }
 
         private void ComboBoxItem_Selected(object sender, RoutedEventArgs e)
@@ -35,5 +38,9 @@ namespace Magma
 
         }
 
+        private void E_NextCheat_Click(object sender, RoutedEventArgs e)
+        {
+            GameCheats.NextCheat();
+        }
     }
 }
