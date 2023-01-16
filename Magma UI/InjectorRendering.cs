@@ -40,33 +40,70 @@ namespace Magma
         }
     }
 
+    // [+]=======================================================================================[+]
+    //
+    //       CheatManager Class (Helps making UI modifications for artwork and buttons easier)
+    //
+    // [+]=======================================================================================[+]
     class CheatManager
     {
-        private JArray SampleData = new JArray();
+        // [+]===============================================================================================[+]
+        //
+        //       Static Variables (These variables are static, and have no relevance to the class itself.)
+        //
+        // [+]===============================================================================================[+]
 
-        private Dictionary<bool, SolidColorBrush> FavoriteButtonColors = new Dictionary<bool, SolidColorBrush>()
+        private static JArray SampleData = new JArray();
+
+        private static Dictionary<bool, SolidColorBrush> FavoriteButtonColors = new Dictionary<bool, SolidColorBrush>()
         {
             { true, new SolidColorBrush(Color.FromRgb(239, 71, 111)) },
             { false, new SolidColorBrush(Color.FromArgb(64, 228, 232, 240)) },
         };
 
-        private Image Canvas;
-        private Grid Container;
-
-        public List<Cheat> Available { get; private set; }
-
-        public Cheat Selected { get; private set; }
-
-        public CheatManager(Page context, string game)
+        private static DoubleAnimation FadeInAnimation = new DoubleAnimation
         {
-            if (context != Globals.InjectorPage)
+            From = 0.0,
+            To = 1.0,
+            FillBehavior = FillBehavior.Stop,
+            BeginTime = TimeSpan.FromSeconds(0),
+            Duration = new Duration(TimeSpan.FromSeconds(0.15))
+        };
+        private static DoubleAnimation FadeOutAnimation = new DoubleAnimation
+        {
+            From = 1.0,
+            To = 0.0,
+            FillBehavior = FillBehavior.Stop,
+            BeginTime = TimeSpan.FromSeconds(0),
+            Duration = new Duration(TimeSpan.FromSeconds(0.15))
+        };
+
+        // [+]=================================================================================[+]
+        //
+        //       Class Variables (These variables are actually relevant to the class itself)
+        //
+        // [+]=================================================================================[+]
+
+        private Image Canvas; // Variable for the Image object which holds each cheat's artwork
+        private Grid Container; // Variable for the Grid object which contains the Image (Canvas), as well as the like and config buttons
+
+        public List<Cheat> Available { get; private set; } // Represents all currently available cheats for the selected game
+        public string Game { get; private set; } // Represents the Game that the currently available cheats are for
+
+        public Cheat Selected { get; private set; } // Represents the currently selected cheat (whichever one is showing in the UI)
+
+        public CheatManager(Page context, string game) // Class Initializer for the CheatManager
+        {
+            if (context != Globals.InjectorPage) // Verify that the context is for the correct window (or else our code would McShit™️ itself)
             {
                 throw new Exception("Invalid Context.");
             }
 
+            // Reset the Available list (just to be safe, as it shouldn't be populated yet)
             this.Available = new List<Cheat>();
             this.Available.Clear();
 
+            // Define our Canvas and Grid Container objects
             this.Canvas = Globals.InjectorPage.E_CheatCanvas;
             this.Container = Globals.InjectorPage.E_CheatContainer;
 
@@ -96,9 +133,29 @@ namespace Magma
 
             int i = 0;
 
+            if (game == "")
+            {
+                ShowCheatButtons(false);
+                Globals.InjectorPage.E_NextCheat.IsEnabled = false;
+                Globals.InjectorPage.E_NextCheat.Foreground = new SolidColorBrush(Color.FromArgb(51, 228, 232, 240));
+                Globals.InjectorPage.E_PrevCheat.IsEnabled = false;
+                Globals.InjectorPage.E_PrevCheat.Foreground = new SolidColorBrush(Color.FromArgb(51, 228, 232, 240));
+                Globals.InjectorPage.E_AddCheat.IsEnabled = false;
+                Globals.InjectorPage.E_AddCheat.Foreground = new SolidColorBrush(Color.FromArgb(51, 228, 232, 240));
+
+                Canvas.Source = new BitmapImage(new Uri("pack://application:,,,/Images/NoGame.png"));
+                return;
+            }
+
             if (SampleData.Count() == 0)
             {
                 ShowCheatButtons(false);
+                Globals.InjectorPage.E_NextCheat.IsEnabled = false;
+                Globals.InjectorPage.E_NextCheat.Foreground = new SolidColorBrush(Color.FromArgb(51, 228, 232, 240));
+                Globals.InjectorPage.E_PrevCheat.IsEnabled = false;
+                Globals.InjectorPage.E_PrevCheat.Foreground = new SolidColorBrush(Color.FromArgb(51, 228, 232, 240));
+                Globals.InjectorPage.E_AddCheat.IsEnabled = false;
+                Globals.InjectorPage.E_AddCheat.Foreground = new SolidColorBrush(Color.FromArgb(51, 228, 232, 240));
 
                 Canvas.Source = new BitmapImage(new Uri("pack://application:,,,/Images/None.png"));
                 return;
@@ -110,7 +167,7 @@ namespace Magma
                     (string)cheat["name"], 
                     i, 
                     (bool)cheat["working"],
-                    new BitmapImage(new Uri((string)cheat["image"])), 
+                    new BitmapImage(new Uri((string)cheat["image"], UriKind.Absolute)), 
                     (string)cheat["configs"], 
                     (string)cheat["source"]
                 ));
@@ -118,7 +175,7 @@ namespace Magma
                 i++;
             }
 
-            ChangeSelected(Available);
+            ChangeSelected(Available.First());
         }
 
         public void NextCheat()
@@ -134,24 +191,45 @@ namespace Magma
                 return;
 
             ShowCheatButtons(true);
+            this.Selected = Available[this.Selected.Index + 1];
+            Globals.InjectorPage.E_VTStatusRing.IsIndeterminate = true;
+            UpdateCanvas();
+        }
+        public void PreviousCheat()
+        {
 
-            var FadeInAnimation = new DoubleAnimation
+            if (Available.Count() == 0)
             {
-                From = 0.0,
-                To = 1.0,
-                FillBehavior = FillBehavior.Stop,
-                BeginTime = TimeSpan.FromSeconds(1),
-                Duration = new Duration(TimeSpan.FromSeconds(0.5))
-            };
-            var FadeOutAnimation = new DoubleAnimation
-            {
-                From = 1.0,
-                To = 0.0,
-                FillBehavior = FillBehavior.Stop,
-                BeginTime = TimeSpan.FromSeconds(1),
-                Duration = new Duration(TimeSpan.FromSeconds(0.5))
-            };
+                ShowCheatButtons(false);
+                return;
+            }
 
+            if (this.Selected.Index <= 0)
+                return;
+
+            ShowCheatButtons(true);
+            this.Selected = Available[this.Selected.Index - 1];
+            Globals.InjectorPage.E_VTStatusRing.IsIndeterminate = true;
+            UpdateCanvas();
+        }
+
+        public void ChangeSelected(Cheat cheat)
+        {
+            try
+            {
+                this.Selected = cheat;
+                this.Canvas.Source = cheat.Artwork;
+                ShowCheatButtons(true);
+                UpdateCanvas();
+            } 
+            catch
+            {
+                return;
+            }
+        }
+
+        public void UpdateCanvas()
+        {
             var FirstStoryBoard = new Storyboard();
 
             FirstStoryBoard.Children.Add(FadeOutAnimation);
@@ -160,29 +238,24 @@ namespace Magma
             Storyboard.SetTargetProperty(FadeOutAnimation, new PropertyPath(Image.OpacityProperty));
             FirstStoryBoard.Completed += delegate
             {
-                this.Canvas.Source = Available[this.Selected.Index + 1].Artwork;
+                this.Canvas.Source = this.Selected.Artwork;
+
+                if (Available.Count() == 0)
+                    this.Canvas.Source = new BitmapImage(new Uri("pack://application:,,,/Images/None.png")); ;
+
                 var SecondStoryBoard = new Storyboard();
 
                 SecondStoryBoard.Children.Add(FadeInAnimation);
                 Storyboard.SetTarget(FadeInAnimation, this.Container);
                 Storyboard.SetTargetProperty(FadeInAnimation, new PropertyPath(Image.OpacityProperty));
+                SecondStoryBoard.Completed += delegate
+                {
+                    Globals.InjectorPage.E_VTStatusRing.IsIndeterminate = false;
+                };
                 SecondStoryBoard.Begin();
             };
 
             FirstStoryBoard.Begin();
-
-        }
-
-        public void ChangeSelected(int index)
-        {
-            try
-            {
-                this.Canvas.Source = Available[index].Artwork;
-                ShowCheatButtons(true);
-            } catch
-            {
-                return;
-            }
         }
 
         private void ShowCheatButtons(bool visible)

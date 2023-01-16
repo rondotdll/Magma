@@ -60,33 +60,7 @@ namespace Magma
 
         private void ScriptTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (LineCount < ScriptTextBox.LineCount)
-            {
-                int CursorOffset = ScriptTextBox.CaretOffset;
-                var ScriptDoc = ScriptTextBox.Document;
-                DocumentLine CurrentLine = ScriptDoc.GetLineByOffset(CursorOffset);
-                DocumentLine PreviousLine = ScriptDoc.GetLineByOffset(CursorOffset).PreviousLine;
-
-                if (
-                    ScriptDoc.GetText(PreviousLine.Offset, PreviousLine.Length).Replace("\r", "").Replace("\n", "").EndsWith("then") || 
-                    ScriptDoc.GetText(PreviousLine.Offset, PreviousLine.Length).Replace("\r", "").Replace("\n", "").EndsWith("do") ||
-                    ScriptDoc.GetText(PreviousLine.Offset, PreviousLine.Length).Replace("\r", "").Replace("\n", "").EndsWith("[[") ||
-                    ScriptDoc.GetText(PreviousLine.Offset, PreviousLine.Length).Replace("\r", "").Replace("\n", "").EndsWith("{") ||
-                    ScriptDoc.GetText(PreviousLine.Offset, PreviousLine.Length).Replace("\r", "").Replace("\n", "").EndsWith("("))
-                {
-                    ScriptTextBox.Document.Text = ScriptTextBox.Document.Text.Insert(CursorOffset, "\t");
-                }
-                else if (
-                    ScriptDoc.GetText(PreviousLine.Offset, PreviousLine.Length).Replace("\r", "").Replace("\n", "").EndsWith("end") ||
-                    ScriptDoc.GetText(PreviousLine.Offset, PreviousLine.Length).Replace("\r", "").Replace("\n", "").EndsWith("]]") ||
-                    ScriptDoc.GetText(PreviousLine.Offset, PreviousLine.Length).Replace("\r", "").Replace("\n", "").EndsWith("}") ||
-                    ScriptDoc.GetText(PreviousLine.Offset, PreviousLine.Length).Replace("\r", "").Replace("\n", "").EndsWith(")"))
-                {
-                    ScriptTextBox.Document.Text = ScriptTextBox.Document.Text.Remove(CursorOffset - 1);
-                }
-            }
-
-            LineCount = ScriptTextBox.LineCount;
+            
         }
 
         CompletionWindow completionWindow;
@@ -107,7 +81,35 @@ namespace Magma
 
         void textEditor_TextArea_TextEntered(object sender, TextCompositionEventArgs e)
         {
-            int initial = Extra.CloneInt(ScriptTextBox.CaretOffset); 
+            int initial = Extra.CloneInt(ScriptTextBox.CaretOffset);
+
+            if (LineCount < ScriptTextBox.LineCount)
+            {
+                int CursorOffset = ScriptTextBox.CaretOffset;
+                var ScriptDoc = ScriptTextBox.Document;
+                DocumentLine CurrentLine = ScriptDoc.GetLineByOffset(CursorOffset);
+                DocumentLine PreviousLine = ScriptDoc.GetLineByOffset(CursorOffset).PreviousLine;
+
+                if (
+                    ScriptDoc.GetText(PreviousLine.Offset, PreviousLine.Length).Replace("\r", "").Replace("\n", "").EndsWith("then") ||
+                    ScriptDoc.GetText(PreviousLine.Offset, PreviousLine.Length).Replace("\r", "").Replace("\n", "").EndsWith("do") ||
+                    ScriptDoc.GetText(PreviousLine.Offset, PreviousLine.Length).Replace("\r", "").Replace("\n", "").EndsWith("[[") ||
+                    ScriptDoc.GetText(PreviousLine.Offset, PreviousLine.Length).Replace("\r", "").Replace("\n", "").EndsWith("{") ||
+                    ScriptDoc.GetText(PreviousLine.Offset, PreviousLine.Length).Replace("\r", "").Replace("\n", "").EndsWith("("))
+                {
+                    ScriptTextBox.Document.Text = ScriptTextBox.Document.Text.Insert(CursorOffset, "\t");
+                }
+                //else if (
+                //    ScriptDoc.GetText(PreviousLine.Offset, PreviousLine.Length).Replace("\r", "").Replace("\n", "").EndsWith("end") ||
+                //    ScriptDoc.GetText(PreviousLine.Offset, PreviousLine.Length).Replace("\r", "").Replace("\n", "").EndsWith("]]") ||
+                //    ScriptDoc.GetText(PreviousLine.Offset, PreviousLine.Length).Replace("\r", "").Replace("\n", "").EndsWith("}") ||
+                //    ScriptDoc.GetText(PreviousLine.Offset, PreviousLine.Length).Replace("\r", "").Replace("\n", "").EndsWith(")"))
+                //{
+                //    ScriptTextBox.Document.Text = ScriptTextBox.Document.Text.Remove(CursorOffset - 1);
+                //}
+            }
+
+            LineCount = ScriptTextBox.LineCount;
 
             if (IsEqualToChars(e.Text[0], (Globals.AllowedChars + Globals.AllowedChars.ToUpper()).ToCharArray()) || e.Text == ".")
             {
@@ -172,6 +174,29 @@ namespace Magma
                 else
                 {
                     ScriptTextBox.Text = ScriptTextBox.Text.Insert(ScriptTextBox.CaretOffset, "\"");
+                    ScriptTextBox.CaretOffset = initial;
+                }
+            }
+            else if (e.Text == "(")
+            {
+                bool eval = false;
+
+                try
+                {
+                    eval = ScriptTextBox.Document.GetCharAt(ScriptTextBox.CaretOffset) == '(';
+                }
+                catch
+                {
+                }
+
+                if (eval)
+                {
+                    ScriptTextBox.Text = ScriptTextBox.Text.Remove(ScriptTextBox.CaretOffset, 1);
+                    ScriptTextBox.CaretOffset = initial;
+                }
+                else
+                {
+                    ScriptTextBox.Text = ScriptTextBox.Text.Insert(ScriptTextBox.CaretOffset, ")");
                     ScriptTextBox.CaretOffset = initial;
                 }
             }

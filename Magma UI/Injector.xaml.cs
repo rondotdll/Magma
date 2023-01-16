@@ -28,9 +28,16 @@ namespace Magma
             InitializeComponent();
         }
 
+        private void InjectorPage_Initialized(object sender, EventArgs e)
+        {
+            E_VTStatusRing.ToolTip = new ToolTip(){ Content = "Sample Tooltip" };
+        }
+
         private void InjectorPage_Loaded(object sender, EventArgs e)
         {
-             GameCheats = new CheatManager(this, "");
+            // Creates a new "CheatManager" which is just makes it a bit easier to load / unload stuff from the UI
+            // If I hadn't abstracted this class away this file would have gotten VERY messy.
+            GameCheats = new CheatManager(this, "csgo");
         }
 
         private void ComboBoxItem_Selected(object sender, RoutedEventArgs e)
@@ -41,6 +48,40 @@ namespace Magma
         private void E_NextCheat_Click(object sender, RoutedEventArgs e)
         {
             GameCheats.NextCheat();
+            E_LaunchButton.Content = $"LAUNCH {GameCheats.Selected.Name.ToUpper()}";
+
+            E_PrevCheat.IsEnabled = true;
+            E_PrevCheat.Foreground = new SolidColorBrush(Color.FromArgb(204, 228, 232, 240));
+
+            if (GameCheats.Selected.Index + 1 >= GameCheats.Available.Count())
+            {
+                E_NextCheat.IsEnabled = false;
+                E_NextCheat.Foreground = new SolidColorBrush(Color.FromArgb(51, 228, 232, 240));
+            } else
+            {
+                E_NextCheat.IsEnabled = true;
+                E_NextCheat.Foreground = new SolidColorBrush(Color.FromArgb(204, 228, 232, 240));
+            }
+        }
+
+        private void E_PrevCheat_Click(object sender, RoutedEventArgs e)
+        {
+            GameCheats.PreviousCheat();
+            E_LaunchButton.Content = $"LAUNCH {GameCheats.Selected.Name.ToUpper()}";
+
+            E_NextCheat.IsEnabled = true;
+            E_NextCheat.Foreground = new SolidColorBrush(Color.FromArgb(204, 228, 232, 240));
+
+            if (GameCheats.Selected.Index <= 0)
+            {
+                E_PrevCheat.IsEnabled = false;
+                E_PrevCheat.Foreground = new SolidColorBrush(Color.FromArgb(51, 228, 232, 240));
+            }
+            else
+            {
+                E_PrevCheat.IsEnabled = true;
+                E_PrevCheat.Foreground = new SolidColorBrush(Color.FromArgb(204, 228, 232, 240));
+            }
         }
     }
 }

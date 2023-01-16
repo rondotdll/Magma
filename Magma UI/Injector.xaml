@@ -7,7 +7,7 @@
       xmlns:local="clr-namespace:Magma"
       mc:Ignorable="d" 
       d:DesignHeight="336" d:DesignWidth="686"
-      Title="Injector" Loaded="InjectorPage_Loaded">
+      Title="Injector" Loaded="InjectorPage_Loaded" Initialized="InjectorPage_Initialized">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -47,25 +47,27 @@
             <ui:Button x:Name="E_LaunchButton" Grid.Column="2" BorderThickness="1" Padding="0" Width="250" Foreground="#CCE4E8F0" VerticalAlignment="Top" Margin="0,182,0,0" Height="31" Background="#0FFFFFFF" HorizontalAlignment="Center" FontFamily="{StaticResource QuickSand}" FontWeight="Bold"  FontSize="18" Content="LAUNCH CUSTOM" BorderBrush="#0FFFFFFF"/>
             <ui:Button x:Name="E_InfoButton" Grid.Column="2" BorderThickness="1" Padding="0" Width="100" Foreground="#CCE4E8F0" VerticalAlignment="Top" Margin="37,223,0,0" Height="31" Background="#0FFFFFFF" Content="{iconPacks:FontAwesome QuestionSolid, Height=18, Width=18}" BorderBrush="#0FFFFFFF"/>
             <ui:Button x:Name="E_ConfigButton" Grid.Column="2" BorderThickness="01" Padding="0" Width="144" Foreground="#CCE4E8F0" VerticalAlignment="Top" Margin="143,223,0,0" Height="31" Background="#0FFFFFFF" Content="{iconPacks:FontAwesome CogsSolid, Height=18, Width=18}" BorderBrush="#0FFFFFFF"/>
-            <Grid x:Name="E_CheatContainer" Margin="24,59,0,0">
+            <Grid Margin="24,59,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="8*"/>
                     <ColumnDefinition Width="1.25*"/>
                 </Grid.ColumnDefinitions>
-                <Image x:Name="E_CheatCanvas" Grid.Column="0" HorizontalAlignment="Left" Height="220" VerticalAlignment="Top" Width="260" Source="/Images/Custom.png"/>
-                <Button x:Name="E_FavoriteButton" HorizontalAlignment="Right" Margin="0,0,8,20" Padding="0" VerticalAlignment="Bottom" Height="45" Width="45" Foreground="#33E4E8F0" Background="{x:Null}" BorderBrush="{x:Null}">
-                    <iconPacks:FontAwesome Kind="HeartRegular" Width="25" Height="25"/>
-                </Button>
-                <Button x:Name="E_BrowseConfigsButton" HorizontalAlignment="Right" Margin="0,0,63,20" Padding="0" VerticalAlignment="Bottom" Height="45" Width="45" Foreground="#33E4E8F0" Background="{x:Null}" BorderBrush="{x:Null}" >
-                    <iconPacks:FontAwesome Kind="PasteSolid" Width="25" Height="25"/>
-                </Button>
-                <ui:Button x:Name="E_NextCheat" Grid.Column="1" Foreground="#CCE4E8F0" Padding="0" Height="30" Margin="11,0,0,0" BorderBrush="{x:Null}" VerticalAlignment="Top" Width="30" Click="E_NextCheat_Click">
+                <Grid x:Name="E_CheatContainer" Grid.Column="0">
+                    <Image x:Name="E_CheatCanvas" Grid.Column="0" HorizontalAlignment="Left" Height="220" VerticalAlignment="Top" Width="260" Source="/Images/Custom.png"/>
+                    <Button x:Name="E_FavoriteButton" HorizontalAlignment="Right" Margin="0,0,8,20" Padding="0" VerticalAlignment="Bottom" Height="45" Width="45" Foreground="#33E4E8F0" Background="{x:Null}" BorderBrush="{x:Null}">
+                        <iconPacks:FontAwesome Kind="HeartRegular" Width="25" Height="25"/>
+                    </Button>
+                    <Button x:Name="E_BrowseConfigsButton" HorizontalAlignment="Right" Margin="0,0,63,20" Padding="0" VerticalAlignment="Bottom" Height="45" Width="45" Foreground="#33E4E8F0" Background="{x:Null}" BorderBrush="{x:Null}" >
+                        <iconPacks:FontAwesome Kind="PasteSolid" Width="25" Height="25"/>
+                    </Button>
+                </Grid>
+                <ui:Button x:Name="E_NextCheat" BorderThickness="0" Grid.Column="1" Foreground="#CCE4E8F0" Padding="0" Height="30" Margin="11,0,0,0" BorderBrush="{x:Null}" VerticalAlignment="Top" Width="30" Click="E_NextCheat_Click">
                     <iconPacks:FontAwesome Kind="AngleRightSolid"/>
                 </ui:Button>
-                <ui:Button x:Name="E_PrevCheat" Grid.Column="1" Foreground="#CCE4E8F0" Padding="0" Width="30" Height="30" Margin="11,48,0,0" BorderBrush="{x:Null}" VerticalAlignment="Top">
+                <ui:Button x:Name="E_PrevCheat" BorderThickness="0" Grid.Column="1" Foreground="#CCE4E8F0" Padding="0" Width="30" Height="30" Margin="11,48,0,0" BorderBrush="{x:Null}" VerticalAlignment="Top" Click="E_PrevCheat_Click">
                     <iconPacks:FontAwesome Kind="AngleLeftSolid"/>
                 </ui:Button>
-                <ui:Button x:Name="E_AddCheat" Grid.Column="1" Foreground="#CCE4E8F0" Padding="0" Width="30" Height="30" Margin="11,164,0,0" BorderBrush="{x:Null}" VerticalAlignment="Top">
+                <ui:Button x:Name="E_AddCheat" BorderThickness="0" Grid.Column="1" Foreground="#CCE4E8F0" Padding="0" Width="30" Height="30" Margin="11,164,0,0" BorderBrush="{x:Null}" VerticalAlignment="Top">
                     <iconPacks:FontAwesome Kind="PlusSolid"/>
                 </ui:Button>
             </Grid>
@@ -170,7 +172,7 @@
                 </Border>
             </Grid>
         </Grid>
-        <ui:ProgressRing Visibility="Visible" x:Name="E_VTStatusRing" Opacity="0.6" IsIndeterminate="False" Progress="100" HorizontalAlignment="Left" Foreground="#FF5DF0A7" RenderTransformOrigin="0.5,0.5" Margin="2,-7,0,283" Grid.RowSpan="2">
+        <ui:ProgressRing Cursor="Help" Visibility="Visible" x:Name="E_VTStatusRing" Opacity="0.6" IsIndeterminate="False" Progress="100" HorizontalAlignment="Left" Foreground="#FF5DF0A7" RenderTransformOrigin="0.5,0.5" Margin="2,-7,0,283" Grid.RowSpan="2">
             <ui:ProgressRing.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleX="0.45" ScaleY="0.45"/>

@@ -1,4 +1,60 @@
-﻿using System;
+﻿/* Original Name: ScriptHub
+ * Current Name: Magma
+ * Creator: Studio 7 Development
+ * 
+ * Version: 2.1.0 [Official Release]
+ * 
+ * Holy shit bro, the source you see here in v2.1 is COMPLETELY REBUILT 
+ * FROM THE GROUND UP, and god DAMN did it take a while. Anyways here
+ * you are, have fun I guess.
+ * 
+ * (Now with actual documentation!)
+ * 
+ * =====================================================================
+ * 
+ * A note from david: 
+ * 
+ * Odly enough, this project is my first ever to be finalized
+ * and made availilble to the public. What initially started
+ * as an experiment more than anything swiftly grew to much
+ * much more.
+ * 
+ * Magma is, and always will be free and open-sourced
+ * meaning that anyone can edit this code and make their
+ * own version of this program. This being said, I am
+ * aware that there will unfortunately be people who try 
+ * and profit off of this code, and if you are someone who
+ * has suffered from the wrath of one of these scum bags,
+ * I am truly sorry.
+ * 
+ * While I wish you didn't, I do permit the profitable 
+ * redistribution of MODIFIED VERSIONS of Magma, as long as
+ * attributions and/or credit is given to "s7davidj", for
+ * the creation of the original Magma source.
+ * 
+ * However, please note that unauthorized redistribution of the 
+ * official version of Magma is STRICTLY PROHIBITED.
+ * 
+ * With that said, have fun making tweaks to my code, I am
+ * excited to see what you do with it. Feel free to join my
+ * discord server and share your creations with me!
+ * 
+ * https://discord.gg/H3qPn377Qv
+ * 
+ * - s7davidj (AKA Not316tb)
+ * 
+ * =====================================================================
+ * 
+ * Special Thanks to 
+ *   
+ *   [+] Legrandite#1362
+ *   [+] Kaizer_#6969
+ *   [+] redone#9149
+ *   [+] SnakyCodes#2518
+ *   [+] Diamonds.#7438
+*/
+
+using System;
 using Wpf.Ui.Controls;
 using System.Collections.Generic;
 using System.Linq;
