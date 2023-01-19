@@ -131,7 +131,7 @@ namespace Magma
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Internal.EnableBlur(this);
-            MainContainer.Navigate(Globals.InjectorPage);
+            //MainContainer.Navigate(Globals.ExecutorPage);
         }
 
         private void Rectangle_MouseDown(object sender, MouseButtonEventArgs e)
@@ -169,6 +169,16 @@ namespace Magma
                 Internal.EnableBlur(this);
             }
 
+        }
+
+        private void LuaTabButton_Click(object sender, RoutedEventArgs e)
+        {
+            //MainContainer.Navigate(Globals.ExecutorPage);
+        }
+
+        private void InjectorTabButton_Click(object sender, RoutedEventArgs e)
+        {
+            //MainContainer.Navigate(Globals.InjectorPage);
         }
     }
 }

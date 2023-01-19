@@ -15,30 +15,21 @@
             <ColumnDefinition Width="1.5*"/>
         </Grid.ColumnDefinitions>
         <Avalon:TextEditor  Grid.Column="0" Margin="10, 10, 1, 0" FontSize="12" FontFamily="{StaticResource JBMono}" x:Name="ScriptTextBox" ShowLineNumbers="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Background="{x:Null}" LineNumbersForeground="#2FFFFFFF" Foreground="#999999" TextChanged="ScriptTextBox_TextChanged" KeyDown="ScriptTextBox_KeyDown" KeyUp="ScriptTextBox_KeyUp" />
-
-        <Grid Grid.Column="1" Background="#33000000">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="65"/>
-                <RowDefinition Height="1*"/>
-            </Grid.RowDefinitions>
-            <Label Grid.Row="0" FontSize="24" FontWeight="Light" FontFamily="{StaticResource QuickSand}" Content="Scripts" HorizontalAlignment="Stretch" Margin="15,10,15,10" BorderThickness="0 0 0 1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Stretch">
-                <Label.BorderBrush>
-                    <LinearGradientBrush EndPoint="0,0.5" StartPoint="1,0.5">
-                        <GradientStop Color="#00000000"/>
-                        <GradientStop Color="#BFE4E8F0" Offset="0.35"/>
-                        <GradientStop Color="#BFE4E8F0" Offset="0.65"/>
-                        <GradientStop Color="#00000000" Offset="1"/>
-                    </LinearGradientBrush>
-                </Label.BorderBrush>
-            </Label>
-            <ListBox x:Name="ScriptsListBox" Grid.Row="1" Padding="8,0,8,8" FontSize="12"  Margin="0" BorderThickness="0" Background="{x:Null}" BorderBrush="{x:Null}">
-                <ListBoxItem Content="1.) infinite yeild.lua" >
-                    <ListBoxItem.Background>
-                        <SolidColorBrush Color="{DynamicResource MagmaOrange}"/>
-                    </ListBoxItem.Background>
-                </ListBoxItem>
-            </ListBox>
-
-        </Grid>
+        <Border CornerRadius="7 7 7 7" Grid.Column="1" Background="#26000000">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="65"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" FontSize="24" FontWeight="Light" FontFamily="{StaticResource QuickSand}" Content="Scripts" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">                </Label>
+                <ListBox x:Name="ScriptsListBox" Grid.Row="1" Padding="8,0,8,8" FontSize="12"  Margin="0" BorderThickness="0" Background="{x:Null}" BorderBrush="{x:Null}">
+                    <ListBoxItem Content="1.) infinite yeild.lua" >
+                        <ListBoxItem.Background>
+                            <SolidColorBrush Color="{DynamicResource MagmaOrange}"/>
+                        </ListBoxItem.Background>
+                    </ListBoxItem>
+                </ListBox>
+            </Grid>
+        </Border>
     </Grid>
 </Page>

@@ -6,7 +6,7 @@
       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:local="clr-namespace:Magma"
       mc:Ignorable="d" 
-      d:DesignHeight="336" d:DesignWidth="686"
+      d:DesignHeight="336" d:DesignWidth="736"
       Title="Injector" Loaded="InjectorPage_Loaded" Initialized="InjectorPage_Initialized">
     <Grid>
         <Grid.RowDefinitions>
