@@ -55,7 +55,6 @@
 */
 
 using System;
-using Wpf.Ui.Controls;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -134,7 +133,7 @@ namespace Magma
             //MainContainer.Navigate(Globals.ExecutorPage);
         }
 
-        private void Rectangle_MouseDown(object sender, MouseButtonEventArgs e)
+        private void DragBar_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
@@ -152,22 +151,6 @@ namespace Magma
 
         private void KeepOnTopButton_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void Window_StateChanged(object sender, EventArgs e)
-        {
-            if (((Window)sender).WindowState == WindowState.Maximized)
-            {
-                OuterGrid.Margin = new Thickness(5, 5, 5, 5);
-                TopBar.Margin = new Thickness(0, 0, 0, 0);
-                Internal.DisableBlur(this);
-            } else
-            {
-                OuterGrid.Margin = new Thickness(0, 0, 0, 0);
-                TopBar.Margin = new Thickness(35, 0, 0, 0);
-                Internal.EnableBlur(this);
-            }
 
         }
 

@@ -3,110 +3,109 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         xmlns:local="clr-namespace:Magma"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        mc:Ignorable="d" WindowStyle="None" AllowsTransparency="True" BorderThickness="1" ResizeMode="CanResize"
-        MinHeight="402" MinWidth="802" Height="402" Width="802"
-        Title="MainWindow" Initialized="Window_Initialized" Loaded="Window_Loaded" Background="Transparent" StateChanged="Window_StateChanged" >
-    <Window.Resources>
-        <LinearGradientBrush x:Key="MagmaGradient" StartPoint="0,0" EndPoint="1,1">
-            <GradientStop Color="{StaticResource MagmaDarkOrange}" Offset="1"/>
-            <GradientStop Color="{StaticResource MagmaLightOrange}" />
-        </LinearGradientBrush>
-    </Window.Resources>
-    <WindowChrome.WindowChrome>
-        <WindowChrome ResizeBorderThickness="1"/>
-    </WindowChrome.WindowChrome>
+        xmlns:m="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d" WindowStyle="None" AllowsTransparency="True" ResizeMode="NoResize" Background="#01000000"
+        Title="MainWindow" Height="400" Width="800" BorderThickness="0" Initialized="Window_Initialized" Loaded="Window_Loaded">
     <Window.BorderBrush>
-        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-            <GradientStop Color="#7FF53A16" Offset="1"/>
-            <GradientStop Color="#7FE69138" />
+        <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+            <GradientStop Color="{DynamicResource GradientLight}"/>
+            <GradientStop Color="{DynamicResource GradientDark}" Offset="1"/>
         </LinearGradientBrush>
     </Window.BorderBrush>
-    <Grid x:Name="OuterGrid" IsHitTestVisible="True" Background="#3F141517" ClipToBounds="True">
-        <Rectangle x:Name="TopBar" Height="10" Margin="24,0,0,0" VerticalAlignment="Top" MouseDown="Rectangle_MouseDown" Fill="{StaticResource MagmaGradient}"/>
-        <Image HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="46" Source="/Images/Magma_50px.png" Margin="12,18,0,0"/>
-        <Grid Margin="64,50,0,0">
-            <Border CornerRadius="7 0 0 0" Background="#FF282C34">
-                <Border.Effect>
-                    <DropShadowEffect Direction="315" BlurRadius="25" Opacity="1" Color="Black" ShadowDepth="4" RenderingBias="Quality" />
-                </Border.Effect>
-                <ui:NavigationFluent />
-                <!--<Frame Margin="0,0,0,0" Background="{x:Null}" x:Name="MainContainer"></Frame>-->
+    <Grid>
+        <Grid x:Name="Background">
+            <Grid.Background>
+                <SolidColorBrush Color="{DynamicResource WindowTint}"/>
+            </Grid.Background>
+            <Rectangle x:Name="RightAccentPanel" Fill="#282C34" Width="650" VerticalAlignment="Stretch" HorizontalAlignment="Right"/>
+        </Grid>
+        <Grid x:Name="Foreground">
+            <Image x:Name="Logo" Source="Images/Magma.png" Width="48" Height="48" Margin="126,12,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+            <Grid x:Name="RightPanel" Width="650" VerticalAlignment="Stretch" HorizontalAlignment="Right">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="12"/>
+                    <RowDefinition Height="58"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="42"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="140"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.ColumnSpan="2" Grid.Column="1" x:Name="DragBar" CornerRadius="0 0 0 7" Height="12" Width="608" VerticalAlignment="Top" HorizontalAlignment="Right" MouseDown="DragBar_MouseDown">
+                    <Border.Background>
+                        <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+                            <GradientStop Color="{DynamicResource GradientLight}"/>
+                            <GradientStop Color="{DynamicResource GradientDark}" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
+                <Border x:Name="WindowControlsContainer" Grid.Row="1" Grid.Column="2" Width="120" Height="35" CornerRadius="7">
+                    <Border.Background>
+                        <SolidColorBrush Color="{DynamicResource BackgroundContrast}"/>
+                    </Border.Background>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Background="{x:Null}" Padding="0" Height="22" Width="22" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                            <Button.Foreground>
+                                <SolidColorBrush Color="{DynamicResource TextLight}"/>
+                            </Button.Foreground>
+                            <m:PackIcon Kind="Pin" Width="16" Height="16" VerticalAlignment="Center" Margin=" 0 0"></m:PackIcon>
+                        </Button>
+                        <Button Grid.Column="1" Background="{x:Null}" Padding="0" Height="22" Width="22" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                            <Button.Foreground>
+                                <SolidColorBrush Color="{DynamicResource TextLight}"/>
+                            </Button.Foreground>
+                            <m:PackIcon Kind="ArrowDownThick" Width="20" Height="20" VerticalAlignment="Center" Margin=" 0 0"></m:PackIcon>
+                        </Button>
+                        <Button Grid.Column="2" Background="{x:Null}" Padding="0" Height="22" Width="22" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                            <Button.Foreground>
+                                <SolidColorBrush Color="{DynamicResource TextLight}"/>
+                            </Button.Foreground>
+                            <m:PackIcon Kind="CloseThick" Width="20" Height="20" VerticalAlignment="Center" Margin=" 0 0"></m:PackIcon>
+                        </Button>
+                    </Grid>
+                </Border>
+                <Label x:Name="StatusLabel" Grid.Column="1" Grid.Row="1" Content="What are you looking to do?" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="28" FontWeight="Regular" FontFamily="{StaticResource QuickSand}">
+                    <Label.Foreground>
+                        <SolidColorBrush Color="{DynamicResource TextLight}"/>
+                    </Label.Foreground>
+                </Label>
+            </Grid>
+            <Grid x:Name="GlassBar" Width="150" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                <Label x:Name="CurrentViewLabel" Content="Home" FontFamily="{StaticResource InkPen}" FontSize="28" Margin="26, 20, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Left" Padding="0">
+                    <Label.Foreground>
+                        <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+                            <GradientStop Color="{DynamicResource GradientLight}"/>
+                            <GradientStop Color="{DynamicResource GradientDark}" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Label.Foreground>
+                </Label>
+            </Grid>
+
+
+            <Border Width="780" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" CornerRadius="7" Margin="10, 70, 10, 10">
+                <Border.Background>
+                    <SolidColorBrush Color="{DynamicResource BackgroundContrast}"/>
+                </Border.Background>
+                <Grid x:Name="FluidContainer">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="Images/Watermark.png" Grid.Column="0" Opacity="0.1"/>
+                    <Frame Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></Frame>
+                </Grid>
             </Border>
-        </Grid>
-        <Grid Margin="64,10,0,0" Height="40" VerticalAlignment="Top">
-            <Grid x:Name="InjectorStatusBar" Visibility="Hidden">
-
-            </Grid>
-            <!-- ExecutorButtons -->
-            <Grid x:Name="TabsContainer" Visibility="Visible">
-                <Button x:Name="aAttachButton" Width="30" Height="30" Padding="0" Foreground="#7FFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" >
-                    <materialDesign:PackIcon Width="22" Height="22" Kind="LanguageLua"/>
-                </Button>
-
-                <!-- Divider Dot -->
-
-                <Rectangle x:Name="aDivRectangle" Width="5" Height="5" RadiusX="5" RadiusY="5" Margin="48 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Fill="#2FFFFFFF" Stroke="{x:Null}"></Rectangle>
-
-                <Button x:Name="aSaveScriptButton" Width="30" Height="30" Padding="0" Foreground="#7FFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Margin="60,0,0,0" VerticalAlignment="Center" >
-                    <materialDesign:PackIcon Width="20" Height="20" Kind="Flask"/>
-                </Button>
-                <Button x:Name="aLoadScriptButton" Width="30" Height="30" Padding="0" Foreground="#7FFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Margin="100,0,0,0" VerticalAlignment="Center" >
-                    <materialDesign:PackIcon Width="20" Height="20" Kind="WizardHat"/>
-                </Button>
-
-                <Label x:Name="StatusLabel" FontFamily="{StaticResource QuickSand}" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FF5df0a7">Injected</Label>
-            </Grid>
-            <!-- Window Function Buttons (Close, Minimize, Pin) -->
-
-            <Button  x:Name="CloseButton" Width="30" Height="30" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Center" Click="CloseButton_Click" >
-                <materialDesign:PackIcon Width="20" Height="20" Kind="CloseThick" Foreground="White"/>
-            </Button>
-            <Button  x:Name="MinimizeButton" Width="30" Height="30" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Right" Margin="0,0,50,0" VerticalAlignment="Center" Click="MinimizeButton_Click" >
-                <materialDesign:PackIcon Width="20" Height="20" Kind="ArrowDownThick" Foreground="White"/>
-            </Button>
-            <Button  x:Name="KeepOnTopButton" Width="30" Height="30" Padding="0" Foreground="#7FFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Right" Margin="0,0,90,0" VerticalAlignment="Center" Click="KeepOnTopButton_Click" >
-                <materialDesign:PackIcon Width="20" Height="20" Kind="Pin"/>
-            </Button>
 
         </Grid>
-        <Grid Width="64" HorizontalAlignment="Left" Margin="0,78,0,12">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="44"/>
-                <RowDefinition Height="22"/>
-                <RowDefinition Height="44"/>
-                <RowDefinition Height="44"/>
-                <RowDefinition Height="44"/>
-                <RowDefinition Height="44"/>
-                <RowDefinition Height="1*"/>
-            </Grid.RowDefinitions>
-            <Button x:Name="AttachButton" Grid.Row="0" Width="34" Height="34" Padding="0" Foreground="#7FFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                <materialDesign:PackIcon Width="22" Height="22" Kind="VectorLink"/>
-            </Button>
 
-            <!-- Divider Dot -->
-
-            <Rectangle x:Name="DivRectangle" Grid.Row="1" Width="5" Height="5" RadiusX="5" RadiusY="5" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="#2FFFFFFF" Stroke="{x:Null}"></Rectangle>
-
-            <Button x:Name="ExecuteButton" Grid.Row="2" Width="32" Height="32" Padding="0" Foreground="#7FFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                <materialDesign:PackIcon Width="20" Height="20" Kind="Firework"/>
-            </Button>
-            <Button x:Name="SaveScriptButton" Grid.Row="3" Width="32" Height="32" Padding="0" Foreground="#7FFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                <materialDesign:PackIcon Width="20" Height="20" Kind="Floppy"/>
-            </Button>
-            <Button x:Name="LoadScriptButton" Grid.Row="4" Width="32" Height="32" Padding="0" Foreground="#7FFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                <materialDesign:PackIcon Width="20" Height="20" Kind="FolderOpen"/>
-            </Button>
-            <Button x:Name="ClearScriptButton" Grid.Row="5" Width="32" Height="32" Padding="0" Foreground="#7FFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                <materialDesign:PackIcon Width="20" Height="20" Kind="EraserVariant"/>
-            </Button>
-            <Button x:Name="SettingsButton" Grid.Row="6" Width="32" Height="32" Padding="0" Foreground="#7FFFFFFF" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Bottom" >
-                <materialDesign:PackIcon Width="20" Height="20" Kind="Cog"/>
-            </Button>
-
-        </Grid>
     </Grid>
 </Window>

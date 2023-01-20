@@ -1,23 +1,36 @@
 ﻿<Application x:Class="Magma.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-             xmlns:local="clr-namespace:Magma"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:Magma"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ui:ThemesDictionary Theme="Dark" />
-                <ui:ControlsDictionary />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style TargetType="{x:Type Button}"  BasedOn="{StaticResource MaterialDesignRaisedDarkButton}"></Style>
+            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignRaisedDarkButton}"></Style>
+            
+            <!-- Font Family Definitions -->
+            <FontFamily x:Key="InkPen">pack://application:,,,/Fonts/#Nothing You Could Do</FontFamily>
             <FontFamily x:Key="JBMono" >pack://application:,,,/Fonts/#JetBrains Mono</FontFamily>
             <FontFamily x:Key="QuickSand" >pack://application:,,,/Fonts/#Quicksand</FontFamily>
-            <Color x:Key="MagmaDarkOrange">#FFF53A16</Color>
-            <Color x:Key="MagmaOrange">#FFED6526</Color>
-            <Color x:Key="MagmaLightOrange">#FFE69138</Color>
+
+            <!-- Dynamic Color Definitions -->
+            <Color x:Key="GradientDark">#FFF53A16</Color>
+            <Color x:Key="GradientLight">#FFE69138</Color>
+            <Color x:Key="AccentColor">#FFED6526</Color>
+
+            <Color x:Key="WindowTint">#7F21252B</Color>
+            <Color x:Key="Text">#FFFFFFFF</Color>
+            <Color x:Key="TextLight">#B8FFFFFF</Color>
+            <Color x:Key="TextSuperLight">#59FFFFFF</Color>
+
+            <Color x:Key="BackgroundBase">#FF282C34</Color>
+            <Color x:Key="BackgroundContrast">#FF21252B</Color>
+
+            <!-- Static Color Definitions -->
+            <Color x:Key="BaseRed">#FFED6526</Color>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

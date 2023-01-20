@@ -49,7 +49,7 @@ namespace Magma
         internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
 
 
-        public static double AcrylicOpacity = 0.01;
+        public static double AcrylicOpacity = 0;
         public static uint AcrylicTint = 0x000000; /* Uses BGR color format */
         private static int[] TintRGB = new int[3];
 
