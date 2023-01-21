@@ -21,13 +21,34 @@
             <Color x:Key="GradientLight">#FFE69138</Color>
             <Color x:Key="AccentColor">#FFED6526</Color>
 
-            <Color x:Key="WindowTint">#7F21252B</Color>
+            <Color x:Key="WindowTint">#5921252B</Color>
             <Color x:Key="Text">#FFFFFFFF</Color>
             <Color x:Key="TextLight">#B8FFFFFF</Color>
             <Color x:Key="TextSuperLight">#59FFFFFF</Color>
 
             <Color x:Key="BackgroundBase">#FF282C34</Color>
             <Color x:Key="BackgroundContrast">#FF21252B</Color>
+            <Color x:Key="BackgroundSuperContrast">#FF1C1F25</Color>
+            
+            <!-- Dynamic Brush Definitions -->
+            <LinearGradientBrush x:Key="GradientNormalDefinition" EndPoint="1,1" StartPoint="0,0">
+                <GradientStop Color="{DynamicResource GradientDark}"/>
+                <GradientStop Color="{DynamicResource GradientLight}" Offset="1"/>
+            </LinearGradientBrush>
+            <LinearGradientBrush x:Key="GradientInverseDefinition" EndPoint="1,1" StartPoint="0,0">
+                <GradientStop Color="{DynamicResource GradientLight}"/>
+                <GradientStop Color="{DynamicResource GradientDark}" Offset="1"/>
+            </LinearGradientBrush>
+            <SolidColorBrush x:Key="AccentColorBrush" Color="{DynamicResource AccentColor}"/>
+
+            <SolidColorBrush x:Key="WindowTintBrush" Color="{DynamicResource WindowTint}"/>
+            <SolidColorBrush x:Key="TextBrush" Color="{DynamicResource Text}"/>
+            <SolidColorBrush x:Key="TextLightBrush" Color="{DynamicResource TextLight}"/>
+            <SolidColorBrush x:Key="TextSuperLightBrush" Color="{DynamicResource TextSuperLight}"/>
+
+            <SolidColorBrush x:Key="BackgroundBaseBrush" Color="{DynamicResource BackgroundBase}"/>
+            <SolidColorBrush x:Key="BackgroundContrastBrush" Color="{DynamicResource BackgroundContrast}"/>
+            <SolidColorBrush x:Key="BackgroundSuperContrastBrush" Color="{DynamicResource BackgroundSuperContrast}"/>
 
             <!-- Static Color Definitions -->
             <Color x:Key="BaseRed">#FFED6526</Color>

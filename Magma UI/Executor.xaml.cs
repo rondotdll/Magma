@@ -161,21 +161,43 @@ namespace Magma
                 try
                 {
                     eval = ScriptTextBox.Document.GetCharAt(ScriptTextBox.CaretOffset) == '"';
+
+                    if (eval)
+                    {
+                        ScriptTextBox.Text = ScriptTextBox.Text.Remove(ScriptTextBox.CaretOffset, 1);
+                        ScriptTextBox.CaretOffset = initial;
+                    }
+                    else
+                    {
+                        ScriptTextBox.Text = ScriptTextBox.Text.Insert(ScriptTextBox.CaretOffset, "\"");
+                        ScriptTextBox.CaretOffset = initial;
+                    }
                 }
                 catch
                 {                
                 }
 
-                if (eval)
+                
+            }
+            else if (e.Text == ")")
+            {
+                bool eval = false;
+
+                try
                 {
-                    ScriptTextBox.Text = ScriptTextBox.Text.Remove(ScriptTextBox.CaretOffset, 1);
-                    ScriptTextBox.CaretOffset = initial;
+                    eval = ScriptTextBox.Document.GetCharAt(ScriptTextBox.CaretOffset) == ')';
+
+                    if (eval)
+                    {
+                        ScriptTextBox.Text = ScriptTextBox.Text.Remove(ScriptTextBox.CaretOffset, 1);
+                        ScriptTextBox.CaretOffset = initial;
+                    }
                 }
-                else
+                catch
                 {
-                    ScriptTextBox.Text = ScriptTextBox.Text.Insert(ScriptTextBox.CaretOffset, "\"");
-                    ScriptTextBox.CaretOffset = initial;
                 }
+
+
             }
             else if (e.Text == "(")
             {
@@ -266,39 +288,6 @@ namespace Magma
             if (e.Key == Key.LeftCtrl)
             {
                 ctrlPressed = false;
-            }
-        }
-
-        private void ExecutorPage_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            if ((e.NewSize.Width / 4) > 350)
-            {
-                ExecutorGrid.ColumnDefinitions.Clear();
-                ExecutorGrid.ColumnDefinitions.Add(new ColumnDefinition()
-                {
-                    Width = new GridLength(1, GridUnitType.Star)
-                });
-
-                ExecutorGrid.ColumnDefinitions.Add(new ColumnDefinition()
-                {
-                    Width = new GridLength(350, GridUnitType.Pixel)
-                });
-                ScriptsListBox.FontSize = 14;
-                ScriptsListBox.Padding = new Thickness(16, 8, 16, 16);
-            } else
-            {
-                ExecutorGrid.ColumnDefinitions.Clear();
-                ExecutorGrid.ColumnDefinitions.Add(new ColumnDefinition()
-                {
-                    Width = new GridLength(5, GridUnitType.Star)
-                });
-
-                ExecutorGrid.ColumnDefinitions.Add(new ColumnDefinition()
-                {
-                    Width = new GridLength(1.5, GridUnitType.Star)
-                });
-                ScriptsListBox.FontSize = 12;
-                ScriptsListBox.Padding = new Thickness(8, 0, 8, 8);
             }
         }
 

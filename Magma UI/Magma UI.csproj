@@ -85,14 +85,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Injector.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Animations.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -104,9 +101,6 @@
     <Compile Include="Extra.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="Injector.cs" />
-    <Compile Include="Injector.xaml.cs">
-      <DependentUpon>Injector.xaml</DependentUpon>
-    </Compile>
     <Compile Include="InjectorRendering.cs" />
     <Compile Include="Internal.cs" />
     <Compile Include="LuaCompletionData.cs" />

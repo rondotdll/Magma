@@ -1,35 +1,48 @@
-﻿<Page
+﻿<Page x:Class="Magma.Executor"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Magma"
       xmlns:Avalon="http://icsharpcode.net/sharpdevelop/avalonedit"
-      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Name="ExecutorPage" x:Class="Magma.Executor"
+      xmlns:m="http://materialdesigninxaml.net/winfx/xaml/themes"  
       mc:Ignorable="d" 
-      d:DesignHeight="336" d:DesignWidth="686"
-      Title="Executor" Initialized="ExecutorPage_Initialized" SizeChanged="ExecutorPage_SizeChanged">
-    <Grid x:Name="ExecutorGrid" Background="#00282A2F">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5*"/>
-            <ColumnDefinition Width="1.5*"/>
-        </Grid.ColumnDefinitions>
-        <Avalon:TextEditor  Grid.Column="0" Margin="10, 10, 1, 0" FontSize="12" FontFamily="{StaticResource JBMono}" x:Name="ScriptTextBox" ShowLineNumbers="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Background="{x:Null}" LineNumbersForeground="#2FFFFFFF" Foreground="#999999" TextChanged="ScriptTextBox_TextChanged" KeyDown="ScriptTextBox_KeyDown" KeyUp="ScriptTextBox_KeyUp" />
-        <Border CornerRadius="7 7 7 7" Grid.Column="1" Background="#26000000">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="65"/>
-                    <RowDefinition Height="1*"/>
-                </Grid.RowDefinitions>
-                <Label Grid.Row="0" FontSize="24" FontWeight="Light" FontFamily="{StaticResource QuickSand}" Content="Scripts" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">                </Label>
-                <ListBox x:Name="ScriptsListBox" Grid.Row="1" Padding="8,0,8,8" FontSize="12"  Margin="0" BorderThickness="0" Background="{x:Null}" BorderBrush="{x:Null}">
-                    <ListBoxItem Content="1.) infinite yeild.lua" >
-                        <ListBoxItem.Background>
-                            <SolidColorBrush Color="{DynamicResource MagmaOrange}"/>
-                        </ListBoxItem.Background>
-                    </ListBoxItem>
-                </ListBox>
+      d:DesignHeight="318" d:DesignWidth="570"
+      Title="Executor" Initialized="ExecutorPage_Initialized" Background="{DynamicResource BackgroundContrastBrush}">
+    <Grid x:Name="ExecutorGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" Padding="0" VerticalScrollBarVisibility="Hidden">
+            <Grid Height="45">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="120"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" BorderThickness="0" Margin="10 10 10 0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="0" Background="{DynamicResource BackgroundSuperContrastBrush}">
+                    <Grid Width="90">
+                        <m:PackIcon Foreground="{DynamicResource TextBrush}" Kind="Baguette" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <Label Foreground="{DynamicResource TextBrush}" HorizontalAlignment="Right" VerticalAlignment="Center">Bread</Label>
+                    </Grid>
+                </Button>
+                <Button Grid.Column="1" BorderThickness="0" Margin="10 10 10 0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="0" Background="Transparent">
+                    <Grid Width="90">
+                        <m:PackIcon Foreground="{DynamicResource TextSuperLightBrush}" Kind="FoodApple" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <Label Foreground="{DynamicResource TextSuperLightBrush}" HorizontalAlignment="Right" VerticalAlignment="Center">Apple</Label>
+                    </Grid>
+                </Button>
+                <Button Grid.Column="2" BorderThickness="0" Margin="10 10 10 0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="0" Background="Transparent">
+                    <Grid Width="90">
+                        <m:PackIcon Foreground="{DynamicResource TextSuperLightBrush}" Kind="FoodDrumstick" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <Label Foreground="{DynamicResource TextSuperLightBrush}" HorizontalAlignment="Right" VerticalAlignment="Center">Chicken</Label>
+                    </Grid>
+                </Button>
             </Grid>
+        </ScrollViewer>
+        <Border Grid.Row="1" Margin="10 10 10 10" CornerRadius="4" Background="{DynamicResource BackgroundSuperContrastBrush}">
+            <Avalon:TextEditor FontSize="12" Margin="5" FontFamily="{StaticResource JBMono}" x:Name="ScriptTextBox" ShowLineNumbers="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Background="{x:Null}" LineNumbersForeground="#2FFFFFFF" Foreground="#999999" TextChanged="ScriptTextBox_TextChanged" KeyDown="ScriptTextBox_KeyDown" KeyUp="ScriptTextBox_KeyUp" />
         </Border>
     </Grid>
 </Page>

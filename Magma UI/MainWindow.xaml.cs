@@ -65,6 +65,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -76,7 +77,8 @@ namespace Magma
     /// </summary>
     public partial class MainWindow : Window
     {
-        
+
+        public static Application BaseApp = Application.Current; 
 
         public MainWindow()
         {
@@ -146,12 +148,35 @@ namespace Magma
 
         private void MinimizeButton_Click(object sender, RoutedEventArgs e)
         {
-            this.WindowState = WindowState.Minimized;
+            //this.WindowState = WindowState.Minimized; // Disabled for testing
+
+            EzAnimate.FadeOut(MainFrame, 280, (a, aa) =>
+            {
+                EzAnimate.ResizeX(FluidContainer, 650, 400, (b, bb) =>
+                {
+                    MainFrame.Navigate(Globals.ExecutorPage);
+                    EzAnimate.FadeIn(MainFrame);
+                });
+            });
+
+
         }
 
         private void KeepOnTopButton_Click(object sender, RoutedEventArgs e)
         {
+            if (this.Topmost)
+            {
+                this.Topmost = false;
 
+                KeepOnTopButton.Foreground = new SolidColorBrush((Color)BaseApp.Resources["TextSuperLight"]);
+                KeepOnTopButton.ToolTip = new ToolTip { Content = "Pin Magma to always be visible" };
+            } else 
+            {
+                this.Topmost = true;
+
+                KeepOnTopButton.Foreground = new SolidColorBrush((Color)BaseApp.Resources["TextLight"]);
+                KeepOnTopButton.ToolTip = new ToolTip { Content = "UnPin Magma from always being visible" };
+            }
         }
 
         private void LuaTabButton_Click(object sender, RoutedEventArgs e)
@@ -163,5 +188,6 @@ namespace Magma
         {
             //MainContainer.Navigate(Globals.InjectorPage);
         }
+
     }
 }
