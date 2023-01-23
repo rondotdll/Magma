@@ -1,0 +1,72 @@
+﻿<Page x:Class="Magma.Executor"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Magma"
+      xmlns:Avalon="http://icsharpcode.net/sharpdevelop/avalonedit"
+      xmlns:m="http://materialdesigninxaml.net/winfx/xaml/themes"  
+      mc:Ignorable="d" 
+      d:DesignHeight="318" d:DesignWidth="650"
+      Title="Executor" Initialized="ExecutorPage_Initialized" Background="Transparent" Loaded="Page_Loaded">
+    <Grid x:Name="ExecutorGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="TabsContainer" Height="45">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="TabAButton" Grid.Column="0" BorderThickness="0" Margin="10 10 10 0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="0" Background="{DynamicResource BackgroundSuperContrastBrush}">
+                <Grid Width="80" HorizontalAlignment="Center">
+                    <m:PackIcon Foreground="{DynamicResource TextBrush}" Kind="Cheese" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <Label FontFamily="{StaticResource QuickSand}" Foreground="{DynamicResource TextBrush}" HorizontalAlignment="Center" Margin="20 0 0 0" VerticalAlignment="Center">Tab A</Label>
+                </Grid>
+            </Button>
+            <Button x:Name="TabBButton" Grid.Column="1" BorderThickness="0" Margin="10 10 10 0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="0" Background="Transparent">
+                <Grid Width="80" HorizontalAlignment="Center">
+                    <m:PackIcon Foreground="{DynamicResource TextSuperLightBrush}" Kind="Cookie" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <Label FontFamily="{StaticResource QuickSand}" Foreground="{DynamicResource TextSuperLightBrush}" HorizontalAlignment="Center" Margin="20 0 0 0" VerticalAlignment="Center">Tab B</Label>
+                </Grid>
+            </Button>
+            <Button x:Name="TabCButton" Grid.Column="2" BorderThickness="0" Margin="10 10 10 0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="0" Background="Transparent">
+                <Grid Width="80" HorizontalAlignment="Center">
+                    <m:PackIcon Foreground="{DynamicResource TextSuperLightBrush}" Kind="FruitWatermelon" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <Label FontFamily="{StaticResource QuickSand}" Foreground="{DynamicResource TextSuperLightBrush}" HorizontalAlignment="Center" Margin="20 0 0 0" VerticalAlignment="Center">Tab C</Label>
+                </Grid>
+            </Button>
+            <Button x:Name="TabDButton" Grid.Column="3" BorderThickness="0" Margin="10 10 10 0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="0" Background="Transparent">
+                <Grid Width="80" HorizontalAlignment="Center">
+                    <m:PackIcon Foreground="{DynamicResource TextSuperLightBrush}" Kind="FriedPotatoes" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <Label FontFamily="{StaticResource QuickSand}" Foreground="{DynamicResource TextSuperLightBrush}" HorizontalAlignment="Center" Margin="20 0 0 0" VerticalAlignment="Center">Tab D</Label>
+                </Grid>
+            </Button>
+            <Button x:Name="TabEButton" Grid.Column="4" BorderThickness="0" Margin="10 10 10 0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="0" Background="Transparent">
+                <Grid Width="80" HorizontalAlignment="Center">
+                    <m:PackIcon Foreground="{DynamicResource TextSuperLightBrush}" Kind="Rice" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <Label FontFamily="{StaticResource QuickSand}" Foreground="{DynamicResource TextSuperLightBrush}" HorizontalAlignment="Center" Margin="20 0 0 0" VerticalAlignment="Center">Tab E</Label>
+                </Grid>
+            </Button>
+            <Button x:Name="TabFButton" Grid.Column="5" BorderThickness="0" Margin="10 10 10 0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="0" Background="Transparent">
+                <Grid Width="80" HorizontalAlignment="Center">
+                    <m:PackIcon Foreground="{DynamicResource TextSuperLightBrush}" Kind="IcePop" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <Label FontFamily="{StaticResource QuickSand}" Foreground="{DynamicResource TextSuperLightBrush}" HorizontalAlignment="Center" Margin="20 0 0 0" VerticalAlignment="Center">Tab F</Label>
+                </Grid>
+            </Button>
+        </Grid>
+        <Border Grid.Row="1" Margin="10 10 10 10" CornerRadius="4" Background="{DynamicResource BackgroundSuperContrastBrush}">
+            <Grid x:Name="AvalonContainer">
+                <Avalon:TextEditor x:Name="ScriptTextBox" FontSize="12" Margin="5" FontFamily="{StaticResource JBMono}" 
+                               ShowLineNumbers="True" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible"
+                               Background="{x:Null}" LineNumbersForeground="{StaticResource TextSuperDuperLightBrush}" Foreground="#999999"/>
+            </Grid>
+
+        </Border>
+    </Grid>
+</Page>

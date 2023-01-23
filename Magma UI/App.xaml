@@ -1,16 +1,15 @@
 ﻿<Application x:Class="Magma.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:m="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:Magma"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <ResourceDictionary>
+        <ResourceDictionary xmlns:base="clr-namespace:System;assembly=mscorlib">
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignRaisedDarkButton}"></Style>
-            
+
             <!-- Font Family Definitions -->
             <FontFamily x:Key="InkPen">pack://application:,,,/Fonts/#Nothing You Could Do</FontFamily>
             <FontFamily x:Key="JBMono" >pack://application:,,,/Fonts/#JetBrains Mono</FontFamily>
@@ -21,15 +20,22 @@
             <Color x:Key="GradientLight">#FFE69138</Color>
             <Color x:Key="AccentColor">#FFED6526</Color>
 
+            <Color x:Key="Success">#FF44CF6C</Color>
+            <Color x:Key="WarningMild">#FFA1D369</Color>
+            <Color x:Key="Warning">#FFFED766</Color>
+            <Color x:Key="WarningStrong">#ff8865</Color>
+            <Color x:Key="Danger">#FFFF3864</Color>
+
             <Color x:Key="WindowTint">#5921252B</Color>
             <Color x:Key="Text">#FFFFFFFF</Color>
             <Color x:Key="TextLight">#B8FFFFFF</Color>
             <Color x:Key="TextSuperLight">#59FFFFFF</Color>
+            <Color x:Key="TextSuperDuperLight">#33FFFFFF</Color>
 
             <Color x:Key="BackgroundBase">#FF282C34</Color>
             <Color x:Key="BackgroundContrast">#FF21252B</Color>
             <Color x:Key="BackgroundSuperContrast">#FF1C1F25</Color>
-            
+
             <!-- Dynamic Brush Definitions -->
             <LinearGradientBrush x:Key="GradientNormalDefinition" EndPoint="1,1" StartPoint="0,0">
                 <GradientStop Color="{DynamicResource GradientDark}"/>
@@ -41,17 +47,263 @@
             </LinearGradientBrush>
             <SolidColorBrush x:Key="AccentColorBrush" Color="{DynamicResource AccentColor}"/>
 
+            <SolidColorBrush x:Key="SuccessBrush" Color="{DynamicResource Success}"/>
+            <SolidColorBrush x:Key="WarningMildBrush" Color="{DynamicResource WarningMild}"/>
+            <SolidColorBrush x:Key="WarningBrush" Color="{DynamicResource Warning}"/>
+            <SolidColorBrush x:Key="WarningStrongBrush" Color="{DynamicResource WarningStrong}"/>
+            <SolidColorBrush x:Key="DangerBrush" Color="{DynamicResource Danger}"/>
+            
             <SolidColorBrush x:Key="WindowTintBrush" Color="{DynamicResource WindowTint}"/>
             <SolidColorBrush x:Key="TextBrush" Color="{DynamicResource Text}"/>
             <SolidColorBrush x:Key="TextLightBrush" Color="{DynamicResource TextLight}"/>
             <SolidColorBrush x:Key="TextSuperLightBrush" Color="{DynamicResource TextSuperLight}"/>
+            <SolidColorBrush x:Key="TextSuperDuperLightBrush" Color="{DynamicResource TextSuperDuperLight}"/>
 
             <SolidColorBrush x:Key="BackgroundBaseBrush" Color="{DynamicResource BackgroundBase}"/>
             <SolidColorBrush x:Key="BackgroundContrastBrush" Color="{DynamicResource BackgroundContrast}"/>
             <SolidColorBrush x:Key="BackgroundSuperContrastBrush" Color="{DynamicResource BackgroundSuperContrast}"/>
 
             <!-- Static Color Definitions -->
-            <Color x:Key="BaseRed">#FFED6526</Color>
+            <Color x:Key="BaseRed">#EF476E</Color>
+            <Color x:Key="BaseOrange">#f78c6c</Color>
+            <Color x:Key="BaseYellow">#ffcb6b</Color>
+            <Color x:Key="BaseGreen">#c3e88d</Color>
+            <Color x:Key="BaseCyan">#89ddff</Color>
+            <Color x:Key="BaseBlue">#82aaff</Color>
+            <Color x:Key="BasePurple">#c792ea</Color>
+
+            <!-- Static Color Brush Definitions -->
+            <SolidColorBrush x:Key="BaseRedBrush" Color="{DynamicResource BaseRed}"/>
+            <SolidColorBrush x:Key="BaseOrangeBrush" Color="{DynamicResource BaseOrange}"/>
+            <SolidColorBrush x:Key="BaseYellowBrush" Color="{DynamicResource BaseYellow}"/>
+            <SolidColorBrush x:Key="BaseGreenBrush" Color="{DynamicResource BaseGreen}"/>
+            <SolidColorBrush x:Key="BaseCyanBrush" Color="{DynamicResource BaseCyan}"/>
+            <SolidColorBrush x:Key="BaseBlueBrush" Color="{DynamicResource BaseBlue}"/>
+            <SolidColorBrush x:Key="BasePurpleBrush" Color="{DynamicResource BasePurple}"/>
+
+            
+            <!-- ScrollBar Variables -->
+            <SolidColorBrush x:Key="ScrollBarBaseBackgroundBrush" Color="Transparent"/>
+            <SolidColorBrush x:Key="ScrollBarBaseForegroundBrush" Color="Transparent"/>
+            <SolidColorBrush x:Key="ScrollBarBaseDisabledBackgroundBrush" Color="Transparent"/>
+
+            <SolidColorBrush x:Key="ScrollBarTrackBackgroundBrush" Color="Transparent"/>
+            <SolidColorBrush x:Key="ScrollBarThumbBackgroundBrush" Color="{DynamicResource TextSuperLight}"/>
+            <SolidColorBrush x:Key="ScrollBarThumbHoverBackgroundBrush" Color="{DynamicResource TextLight}"/>
+            <SolidColorBrush x:Key="ScrollBarThumbClickBackgroundBrush" Color="{DynamicResource TextSuperDuperLight}"/>
+            
+            <SolidColorBrush x:Key="ScrollBarButtonBackgroundBrush" Color="Transparent"/>
+            <SolidColorBrush x:Key="ScrollBarButtonForegroundBrush" Color="{DynamicResource TextSuperLight}"/>
+            
+            <SolidColorBrush x:Key="ScrollBarButtonHoverBackgroundBrush" Color="Transparent"/>
+            <SolidColorBrush x:Key="ScrollBarButtonHoverForegroundBrush" Color="{DynamicResource TextLight}"/>
+            
+            <SolidColorBrush x:Key="ScrollBarButtonClickBackgroundBrush" Color="Transparent"/>
+            <SolidColorBrush x:Key="ScrollBarButtonClickForegroundBrush" Color="{DynamicResource TextSuperLight}"/>
+
+            <base:Double x:Key="ScrollBarThickness">8</base:Double>
+            <base:Double x:Key="ScrollBarButtonThickness">10</base:Double>
+            <CornerRadius x:Key="ScrollBarThumbBorderRadius">4</CornerRadius>
+
+            <Thickness x:Key="VerticalScrollBarMargin">2 0 0 0</Thickness>
+            <Thickness x:Key="HorizontalScrollBarMargin">0 2 0 0</Thickness>
+
+
+            <!-- ScrollViewer (implicit style) -->
+            <Style x:Key="{x:Type ScrollViewer}" TargetType="{x:Type ScrollViewer}">
+                <Setter Property="Template" >
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ScrollViewer}">
+                            <Grid x:Name="Grid" Background="{TemplateBinding Background}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Rectangle x:Name="Corner" Grid.Column="1" Fill="{DynamicResource ScrollBarBaseBackgroundBrush}" Grid.Row="1"/>
+                                <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" CanContentScroll="{TemplateBinding CanContentScroll}" CanHorizontallyScroll="False" CanVerticallyScroll="False" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Grid.Column="0" Margin="{TemplateBinding Padding}" Grid.Row="0"/>
+                                <ScrollBar x:Name="PART_VerticalScrollBar" AutomationProperties.AutomationId="VerticalScrollBar" Cursor="Arrow" Grid.Column="1" Maximum="{TemplateBinding ScrollableHeight}" Minimum="0" Grid.Row="0" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" ViewportSize="{TemplateBinding ViewportHeight}" Style="{DynamicResource ScrollBarStyle1}"/>
+                                <ScrollBar x:Name="PART_HorizontalScrollBar" AutomationProperties.AutomationId="HorizontalScrollBar" Cursor="Arrow" Grid.Column="0" Maximum="{TemplateBinding ScrollableWidth}" Minimum="0" Orientation="Horizontal" Grid.Row="1" Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}" Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" ViewportSize="{TemplateBinding ViewportWidth}" Style="{DynamicResource ScrollBarStyle1}"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsEnabled" Value="false">
+                        <Setter Property="Foreground" Value="{DynamicResource TextLightBrush}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <!-- Buttons (with arrows) -->
+            <Style x:Key="ScrollBarButton" TargetType="{x:Type RepeatButton}">
+                <Setter Property="OverridesDefaultStyle" Value="true"/>
+                <Setter Property="Focusable" Value="false"/>
+                <Setter Property="IsTabStop" Value="false"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate  TargetType="{x:Type RepeatButton}">
+                            <Grid x:Name="Root" Margin="0">
+                                <Border x:Name="BackgroundBorder" Background="{DynamicResource ScrollBarButtonBackgroundBrush}" BorderBrush="Transparent" BorderThickness="0"/>
+                                <Path x:Name="Arrow" Stretch="Uniform" Data="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}" Fill="{DynamicResource ScrollBarButtonForegroundBrush}" HorizontalAlignment="Center"  VerticalAlignment="Center" SnapsToDevicePixels="True"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="BackgroundBorder" Property="Background" Value="{DynamicResource ScrollBarButtonHoverBackgroundBrush}"/>
+                                    <Setter TargetName="BackgroundBorder" Property="BorderBrush" Value="Transparent"/>
+                                    <Setter TargetName="Arrow" Property="Fill" Value="{DynamicResource ScrollBarButtonHoverForegroundBrush}"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="BackgroundBorder" Property="Background" Value="{DynamicResource ScrollBarButtonClickBackgroundBrush}"/>
+                                    <Setter TargetName="BackgroundBorder" Property="BorderBrush" Value="Transparent"/>
+                                    <Setter TargetName="Arrow" Property="Fill" Value="{DynamicResource ScrollBarButtonClickForegroundBrush}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- PageButtons -->
+            <Style x:Key="VerticalScrollBarPageButton" TargetType="{x:Type RepeatButton}">
+                <Setter Property="OverridesDefaultStyle" Value="true"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Focusable" Value="false"/>
+                <Setter Property="IsTabStop" Value="false"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type RepeatButton}">
+                            <Rectangle Fill="{TemplateBinding Background}" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="HorizontalScrollBarPageButton" TargetType="{x:Type RepeatButton}">
+                <Setter Property="OverridesDefaultStyle" Value="true"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Focusable" Value="false"/>
+                <Setter Property="IsTabStop" Value="false"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type RepeatButton}">
+                            <Rectangle Fill="{TemplateBinding Background}" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- Thumb -->
+            <Style x:Key="ScrollBarThumb" TargetType="{x:Type Thumb}">
+                <Setter Property="SnapsToDevicePixels" Value="True"/>
+                <Setter Property="IsTabStop" Value="false"/>
+                <Setter Property="Focusable" Value="false"/>
+                <Setter Property="Background" Value="{StaticResource ScrollBarThumbBackgroundBrush}"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Thumb}">
+                            <Grid Background="Transparent">
+                                <Border Background="{TemplateBinding Background}" Margin="0" CornerRadius="{DynamicResource ScrollBarThumbBorderRadius}"
+                                BorderBrush="Transparent" BorderThickness="{DynamicResource ScrollBarThumbMargin}" />
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="{DynamicResource ScrollBarThumbHoverBackgroundBrush}"/>
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                </Trigger>
+                                <Trigger Property="IsDragging" Value="True">
+                                    <Setter Property="Background" Value="{DynamicResource ScrollBarThumbClickBackgroundBrush}"/>
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- ScrollBar -->
+            <Style x:Key="ScrollBarStyle1" TargetType="{x:Type ScrollBar}">
+                <Setter Property="Background" Value="{DynamicResource ScrollBarTrackBackgroundBrush}"/>
+                <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false"/>
+                <Setter Property="Stylus.IsFlicksEnabled" Value="false"/>
+                <Setter Property="Foreground" Value="{DynamicResource ScrollBarBaseForegroundBrush}"/>
+                <Setter Property="Width" Value="{DynamicResource ScrollBarThickness}"/>
+                <Setter Property="MinWidth" Value="{DynamicResource ScrollBarThickness}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ScrollBar}">
+                            <Grid x:Name="Bg" Margin="{DynamicResource VerticalScrollBarMargin}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition MaxHeight="{DynamicResource ScrollBarButtonThickness}"/>
+                                    <RowDefinition Height="0.00001*"/>
+                                    <RowDefinition MaxHeight="{DynamicResource ScrollBarButtonThickness}"/>
+                                </Grid.RowDefinitions>
+                                <RepeatButton Command="{x:Static ScrollBar.LineUpCommand}" IsEnabled="{TemplateBinding IsMouseOver}" Style="{StaticResource ScrollBarButton}" Content="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z" />
+                                <Track x:Name="PART_Track" IsDirectionReversed="true" IsEnabled="{TemplateBinding IsMouseOver}" Grid.Row="1">
+                                    <Track.DecreaseRepeatButton>
+                                        <RepeatButton Command="{x:Static ScrollBar.PageUpCommand}" Style="{StaticResource VerticalScrollBarPageButton}"/>
+                                    </Track.DecreaseRepeatButton>
+                                    <Track.IncreaseRepeatButton>
+                                        <RepeatButton Command="{x:Static ScrollBar.PageDownCommand}" Style="{StaticResource VerticalScrollBarPageButton}"/>
+                                    </Track.IncreaseRepeatButton>
+                                    <Track.Thumb>
+                                        <Thumb Style="{StaticResource ScrollBarThumb}" />
+                                    </Track.Thumb>
+                                </Track>
+                                <RepeatButton Command="{x:Static ScrollBar.LineDownCommand}" IsEnabled="{TemplateBinding IsMouseOver}" Grid.Row="2" Style="{StaticResource ScrollBarButton}" Content="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Background" TargetName="Bg" Value="{DynamicResource ScrollBarBaseDisabledBackgroundBrush}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="Orientation" Value="Horizontal">
+                        <Setter Property="Width" Value="Auto"/>
+                        <Setter Property="MinWidth" Value="0"/>
+                        <Setter Property="Height" Value="{DynamicResource ScrollBarThickness}"/>
+                        <Setter Property="MinHeight" Value="{DynamicResource ScrollBarThickness}"/>
+                        <Setter Property="Background" Value="{DynamicResource ScrollBarTrackBackgroundBrush}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ScrollBar}">
+                                    <Grid x:Name="Bg" Margin="{DynamicResource HorizontalScrollBarMargin}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition MaxWidth="{DynamicResource ScrollBarButtonThickness}"/>
+                                            <ColumnDefinition Width="0.00001*"/>
+                                            <ColumnDefinition MaxWidth="{DynamicResource ScrollBarButtonThickness}"/>
+                                        </Grid.ColumnDefinitions>
+                                        <RepeatButton Command="{x:Static ScrollBar.LineLeftCommand}" IsEnabled="{TemplateBinding IsMouseOver}" Style="{StaticResource ScrollBarButton}" Content="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"/>
+                                        <Track x:Name="PART_Track" Grid.Column="1" IsEnabled="{TemplateBinding IsMouseOver}">
+                                            <Track.DecreaseRepeatButton>
+                                                <RepeatButton Command="{x:Static ScrollBar.PageLeftCommand}" Style="{StaticResource HorizontalScrollBarPageButton}"/>
+                                            </Track.DecreaseRepeatButton>
+                                            <Track.IncreaseRepeatButton>
+                                                <RepeatButton Command="{x:Static ScrollBar.PageRightCommand}" Style="{StaticResource HorizontalScrollBarPageButton}"/>
+                                            </Track.IncreaseRepeatButton>
+                                            <Track.Thumb>
+                                                <Thumb Style="{StaticResource ScrollBarThumb}" />
+                                            </Track.Thumb>
+                                        </Track>
+                                        <RepeatButton Grid.Column="2" Command="{x:Static ScrollBar.LineRightCommand}" IsEnabled="{TemplateBinding IsMouseOver}" Style="{StaticResource ScrollBarButton}"  Content="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsEnabled" Value="false">
+                                            <Setter Property="Background" TargetName="Bg" Value="{DynamicResource ScrollBarBaseDisabledBackgroundBrush}"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

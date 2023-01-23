@@ -12,7 +12,30 @@ namespace Magma
 {
     public class Extra
     {
+        public static bool IsEqualToChars(char input, char[] list)
+        {
+            bool output = false;
 
+            foreach (char c in list)
+            {
+                output = (input == c);
+                if (output)
+                    break;
+            }
+
+            return output;
+        }
+
+        public static bool EndsWithAny(string input, List<string> suffixes)
+        {
+            foreach (string suffix in suffixes)
+            {
+                if (input.EndsWith(suffix))
+                    return true;
+            }
+
+            return false;
+        }
         public static int CloneInt(int value)
         {
             return value;

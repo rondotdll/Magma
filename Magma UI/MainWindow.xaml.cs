@@ -118,6 +118,7 @@ namespace Magma
 
         private void Window_Initialized(object sender, EventArgs e)
         {
+            this.BorderThickness = new Thickness(1);
             Internal.AcrylicTint = Internal.RGBToWinHex(20, 21, 23);
             if (!Internal.DropShadow(this))
             {
@@ -157,6 +158,12 @@ namespace Magma
                     MainFrame.Navigate(Globals.ExecutorPage);
                     EzAnimate.FadeIn(MainFrame);
                 });
+            });
+
+            EzAnimate.FadeOut(StatusFrame, 280, (a, aa) =>
+            {
+                StatusFrame.Navigate(Globals.HomeStatusBar);
+                EzAnimate.FadeIn(StatusFrame);
             });
 
 

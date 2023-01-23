@@ -1,59 +1,26 @@
 ﻿using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
-using ICSharpCode.AvalonEdit.Highlighting.Xshd;
-using ICSharpCode.AvalonEdit.Highlighting;
 using System;
-using System.Xml;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Runtime.CompilerServices;
-using System.IO;
-using System.Windows;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Controls;
-using ICSharpCode.AvalonEdit;
-using System.Diagnostics;
 
-namespace Magma
+namespace Magma.Avalon
 {
-
-    public static class Avalon
-    {
-        public static IHighlightingDefinition LoadEditorTheme(string themeName)
-        {
-            var type = typeof(Avalon);
-            var fullName = type.Namespace + ".EditorThemes." + themeName + ".xshd";
-            using (var stream = type.Assembly.GetManifestResourceStream(fullName))
-            using (var reader = new XmlTextReader(stream))
-                return HighlightingLoader.Load(reader, HighlightingManager.Instance);
-        }
-
-        public static XmlReader LoadSchemaSet(string schemaName)
-        {
-            var type = typeof(Avalon);
-            var fullname = type.Namespace + ".EditorSchemas." + schemaName + ".xml";
-            using (var stream = type.Assembly.GetManifestResourceStream(fullname))
-            {
-                return XmlReader.Create(stream);
-            }
-        }
-    }
-
     public class AutoCompleteObject : ICompletionData
     {
         public AutoCompleteObject(string text, string description, string type = "string", string usage = "")
         {
             BitmapImage BMImage = new BitmapImage(new Uri($"pack://application:,,,/Images/{type.Replace("special", "object")}.png"));
-            
+
             this.Text = text + usage;
             this.Image = BMImage;
             this.Type = type;
             this.Usage = usage;
-            
+
             if (this.Type != "keyword")
             {
                 this.Description = $"[{this.Type}]\n{description}";
@@ -80,7 +47,8 @@ namespace Magma
         // Use this property if you want to show a fancy UIElement in the list.
         public object Content
         {
-            get {
+            get
+            {
 
                 return this.Text;
             }
@@ -107,11 +75,57 @@ namespace Magma
             else if (this.Type == "string")
             {
                 textArea.Document.Insert(textArea.Caret.Offset, this.Text.Split('(')[0].Trim(' ') + " ");
-            } 
+            }
             else
             {
                 textArea.Document.Insert(textArea.Caret.Offset, this.Text.Split('(')[0].Trim(' '));
             }
+        }
+    }
+    public class LuaCompletionData : ICompletionData
+    {
+        private readonly bool _isAttribute;
+
+        public LuaCompletionData(string text, string description, bool isAttribute)
+        {
+            _isAttribute = isAttribute;
+            this.Text = text;
+            this.Description = description;
+        }
+
+        public System.Windows.Media.ImageSource Image
+        {
+            get { return null; }
+        }
+
+        public string Text { get; private set; }
+
+        public object Content
+        {
+            get { return this.Text + " (" + Description + ")"; }
+        }
+
+        public object Description { get; private set; }
+
+        public double Priority { get; }
+
+        public void Complete(TextArea textArea, ISegment completionSegment,
+            EventArgs insertionRequestEventArgs)
+        {
+            if (_isAttribute)
+            {
+                textArea.Document.Replace(completionSegment, this.Text + "=\"\"");
+                textArea.Caret.Offset = textArea.Caret.Offset - 1;
+            }
+            else
+            {
+                string element = this.Text + "></" + this.Text + ">";
+                textArea.Document.Replace(completionSegment, element);
+                textArea.Caret.Offset = textArea.Caret.Offset - (1 + this.Text.Length + 2);
+
+            }
+
+
         }
     }
 }

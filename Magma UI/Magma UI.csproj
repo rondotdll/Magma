@@ -38,6 +38,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug UI|AnyCPU'">
     <OutputPath>bin\Debug UI\</OutputPath>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ICSharpCode.AvalonEdit, Version=6.2.0.78, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
@@ -60,6 +62,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Common, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Drawing.Common.7.0.0\lib\net462\System.Drawing.Common.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
@@ -81,7 +86,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Executor.xaml">
+    <Compile Include="Avalon\Completion.cs" />
+    <Compile Include="Avalon\Events.cs" />
+    <Compile Include="StatusBars\HomeStatus.xaml.cs">
+      <DependentUpon>HomeStatus.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TabManager.cs" />
+    <Page Include="StatusBars\HomeStatus.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Executor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -94,8 +109,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Avalon.cs" />
-    <Compile Include="Executor.xaml.cs">
+    <Compile Include="Avalon\Helpers.cs" />
+    <Compile Include="Views\Executor.xaml.cs">
       <DependentUpon>Executor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extra.cs" />
@@ -142,11 +157,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EditorThemes\LuaPalenight.xshd" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="EditorSchemas\Schema.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\function.png" />

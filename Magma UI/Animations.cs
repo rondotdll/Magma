@@ -40,13 +40,13 @@ namespace Magma
         }
 
         // Used for fading controls into view
-        public static void FadeIn(in FrameworkElement target, double duration = 400, EventHandler onFinish = null)
+        public static void FadeIn(in FrameworkElement target, double duration = 280, EventHandler onFinish = null)
         {
             var FadeInAnimation = new DoubleAnimation()
             {
                 From = target.Opacity,
                 To = 1,
-                Duration = new Duration(TimeSpan.FromMilliseconds(duration * target.Opacity)),
+                Duration = new Duration(TimeSpan.FromMilliseconds(duration * (1 - target.Opacity))),
                 EasingFunction = new QuadraticEase()
                 {
                     EasingMode = EasingMode.EaseInOut
@@ -57,7 +57,7 @@ namespace Magma
         }
 
         // Used for fading controls out of view
-        public static void FadeOut(in FrameworkElement target, double duration = 400, EventHandler onFinish = null)
+        public static void FadeOut(in FrameworkElement target, double duration = 280, EventHandler onFinish = null)
         {
             var FadeInAnimation = new DoubleAnimation()
             {
