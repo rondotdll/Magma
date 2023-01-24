@@ -88,10 +88,17 @@
     </ApplicationDefinition>
     <Compile Include="Avalon\Completion.cs" />
     <Compile Include="Avalon\Events.cs" />
+    <Compile Include="StatusBars\ExecutorStatus.xaml.cs">
+      <DependentUpon>ExecutorStatus.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StatusBars\HomeStatus.xaml.cs">
       <DependentUpon>HomeStatus.xaml</DependentUpon>
     </Compile>
     <Compile Include="TabManager.cs" />
+    <Page Include="StatusBars\ExecutorStatus.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="StatusBars\HomeStatus.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

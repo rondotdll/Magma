@@ -127,6 +127,8 @@ namespace Magma
                 Internal.DropShadow(window); 
             }
 
+            StatusFrame.Navigate(Globals.HomeStatusBar);
+
             
         }
 
@@ -162,7 +164,7 @@ namespace Magma
 
             EzAnimate.FadeOut(StatusFrame, 280, (a, aa) =>
             {
-                StatusFrame.Navigate(Globals.HomeStatusBar);
+                StatusFrame.Navigate(Globals.ExecutorStatusBar);
                 EzAnimate.FadeIn(StatusFrame);
             });
 

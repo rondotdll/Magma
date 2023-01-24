@@ -48,14 +48,8 @@
                         </Button>
                     </Grid>
                 </Border>
-                <Frame x:Name="StatusFrame" Grid.Column="1" Grid.Row="1">
+                <Frame x:Name="StatusFrame" NavigationUIVisibility="Hidden" Grid.Column="1" Grid.Row="1"/>
 
-                </Frame>
-                <Label x:Name="StatusLabel"  Content="What are you looking to do?" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="28" FontWeight="Regular" FontFamily="{StaticResource QuickSand}">
-                    <Label.Foreground>
-                        <SolidColorBrush Color="{DynamicResource TextLight}"/>
-                    </Label.Foreground>
-                </Label>
             </Grid>
             <Grid x:Name="GlassBar" Width="150" HorizontalAlignment="Left" VerticalAlignment="Stretch">
                 <Label x:Name="CurrentViewLabel" Content="Home" FontFamily="{StaticResource InkPen}" FontSize="28" Margin="26, 20, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Left" Padding="0" Foreground="{DynamicResource GradientInverseDefinition}"/>
@@ -75,7 +69,7 @@
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
                     <Image Source="Images/Watermark.png" Grid.Column="0" Opacity="0.1"/>
-                    <Frame Grid.ColumnSpan="2" x:Name="MainFrame" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></Frame>
+                    <Frame x:Name="MainFrame" Grid.ColumnSpan="2" NavigationUIVisibility="Hidden" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></Frame>
                 </Grid>
             </Border>
 
