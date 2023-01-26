@@ -55,14 +55,13 @@
                 <Label x:Name="CurrentViewLabel" Content="Home" FontFamily="{StaticResource InkPen}" FontSize="28" Margin="26, 20, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Left" Padding="0" Foreground="{DynamicResource GradientInverseDefinition}"/>
             </Grid>
 
+            <Frame x:Name="SideBarFrame" Width="150" NavigationUIVisibility="Hidden" HorizontalAlignment="Left" Margin="0,80,0,0">
+            </Frame>
 
-            <Border x:Name="FluidContainer" Width="780" VerticalAlignment="Stretch" HorizontalAlignment="Right" CornerRadius="7" Margin="10, 70, 10, 10">
+            <Border x:Name="FluidContainer" Background="{DynamicResource BackgroundContrastBrush}" Width="780" VerticalAlignment="Stretch" HorizontalAlignment="Right" CornerRadius="7" Margin="10, 70, 10, 10">
                 <Border.Effect>
                     <DropShadowEffect Direction="-90" BlurRadius="8" Opacity="0.25" ShadowDepth="4"/>
                 </Border.Effect>
-                <Border.Background>
-                    <SolidColorBrush Color="{DynamicResource BackgroundContrast}"/>
-                </Border.Background>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="80"/>

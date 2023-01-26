@@ -7,6 +7,7 @@
     <Application.Resources>
         <ResourceDictionary xmlns:base="clr-namespace:System;assembly=mscorlib">
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
@@ -14,6 +15,7 @@
             <FontFamily x:Key="InkPen">pack://application:,,,/Fonts/#Nothing You Could Do</FontFamily>
             <FontFamily x:Key="JBMono" >pack://application:,,,/Fonts/#JetBrains Mono</FontFamily>
             <FontFamily x:Key="QuickSand" >pack://application:,,,/Fonts/#Quicksand</FontFamily>
+            <FontFamily x:Key="Poppins" >pack://application:,,,/Fonts/#Poppins</FontFamily>
 
             <!-- Dynamic Color Definitions -->
             <Color x:Key="GradientDark">#FFF53A16</Color>
@@ -88,18 +90,18 @@
             <SolidColorBrush x:Key="ScrollBarBaseDisabledBackgroundBrush" Color="Transparent"/>
 
             <SolidColorBrush x:Key="ScrollBarTrackBackgroundBrush" Color="Transparent"/>
-            <SolidColorBrush x:Key="ScrollBarThumbBackgroundBrush" Color="{DynamicResource TextSuperLight}"/>
-            <SolidColorBrush x:Key="ScrollBarThumbHoverBackgroundBrush" Color="{DynamicResource TextLight}"/>
-            <SolidColorBrush x:Key="ScrollBarThumbClickBackgroundBrush" Color="{DynamicResource TextSuperDuperLight}"/>
+            <SolidColorBrush x:Key="ScrollBarThumbBackgroundBrush" Color="{DynamicResource TextSuperDuperLight}"/>
+            <SolidColorBrush x:Key="ScrollBarThumbHoverBackgroundBrush" Color="{DynamicResource TextSuperLight}"/>
+            <SolidColorBrush x:Key="ScrollBarThumbClickBackgroundBrush" Color="{DynamicResource TextLight}"/>
             
             <SolidColorBrush x:Key="ScrollBarButtonBackgroundBrush" Color="Transparent"/>
-            <SolidColorBrush x:Key="ScrollBarButtonForegroundBrush" Color="{DynamicResource TextSuperLight}"/>
+            <SolidColorBrush x:Key="ScrollBarButtonForegroundBrush" Color="{DynamicResource TextSuperDuperLight}"/>
             
             <SolidColorBrush x:Key="ScrollBarButtonHoverBackgroundBrush" Color="Transparent"/>
-            <SolidColorBrush x:Key="ScrollBarButtonHoverForegroundBrush" Color="{DynamicResource TextLight}"/>
+            <SolidColorBrush x:Key="ScrollBarButtonHoverForegroundBrush" Color="{DynamicResource TextSuperLight}"/>
             
             <SolidColorBrush x:Key="ScrollBarButtonClickBackgroundBrush" Color="Transparent"/>
-            <SolidColorBrush x:Key="ScrollBarButtonClickForegroundBrush" Color="{DynamicResource TextSuperLight}"/>
+            <SolidColorBrush x:Key="ScrollBarButtonClickForegroundBrush" Color="{DynamicResource TextLight}"/>
 
             <base:Double x:Key="ScrollBarThickness">8</base:Double>
             <base:Double x:Key="ScrollBarButtonThickness">10</base:Double>
@@ -111,6 +113,7 @@
 
             <!-- ScrollViewer (implicit style) -->
             <Style x:Key="{x:Type ScrollViewer}" TargetType="{x:Type ScrollViewer}">
+                <Setter Property="OverridesDefaultStyle" Value="True"/>
                 <Setter Property="Template" >
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type ScrollViewer}">
@@ -123,10 +126,26 @@
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
+                                
                                 <Rectangle x:Name="Corner" Grid.Column="1" Fill="{DynamicResource ScrollBarBaseBackgroundBrush}" Grid.Row="1"/>
-                                <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" CanContentScroll="{TemplateBinding CanContentScroll}" CanHorizontallyScroll="False" CanVerticallyScroll="False" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Grid.Column="0" Margin="{TemplateBinding Padding}" Grid.Row="0"/>
-                                <ScrollBar x:Name="PART_VerticalScrollBar" AutomationProperties.AutomationId="VerticalScrollBar" Cursor="Arrow" Grid.Column="1" Maximum="{TemplateBinding ScrollableHeight}" Minimum="0" Grid.Row="0" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" ViewportSize="{TemplateBinding ViewportHeight}" Style="{DynamicResource ScrollBarStyle1}"/>
-                                <ScrollBar x:Name="PART_HorizontalScrollBar" AutomationProperties.AutomationId="HorizontalScrollBar" Cursor="Arrow" Grid.Column="0" Maximum="{TemplateBinding ScrollableWidth}" Minimum="0" Orientation="Horizontal" Grid.Row="1" Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}" Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" ViewportSize="{TemplateBinding ViewportWidth}" Style="{DynamicResource ScrollBarStyle1}"/>
+
+                                <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" Grid.Column="0" CanContentScroll="{TemplateBinding CanContentScroll}" CanHorizontallyScroll="False" CanVerticallyScroll="False" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Margin="{TemplateBinding Padding}" Grid.Row="0"/>
+                                
+                                <ScrollBar x:Name="PART_VerticalScrollBar" AutomationProperties.AutomationId="VerticalScrollBar" 
+                                           Cursor="Arrow" Grid.Column="1" Grid.Row="0" Minimum="0"
+                                           Maximum="{TemplateBinding ScrollableHeight}" 
+                                           Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" 
+                                           Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" 
+                                           ViewportSize="{TemplateBinding ViewportHeight}" 
+                                           Style="{DynamicResource ScrollBarStyle1}"/>
+                                
+                                <ScrollBar x:Name="PART_HorizontalScrollBar" AutomationProperties.AutomationId="HorizontalScrollBar" 
+                                           Cursor="Arrow" Grid.Column="0" Grid.Row="1" Minimum="0" Orientation="Horizontal" 
+                                           Maximum="{TemplateBinding ScrollableWidth}" 
+                                           Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}" 
+                                           Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" 
+                                           ViewportSize="{TemplateBinding ViewportWidth}" 
+                                           Style="{DynamicResource ScrollBarStyle1}"/>
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>

@@ -88,13 +88,21 @@
     </ApplicationDefinition>
     <Compile Include="Avalon\Completion.cs" />
     <Compile Include="Avalon\Events.cs" />
+    <Compile Include="Managers\ListBoxManager.cs" />
+    <Compile Include="SideBars\ExecutorSideBar.xaml.cs">
+      <DependentUpon>ExecutorSideBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StatusBars\ExecutorStatus.xaml.cs">
       <DependentUpon>ExecutorStatus.xaml</DependentUpon>
     </Compile>
     <Compile Include="StatusBars\HomeStatus.xaml.cs">
       <DependentUpon>HomeStatus.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TabManager.cs" />
+    <Compile Include="Managers\TabManager.cs" />
+    <Page Include="SideBars\ExecutorSideBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="StatusBars\ExecutorStatus.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -153,6 +161,8 @@
     <Resource Include="Fonts\JetBrainsMono-Variable.ttf" />
     <Resource Include="Fonts\Quicksand-Variable.ttf" />
     <Resource Include="Fonts\NothingYouCouldDo-Regular.ttf" />
+    <Resource Include="Fonts\Poppins-Regular.ttf" />
+    <Resource Include="Fonts\Poppins-SemiBold.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

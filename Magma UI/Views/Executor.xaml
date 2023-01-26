@@ -64,7 +64,7 @@
             <Grid x:Name="AvalonContainer">
                 <Avalon:TextEditor x:Name="ScriptTextBox" FontSize="12" Margin="5" FontFamily="{StaticResource JBMono}" 
                                ShowLineNumbers="True" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible"
-                               Background="{x:Null}" LineNumbersForeground="{StaticResource TextSuperDuperLightBrush}" Foreground="#999999"/>
+                               Background="{x:Null}" LineNumbersForeground="{StaticResource TextSuperDuperLightBrush}" Foreground="Black"/>
             </Grid>
 
         </Border>

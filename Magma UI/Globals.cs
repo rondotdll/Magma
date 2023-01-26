@@ -12,6 +12,7 @@ namespace Magma
         public static string SearchString = "";
         public static Executor ExecutorPage = new Executor();
         public static ExecutorStatus ExecutorStatusBar = new ExecutorStatus();
+        public static ExecutorSideBar ExecutorSideBarPage = new ExecutorSideBar();
 
         public static HomeStatus HomeStatusBar = new HomeStatus();
         //public static Injector InjectorPage = new Injector();

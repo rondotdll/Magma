@@ -59,6 +59,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI.WebControls.Expressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -166,6 +167,14 @@ namespace Magma
             {
                 StatusFrame.Navigate(Globals.ExecutorStatusBar);
                 EzAnimate.FadeIn(StatusFrame);
+                
+            });
+
+            EzAnimate.FadeOut(SideBarFrame, 280, (a, aa) =>
+            {
+                SideBarFrame.Navigate(Globals.ExecutorSideBarPage);
+                EzAnimate.FadeIn(SideBarFrame);
+
             });
 
 
