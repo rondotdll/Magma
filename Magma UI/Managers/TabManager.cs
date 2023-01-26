@@ -66,7 +66,7 @@ namespace Magma
                 HorizontalScrollBarVisibility = ScrollBarVisibility.Auto,
                 Background = new SolidColorBrush(Colors.Transparent),
                 LineNumbersForeground = (SolidColorBrush)Application.Current.Resources["TextSuperDuperLightBrush"],
-                Foreground = (SolidColorBrush)Application.Current.Resources["TextLightBrush"],
+                Foreground = (SolidColorBrush)Application.Current.Resources["TextSuperLightBrush"],
                 Visibility = Visibility.Collapsed,
             };
 
@@ -92,8 +92,8 @@ namespace Magma
 
         public Tab Activate()
         {
-            ((PackIcon)((Grid)this.Button.Content).Children[0]).Foreground = (SolidColorBrush)Application.Current.Resources["TextBrush"];
-            ((Label)((Grid)this.Button.Content).Children[1]).Foreground = (SolidColorBrush)Application.Current.Resources["TextBrush"];
+            ((PackIcon)((Grid)this.Button.Content).Children[0]).Foreground = (SolidColorBrush)Application.Current.Resources["TextLightBrush"];
+            ((Label)((Grid)this.Button.Content).Children[1]).Foreground = (SolidColorBrush)Application.Current.Resources["TextLightBrush"];
             this.Button.Background = (SolidColorBrush)Application.Current.Resources["BackgroundSuperContrastBrush"];
 
             this.TextEditor.Visibility = Visibility.Visible;
