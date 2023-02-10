@@ -4,13 +4,24 @@ using System.Windows;
 using MaterialDesignThemes.Wpf;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.IO;
+using System.Linq;
+
+/* This class just abstracts away the logic for my custom listbox styling
+ */
 
 namespace Magma
 {
-    internal class ListBoxManager
+    public class ListBoxManager
     {
+        // The list box we are managing
         public ListBox ListBox;
 
+        // Because of nesting BS, this just selects the TextBlock inside of the selected ListBoxItem
+        public TextBlock SelectedItem;
+
+        // This is a representation of everything that *can* be rendered in the ListBox at a given point
+        public List<ListBoxItem> CachedItems = new List<ListBoxItem>();
 
         private List<SolidColorBrush> ListBoxItemTextBrushes = new List<SolidColorBrush>
         {
@@ -32,35 +43,43 @@ namespace Magma
 
         };
 
+        // idk, makes it slightly easier to get the listbox items
         public ItemCollection Items {
             get {
                 return this.ListBox.Items;
             } 
         }
 
+        // Class initializer
         public ListBoxManager(ref ListBox listBox)
         {
             this.ListBox = listBox;
+            this.Items.Clear();
+        }
+        
+        // This will render only the items that contain the search string
+        public void FilterItems(string search = "")
+        {
 
-            this.ListBox.Items.Clear();
+            this.Items.Clear();
+            
+            foreach (ListBoxItem item in CachedItems)
+            {
+                if (((TextBlock)((Grid)item.Content).Children[1]).Text.Contains(search))
+                    this.Items.Add(item);
+            }
 
-            this.Populate(new List<string>{
-                "$ Dark Dex",
-                "$ RemoteSpy",
-                "1.) InfiniteYield",
-                "2.) DarkHub",
-                "3.) PrisonBreaker",
-                "4.) FE Audio Spam",
-                "5.) ReAnimation",
-                "6.) NetBypass",
-                "Prison Life EarRape",
-            });
         }
 
+        // Sets the items of a listbox using a list of strings
         public void Populate(List<string> data)
         {
+            this.Items.Clear();
+            this.CachedItems.Clear();
+
             foreach (var item in data)
             {
+                // this is just styling garbage, don't be alarmed lol
                 ListBoxItem newItem = new ListBoxItem
                 {
 
@@ -73,6 +92,7 @@ namespace Magma
                         ClipToBounds = true,
                         Children =
                         {
+                            // More styling garbage
                             new PackIcon()
                             {
                                 Kind = PackIconKind.HandPointingRight,
@@ -82,6 +102,7 @@ namespace Magma
                                 Foreground = ListBoxItemTextBrushes[0],
                                 VerticalAlignment = VerticalAlignment.Center,
                             },
+                            // Even more styling garbage
                             new TextBlock()
                             {
                                 Margin = new Thickness(7, 0, 0, 0),
@@ -98,6 +119,11 @@ namespace Magma
                     },
                 };
 
+                /* There isn't really a good way to describe this, but basically this controls the visibility of the little pointer hand icon
+                 * whenever you select X listbox item.
+                 */
+
+                // Makes the selected pointer icon initially invisible
                 ((Grid)newItem.Content).ColumnDefinitions.Add(
                     new ColumnDefinition() { 
                         Width = ListBoxItemColumnWidths[0]
@@ -114,6 +140,7 @@ namespace Magma
 
                 newItem.Selected += (sender, e) =>
                 {
+                    this.SelectedItem = (TextBlock)((Grid)((ListBoxItem)sender).Content).Children[1];
                     ToggleItemHighlight((ListBoxItem)sender, true);
                 };
 
@@ -122,10 +149,36 @@ namespace Magma
                     ToggleItemHighlight((ListBoxItem)sender, false);
                 };
 
+                // Add our items to the global instance
                 this.Items.Add(newItem);
+                this.CachedItems.Add(newItem);
             }
         }
 
+        // Use your context clues
+        public void PopulateFromDirectory(string directory, string fileEnding = "*.*")
+        {
+            DirectoryInfo dinfo = new DirectoryInfo(directory);
+            FileInfo[] Files = { };
+
+            // This allows you to use multiple file endings (ex: "*.txt | *.lua")
+            foreach (string ending in fileEnding.Replace(" ", "").Split('|'))
+            {
+                Files = Files.Concat(dinfo.GetFiles(ending)).ToArray();
+            }
+
+            List<string> FileNames = new List<string>();
+
+            foreach (FileInfo file in Files)
+            {
+                // Adds the current file's name without the ".*" ending
+                FileNames.Add(string.Join(".", (string[])file.Name.Split('.').Take(file.Name.Split('.').Length - 1).ToArray()));
+            }
+
+            this.Populate(FileNames);
+        }
+
+        // Manages selected vs deselected item styling
         private void ToggleItemHighlight(ListBoxItem target, bool highlighted)
         {
             int index = Convert.ToInt32(highlighted);

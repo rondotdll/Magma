@@ -12,7 +12,7 @@
             <Rectangle x:Name="RightAccentPanel" Fill="#282C34" Width="650" VerticalAlignment="Stretch" HorizontalAlignment="Right"/>
         </Grid>
         <Grid x:Name="Foreground">
-            <Image x:Name="Logo" Source="Images/Magma.png" Width="48" Height="48" Margin="126,12,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Image x:Name="Logo" Source="Images/Magma.png" Width="48" Height="48" Margin="124,12,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
             <Grid x:Name="RightPanel" Width="650" VerticalAlignment="Stretch" HorizontalAlignment="Right">
                 <Grid.RowDefinitions>

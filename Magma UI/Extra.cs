@@ -8,6 +8,9 @@ using System.Windows.Media.Animation;
 using System.Windows;
 using System.Linq.Expressions;
 
+/* This is where we dumped all the misc functions that are used throughout
+ */
+
 namespace Magma
 {
     public class Extra

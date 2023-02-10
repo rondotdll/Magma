@@ -13,6 +13,7 @@ using System.Web.UI.WebControls;
 using ICSharpCode.AvalonEdit;
 using System.Windows.Controls;
 using System.Diagnostics;
+using System.Media;
 
 namespace Magma.Avalon
 {
@@ -198,28 +199,34 @@ namespace Magma.Avalon
         {
             TextEditor textBox = (TextEditor)sender;
 
-            if (e.Key == Key.LeftCtrl)
+            try
             {
-                ctrlPressed = true;
-            }
-            else if (e.Key == Key.OemPlus && ctrlPressed)
-            {
-                textBox.FontSize++;
-                e.Handled = true;
-                return;
-            }
-            else if (e.Key == Key.OemMinus && ctrlPressed)
-            {
-                textBox.FontSize--;
-                e.Handled = true;
-                return;
-            }
-            else if (e.Key == Key.D0 && ctrlPressed)
-            {
-                textBox.FontSize = 12;
-                e.Handled = true;
-                return;
-            }
+                if (e.Key == Key.LeftCtrl)
+                {
+                    ctrlPressed = true;
+                }
+                else if (e.Key == Key.OemPlus && ctrlPressed)
+                {
+                    textBox.FontSize++;
+                    e.Handled = true;
+                    return;
+                }
+                else if (e.Key == Key.OemMinus && ctrlPressed)
+                {
+                    textBox.FontSize--;
+                    e.Handled = true;
+                    return;
+                }
+                else if (e.Key == Key.D0 && ctrlPressed)
+                {
+                    textBox.FontSize = 12;
+                    e.Handled = true;
+                    return;
+                }
+            } catch {
+                SystemSounds.Exclamation.Play();
+                return; 
+            };
         }
 
         public static void TextBox_KeyUp(object sender, KeyEventArgs e)

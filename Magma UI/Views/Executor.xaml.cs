@@ -29,8 +29,8 @@ namespace Magma
     /// </summary>
     public partial class Executor : Page
     {
-        static BraceFoldingStrategy foldingStrategy = new BraceFoldingStrategy();
-        static TabManager tabManager;
+        //static BraceFoldingStrategy foldingStrategy = new BraceFoldingStrategy();
+        public static TabManager TabManager;
         
         public Executor()
         {
@@ -49,7 +49,7 @@ namespace Magma
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            tabManager = new TabManager(this);
+            TabManager = new TabManager(this);
         }
 
         // While support for code folding does exist it's kinda clunky and bad, so I've disabled it for now.

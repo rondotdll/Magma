@@ -15,7 +15,7 @@
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
         <ScrollViewer x:Name="ScriptsScrollViewer" Margin="0,0,15,10" Padding="0 0 -2 0" VerticalScrollBarVisibility="Auto">
-            <ListBox x:Name="ScriptsListBox" Height="Auto" Foreground="{DynamicResource TextSuperLightBrush}" VerticalAlignment="Center"/>
+            <ListBox x:Name="ScriptsListBox" Height="Auto" Foreground="{DynamicResource TextSuperLightBrush}" VerticalAlignment="Center" SelectionChanged="ScriptsListBox_SelectionChanged"/>
         </ScrollViewer>
         <Border x:Name="SettingsButtonBorder" Margin="0 0 20 10" Width="30" HorizontalAlignment="Right" Grid.Row="1" Background="{DynamicResource BackgroundContrastBrush}" CornerRadius="7">
             <Button x:Name="SettingsButton"  Height="20" Background="{x:Null}" VerticalAlignment="Stretch" Margin="5" BorderThickness="0" Padding="0" Grid.Column="1">
@@ -34,7 +34,7 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="30"/>
                 </Grid.ColumnDefinitions>
-                <TextBox x:Name="SearchBarTextBox" Grid.Column="0" Foreground="{DynamicResource TextLightBrush}" Padding="0" CaretBrush="{DynamicResource TextSuperLightBrush}" FontSize="10" FontFamily="{StaticResource Poppins}" HorizontalAlignment="Stretch" Margin="5,0,0,0" TextWrapping="NoWrap" VerticalAlignment="Center" GotFocus="SearchBarTextBox_GotFocus">
+                <TextBox x:Name="SearchBarTextBox" Grid.Column="0" Foreground="{DynamicResource TextLightBrush}" Padding="0" CaretBrush="{DynamicResource TextSuperLightBrush}" FontSize="10" FontFamily="{StaticResource Poppins}" HorizontalAlignment="Stretch" Margin="5,0,0,0" TextWrapping="NoWrap" VerticalAlignment="Center" GotFocus="SearchBarTextBox_GotFocus" TextChanged="SearchBarTextBox_TextChanged">
                     <TextBox.Style>
                         <Style TargetType="TextBox">
                             <Setter Property="Template">
@@ -49,7 +49,7 @@
                         </Style>
                     </TextBox.Style>
                 </TextBox>
-                <Button x:Name="SearchBarButton" Height="20"  Background="{x:Null}" VerticalAlignment="Stretch" Margin="5" BorderThickness="0" Padding="0" Grid.Column="1">
+                <Button x:Name="SearchBarButton" Height="20"  Background="{x:Null}" VerticalAlignment="Stretch" Margin="5" BorderThickness="0" Padding="0" Grid.Column="1" Click="SearchBarButton_Click">
                     <m:PackIcon Kind="Search" Foreground="{DynamicResource TextSuperLightBrush}" Width="16" Height="16" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 </Button>
             </Grid>
