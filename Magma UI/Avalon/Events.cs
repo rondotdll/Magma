@@ -15,6 +15,11 @@ using System.Windows.Controls;
 using System.Diagnostics;
 using System.Media;
 
+/* This file contains every AvalonEdit specific event handler, including:
+ * - AutoComplete
+ * - Zoom Keybinds
+ */
+
 namespace Magma.Avalon
 {
     internal class AvalonEvents
