@@ -56,6 +56,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -156,7 +157,7 @@ namespace Magma
 
             EzAnimate.FadeOut(MainFrame, 280, (a, aa) =>
             {
-                EzAnimate.ResizeX(FluidContainer, 650, 400, (b, bb) =>
+                EzAnimate.ResizeMargins(FluidContainer, new Thickness(140, 70, 10, 10), 400, (b, bb) =>
                 {
                     MainFrame.Navigate(Globals.ExecutorPage);
                     EzAnimate.FadeIn(MainFrame);
@@ -207,5 +208,8 @@ namespace Magma
             //MainContainer.Navigate(Globals.InjectorPage);
         }
 
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+        }
     }
 }

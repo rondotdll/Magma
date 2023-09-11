@@ -57,6 +57,9 @@ namespace Magma
         {
             string scriptName = ScriptsManager.SelectedItem.Text;
 
+            if (ScriptsListBox.SelectedIndex < 0)
+                return;
+
             if (File.Exists($"{ScriptsFolder}/{scriptName}.txt"))
                 Executor.TabManager.Selected.TextEditor.Text = File.ReadAllText($"{ScriptsFolder}/{scriptName}.txt");
             else if (File.Exists($"{ScriptsFolder}/{scriptName}.lua"))

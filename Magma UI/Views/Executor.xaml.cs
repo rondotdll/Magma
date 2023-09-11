@@ -45,11 +45,16 @@ namespace Magma
 
         private void ExecutorPage_Initialized(object sender, EventArgs e)
         {
+
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             TabManager = new TabManager(this);
+            TabManager.TabChanged += (object s, EventArgs args) =>
+            {
+                Globals.ExecutorSideBarPage.ScriptsListBox.SelectedIndex = -1;
+            };
         }
 
         // While support for code folding does exist it's kinda clunky and bad, so I've disabled it for now.

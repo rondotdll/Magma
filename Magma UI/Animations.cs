@@ -13,7 +13,7 @@ namespace Magma
             var sb = new Storyboard();
 
             sb.Children.Add(doubleAnimation);
-            
+
             if (onFinish != null)
                 sb.Completed += onFinish;
 
@@ -22,12 +22,43 @@ namespace Magma
             sb.Begin();
         }
 
+        // This function is the same as the previous, but instead of DoubleAnimations its for ThicknessAnimations
+        private static void DoThicknessAnimation(ThicknessAnimation thicknessAnimation, DependencyObject target, object property, EventHandler onFinish = null)
+        {
+            var sb = new Storyboard();
+
+            sb.Children.Add(thicknessAnimation);
+
+            if (onFinish != null)
+                sb.Completed += onFinish;
+
+            Storyboard.SetTargetProperty(thicknessAnimation, new PropertyPath(property));
+            Storyboard.SetTarget(thicknessAnimation, target);
+            sb.Begin();
+        }
+
+        public static void ResizeMargins(in FrameworkElement target, Thickness newMargin, double duration = 400, EventHandler onFinish = null)
+        {
+            var ResizeMarginsAnimation = new ThicknessAnimation()
+            {
+                From = target.Margin,
+                To = newMargin,
+                Duration = new Duration(TimeSpan.FromMilliseconds(duration)),
+                EasingFunction = new QuadraticEase()
+                {
+                    EasingMode = EasingMode.EaseInOut
+                }
+            };
+
+            DoThicknessAnimation(ResizeMarginsAnimation, target, FrameworkElement.MarginProperty, onFinish);
+        }
+
         // This method is mostly just used to resize our FluidContainer control
         public static void ResizeX(in FrameworkElement target, double newWidth, double duration = 400, EventHandler onFinish = null)
         {
             var ResizeAnimation = new DoubleAnimation()
             {
-                From = target.Width,
+                From = target.ActualWidth,
                 To = newWidth,
                 Duration = new Duration(TimeSpan.FromMilliseconds(duration)),
                 EasingFunction = new QuadraticEase()
@@ -36,16 +67,16 @@ namespace Magma
                 }
             };
 
-            DoDoubleAnimation(ResizeAnimation, target, FrameworkElement.WidthProperty, onFinish);   
+            DoDoubleAnimation(ResizeAnimation, target, FrameworkElement.WidthProperty, onFinish);
         }
 
-        // Used for fading controls into view
-        public static void FadeIn(in FrameworkElement target, double duration = 280, EventHandler onFinish = null)
+        // Self explanatory, fades an object to a specified "newOpacity". (Called from "FadeOut" and "FadeIn")
+        public static void FadeOpacity(in FrameworkElement target, double newOpacity, double duration = 280, EventHandler onFinish = null)
         {
-            var FadeInAnimation = new DoubleAnimation()
+            var FadeAnimation = new DoubleAnimation()
             {
                 From = target.Opacity,
-                To = 1,
+                To = newOpacity,
                 Duration = new Duration(TimeSpan.FromMilliseconds(duration * (1 - target.Opacity))),
                 EasingFunction = new QuadraticEase()
                 {
@@ -53,24 +84,19 @@ namespace Magma
                 }
             };
 
-            DoDoubleAnimation(FadeInAnimation, target, FrameworkElement.OpacityProperty, onFinish);
+            DoDoubleAnimation(FadeAnimation, target, FrameworkElement.OpacityProperty, onFinish);
+        }
+
+        // Used for fading controls into view
+        public static void FadeIn(in FrameworkElement target, double duration = 280, EventHandler onFinish = null)
+        {
+            FadeOpacity(target, 1, duration, onFinish);
         }
 
         // Used for fading controls out of view
         public static void FadeOut(in FrameworkElement target, double duration = 280, EventHandler onFinish = null)
         {
-            var FadeInAnimation = new DoubleAnimation()
-            {
-                From = target.Opacity,
-                To = 0,
-                Duration = new Duration(TimeSpan.FromMilliseconds(duration * target.Opacity)), // Time adjustment for partially transparent controls
-                EasingFunction = new QuadraticEase()
-                {
-                    EasingMode = EasingMode.EaseInOut
-                }
-            };
-
-            DoDoubleAnimation(FadeInAnimation, target, FrameworkElement.OpacityProperty, onFinish);
+            FadeOpacity(target, 0, duration, onFinish);
         }
     }
 }

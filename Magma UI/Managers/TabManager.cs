@@ -168,6 +168,8 @@ namespace Magma
         // Represents the Executor page that the TabManager is parented in
         public Executor Context { get; private set; }
 
+        public event EventHandler TabChanged;
+
         // Class initializer
         public TabManager(Page context)
         {
@@ -201,6 +203,7 @@ namespace Magma
                         return;
                     // Changes the selected tab to whatever the clicked tab button text is
                     this.ChangeSelected(buttonName);
+                    this.TabChanged.Invoke(this, EventArgs.Empty);
                 };
 
                 // forgot what this does tbh, just ctrl click it I guess 

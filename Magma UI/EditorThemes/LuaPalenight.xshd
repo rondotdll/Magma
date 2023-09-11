@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0"?>
-
 <SyntaxDefinition name="Lua" extensions=".lua" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
 	<Color name="Red" fontWeight="regular" foreground="#ff5370" />
 	<Color name="Orange" foreground="#f78c6c"/>

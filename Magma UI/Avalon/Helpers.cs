@@ -32,6 +32,7 @@ namespace Magma
                 return HighlightingLoader.Load(reader, HighlightingManager.Instance);
         }
 
+        // This was used for code folding (I think)
         public static XmlReader LoadSchemaSet(string schemaName)
         {
             var type = typeof(AvalonHelpers);
