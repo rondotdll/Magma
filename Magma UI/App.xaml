@@ -37,6 +37,7 @@
             <Color x:Key="BackgroundBase">#FF282C34</Color>
             <Color x:Key="BackgroundContrast">#FF21252B</Color>
             <Color x:Key="BackgroundSuperContrast">#FF1C1F25</Color>
+            <Color x:Key="BackgroundSuperDuperContrast">#FF1A1A1A</Color>
 
             <!-- Dynamic Brush Definitions -->
             <LinearGradientBrush x:Key="GradientNormalDefinition" EndPoint="1,1" StartPoint="0,0">
@@ -64,6 +65,7 @@
             <SolidColorBrush x:Key="BackgroundBaseBrush" Color="{DynamicResource BackgroundBase}"/>
             <SolidColorBrush x:Key="BackgroundContrastBrush" Color="{DynamicResource BackgroundContrast}"/>
             <SolidColorBrush x:Key="BackgroundSuperContrastBrush" Color="{DynamicResource BackgroundSuperContrast}"/>
+            <SolidColorBrush x:Key="BackgroundSuperDuperContrastBrush" Color="{DynamicResource BackgroundSuperDuperContrast}"/>
 
             <!-- Static Color Definitions -->
             <Color x:Key="BaseRed">#EF476E</Color>
