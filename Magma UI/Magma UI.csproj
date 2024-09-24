@@ -137,8 +137,6 @@
     </Compile>
     <Compile Include="Extra.cs" />
     <Compile Include="Globals.cs" />
-    <Compile Include="Injector.cs" />
-    <Compile Include="InjectorRendering.cs" />
     <Compile Include="Internal.cs" />
     <Compile Include="LuaCompletionData.cs" />
     <Compile Include="LuaHelper\BraceFoldingStrategy.cs" />

@@ -161,21 +161,21 @@ namespace Magma
             DirectoryInfo dinfo = new DirectoryInfo(directory);
             FileInfo[] Files = { };
 
-            // This allows you to use multiple file endings (ex: "*.txt | *.lua")
-            foreach (string ending in fileEnding.Replace(" ", "").Split('|'))
-            {
-                Files = Files.Concat(dinfo.GetFiles(ending)).ToArray();
-            }
+            //// This allows you to use multiple file endings (ex: "*.txt | *.lua")
+            //foreach (string ending in fileEnding.Replace(" ", "").Split('|'))
+            //{
+            //    Files = Files.Concat(dinfo.GetFiles(ending)).ToArray();
+            //}
 
-            List<string> FileNames = new List<string>();
+            //List<string> FileNames = new List<string>();
 
-            foreach (FileInfo file in Files)
-            {
-                // Adds the current file's name without the ".*" ending
-                FileNames.Add(string.Join(".", (string[])file.Name.Split('.').Take(file.Name.Split('.').Length - 1).ToArray()));
-            }
+            //foreach (FileInfo file in Files)
+            //{
+            //    // Adds the current file's name without the ".*" ending
+            //    FileNames.Add(string.Join(".", (string[])file.Name.Split('.').Take(file.Name.Split('.').Length - 1).ToArray()));
+            //}
 
-            this.Populate(FileNames);
+            //this.Populate(FileNames);
         }
 
         // Manages selected vs deselected item styling
