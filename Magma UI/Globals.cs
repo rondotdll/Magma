@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Magma.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,9 @@ namespace Magma
         public static Executor ExecutorPage = new Executor();
         public static ExecutorStatus ExecutorStatusBar = new ExecutorStatus();
         public static ExecutorSideBar ExecutorSideBarPage = new ExecutorSideBar();
+
+        public static MagmaMix MagmaMixPage = new MagmaMix();
+        public static MagmaMixSideBar MagmaMixSideBar = new MagmaMixSideBar();
 
         public static HomeStatus HomeStatusBar = new HomeStatus();
         //public static Injector InjectorPage = new Injector();

@@ -11,12 +11,13 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="4*"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="280"/>
         </Grid.ColumnDefinitions>
         <Border Grid.Column="1" CornerRadius="4" Margin="25" Background="{DynamicResource BackgroundSuperContrastBrush}">
             <Grid>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="160"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="108"/>
                 </Grid.RowDefinitions>
@@ -34,22 +35,22 @@
 
                 </Grid>
                 <Border x:Name="QuickActionsOuter" Background="{DynamicResource BackgroundSuperDuperContrastBrush}"
-                        Grid.Row="0" Grid.Column="1" CornerRadius="0 4 0 4" Margin="0 0 0 42">
+                        Grid.Row="0" Grid.Column="1" CornerRadius="0 4 0 4" Margin="0 0 0 42" HorizontalAlignment="Stretch" VerticalAlignment="Top">
                     <Grid x:Name="QuickActionsContainer">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <Button x:Name="CheatSourceButton" Margin="4" Padding="0" Grid.Row="0">
+                        <Button x:Name="CheatSourceButton" Margin="4" Padding="0" Grid.Row="0" Background="Transparent" BorderBrush="Transparent">
                             <m:PackIcon Foreground="{DynamicResource TextLightBrush}" Kind="OpenInNew"
                                         HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="22" Height="22"></m:PackIcon>
                         </Button>
-                        <Button x:Name="CheatConfigsButton" Margin="4" Padding="0" Grid.Row="1">
+                        <Button x:Name="CheatConfigsButton" Margin="4" Padding="0" Grid.Row="1" Background="Transparent" BorderBrush="Transparent">
                             <m:PackIcon Foreground="{DynamicResource TextLightBrush}" Kind="ClipboardFile"
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="22" Height="22"></m:PackIcon>
                         </Button>
-                        <Button x:Name="CheatFavoriteButton" Margin="4" Padding="0" Grid.Row="2">
+                        <Button x:Name="CheatFavoriteButton" Margin="4" Padding="0" Grid.Row="2" Background="Transparent" BorderBrush="Transparent">
                             <m:PackIcon Foreground="{DynamicResource BaseRedBrush}" Kind="Heart"
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="22" Height="22"></m:PackIcon>
                         </Button>
@@ -74,10 +75,10 @@
                     </TextBlock>
                 </Grid>
                 
-                <Label Grid.Row="1" Grid.ColumnSpan="2" Foreground="{DynamicResource TextSuperLightBrush}" FontFamily="{StaticResource QuickSand}" FontWeight="Bold"
+                <Label Grid.Row="2" Grid.ColumnSpan="2" Foreground="{DynamicResource TextSuperLightBrush}" FontFamily="{StaticResource QuickSand}" FontWeight="Bold"
                        FontSize="24" Margin="10" VerticalAlignment="Top">
                     All Set?</Label>
-                <Button x:Name="ActivateCheatButton" Grid.Row="1" Grid.ColumnSpan="2" Background="#42A2E7" Foreground="{DynamicResource TextBrush}" FontFamily="{StaticResource JBMono}" FontWeight="Light"
+                <Button x:Name="ActivateCheatButton" Grid.Row="2" Grid.ColumnSpan="2" Background="#42A2E7" BorderBrush="#FF42A2E7" Foreground="{DynamicResource TextBrush}" FontFamily="{StaticResource JBMono}" FontWeight="Light"
                         Margin="10" Padding="10" FontSize="22" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="48">
                     &gt;&gt; ACTIVATE &lt;&lt;
                 </Button>

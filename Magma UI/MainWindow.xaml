@@ -9,12 +9,28 @@
         Title="MainWindow" Height="400" MinHeight="400" Width="800" MinWidth="800" Initialized="Window_Initialized" Loaded="Window_Loaded" BorderBrush="{DynamicResource GradientInverseDefinition}" SizeChanged="Window_SizeChanged">
     <Grid>
         <Grid x:Name="Background" Background="{DynamicResource WindowTintBrush}">
-            <Rectangle x:Name="RightAccentPanel" Fill="#282C34" Margin="150,0,0,0"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="13*"/>
+            </Grid.ColumnDefinitions>
+
+            <Rectangle Grid.Column="1"  x:Name="RightAccentPanel" Fill="#282C34" HorizontalAlignment="Stretch"/>
         </Grid>
         <Grid x:Name="Foreground">
-            <Image x:Name="Logo" Source="Images/Magma.png" Width="48" Height="48" Margin="126,12,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="13*"/>
+            </Grid.ColumnDefinitions>
 
-            <Grid x:Name="RightPanel" Margin="150,0,0,0">
+            <Grid Grid.Column="0" Grid.ColumnSpan="2" Height="48" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,12,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="13*"/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="1" x:Name="Logo" HorizontalAlignment="Left" Margin="-24,0,0,0" Source="Images/Magma.png" Height="48" Width="48"/>
+            </Grid>
+
+            <Grid Grid.Column="1"  x:Name="RightPanel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="12"/>
                     <RowDefinition Height="58"/>
@@ -55,10 +71,10 @@
                 <Label x:Name="CurrentViewLabel" Content="Home" FontFamily="{StaticResource InkPen}" FontSize="28" Margin="26, 20, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Left" Padding="0" Foreground="{DynamicResource GradientInverseDefinition}"/>
             </Grid>
 
-            <Frame x:Name="SideBarFrame" Width="150" NavigationUIVisibility="Hidden" HorizontalAlignment="Left" Margin="0,80,0,0">
+            <Frame Grid.Column="0" x:Name="SideBarFrame" NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" Margin="0,80,0,0">
             </Frame>
 
-            <Border x:Name="FluidContainer" Background="{DynamicResource BackgroundContrastBrush}" CornerRadius="7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,70,10,10">
+            <Border Grid.Column="1" x:Name="FluidContainer" Background="{DynamicResource BackgroundContrastBrush}" CornerRadius="7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="-10,70,10,10">
                 <Border.Effect>
                     <DropShadowEffect Direction="-90" BlurRadius="8" Opacity="0.25" ShadowDepth="4"/>
                 </Border.Effect>

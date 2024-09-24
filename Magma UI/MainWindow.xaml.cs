@@ -59,7 +59,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Web.UI.WebControls.Expressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -157,9 +157,9 @@ namespace Magma
 
             EzAnimate.FadeOut(MainFrame, 280, (a, aa) =>
             {
-                EzAnimate.ResizeMargins(FluidContainer, new Thickness(140, 70, 10, 10), 400, (b, bb) =>
+                EzAnimate.ResizeMargins(FluidContainer, new Thickness(-10, 70, 10, 10), 400, (b, bb) =>
                 {
-                    MainFrame.Navigate(Globals.ExecutorPage);
+                    MainFrame.Navigate(Globals.MagmaMixPage);
                     EzAnimate.FadeIn(MainFrame);
                 });
             });
@@ -168,17 +168,15 @@ namespace Magma
             {
                 StatusFrame.Navigate(Globals.ExecutorStatusBar);
                 EzAnimate.FadeIn(StatusFrame);
-                
+
             });
 
             EzAnimate.FadeOut(SideBarFrame, 280, (a, aa) =>
             {
-                SideBarFrame.Navigate(Globals.ExecutorSideBarPage);
+                SideBarFrame.Navigate(Globals.MagmaMixSideBar);
                 EzAnimate.FadeIn(SideBarFrame);
 
             });
-
-
         }
 
         private void KeepOnTopButton_Click(object sender, RoutedEventArgs e)

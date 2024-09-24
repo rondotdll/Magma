@@ -6,28 +6,30 @@ using System.Windows.Controls;
 namespace Magma
 {
     /// <summary>
-    /// Interaction logic for ExecutorSideBar.xaml
+    /// Interaction logic for MagmaMixSideBar.xaml
     /// </summary>
-    public partial class ExecutorSideBar : Page
+    public partial class MagmaMixSideBar : Page
     {
         public static ListBoxManager ScriptsManager;
 
         private static string ScriptsFolder = System.IO.Path.GetFullPath("./Scripts");
 
-        public ExecutorSideBar()
+        public MagmaMixSideBar()
         {
             InitializeComponent();
         }
         
         private void Page_Initialized(object sender, EventArgs e)
         {
-            ScriptsManager = new ListBoxManager(ref ScriptsListBox);
+            ScriptsManager = new ListBoxManager(ref CheatsListBox);
+
+            // Populate the listbox from parsed JSON file containing "mix" repos
             ScriptsManager.PopulateFromDirectory("C:\\Users\\David\\Documents\\GitHub\\Magma-v2.1\\Magma UI\\bin\\Debug UI\\Scripts", " *.txt | *.lua");
 
-            ScriptsListBox.Padding = new Thickness(0, 0, -2, 0);
+            CheatsListBox.Padding = new Thickness(0, 0, -2, 0);
 
-            if (ScriptsScrollViewer.ComputedVerticalScrollBarVisibility == Visibility.Visible)
-                ScriptsListBox.Padding = new Thickness(0, 0, 3, 0);
+            if (CheatsScrollViewer.ComputedVerticalScrollBarVisibility == Visibility.Visible)
+                CheatsListBox.Padding = new Thickness(0, 0, 3, 0);
         }
 
         private void SearchBarTextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -57,7 +59,7 @@ namespace Magma
         {
             string scriptName = ScriptsManager.SelectedItem.Text;
 
-            if (ScriptsListBox.SelectedIndex < 0)
+            if (CheatsListBox.SelectedIndex < 0)
                 return;
 
             if (File.Exists($"{ScriptsFolder}/{scriptName}.txt"))
@@ -65,7 +67,7 @@ namespace Magma
             else if (File.Exists($"{ScriptsFolder}/{scriptName}.lua"))
                 Executor.TabManager.Selected.TextEditor.Text = File.ReadAllText($"{ScriptsFolder}/{scriptName}.lua");
             else
-                MessageBox.Show("The script you selected doesn't exist... did you delete it on accident?", "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("The cheat you selected doesn't exist... did you remove it on accident?", "Cheat Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

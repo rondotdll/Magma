@@ -1,4 +1,4 @@
-﻿<Page x:Class="Magma.ExecutorSideBar"
+﻿<Page x:Class="Magma.MagmaMixSideBar"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -14,16 +14,18 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
-        <ScrollViewer x:Name="ScriptsScrollViewer" Margin="0,0,15,10" Padding="0 0 -2 0" VerticalScrollBarVisibility="Auto">
-            <ListBox x:Name="ScriptsListBox" Height="Auto" Foreground="{DynamicResource TextSuperLightBrush}" VerticalAlignment="Center" SelectionChanged="ScriptsListBox_SelectionChanged"/>
+        
+        <ScrollViewer x:Name="CheatsScrollViewer" Margin="0,0,15,10" Padding="0 0 -2 0" VerticalScrollBarVisibility="Auto">
+            <ListBox x:Name="CheatsListBox" Height="Auto" Foreground="{DynamicResource TextSuperLightBrush}" VerticalAlignment="Center" SelectionChanged="ScriptsListBox_SelectionChanged"/>
         </ScrollViewer>
+        
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="55"/>
             </Grid.ColumnDefinitions>
 
-            <Border  Grid.Column="1" x:Name="SettingsButtonBorder" Margin="5,0,20,10"  Background="{DynamicResource BackgroundContrastBrush}" CornerRadius="7">
+            <Border Grid.Column="1" x:Name="SettingsButtonBorder" Margin="5,0,20,10"  Background="{DynamicResource BackgroundContrastBrush}" CornerRadius="7">
                 <Button x:Name="SettingsButton"  Height="20" Background="{x:Null}" VerticalAlignment="Stretch" Margin="5" BorderThickness="0" Padding="0" Grid.Column="1">
                     <m:PackIcon Kind="Settings" Foreground="{DynamicResource TextSuperLightBrush}" Width="16" Height="16" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 </Button>
