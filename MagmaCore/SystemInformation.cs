@@ -3,20 +3,20 @@ using System.Management;
 
 namespace MagmaCore
 {
-    public enum GpuVendor
+    public enum HardwareVendor
     {
         Unknown,
         Amd,
         Nvidia,
-        Intel
+        Intel,
     }
 
     public readonly struct GpuMeta
     {
-        public GpuVendor Vendor { get; }
+        public HardwareVendor Vendor { get; }
         public string Model { get; }
 
-        public GpuMeta(GpuVendor vendor, string model)
+        public GpuMeta(HardwareVendor vendor, string model)
         {
             Vendor = vendor;
             Model = model;
@@ -26,14 +26,14 @@ namespace MagmaCore
     public static class SystemInformation
     {
 
-        private static GpuVendor ParseVendor(string vendorName)
+        private static HardwareVendor ParseVendor(string vendorName)
         {
             return vendorName.ToLower() switch
             {
-                { } name when name.Contains("amd") => GpuVendor.Amd,
-                { } name when name.Contains("nvidia") => GpuVendor.Nvidia,
-                { } name when name.Contains("intel") => GpuVendor.Intel,
-                _ => GpuVendor.Unknown,
+                { } name when name.Contains("amd") => HardwareVendor.Amd,
+                { } name when name.Contains("nvidia") => HardwareVendor.Nvidia,
+                { } name when name.Contains("intel") => HardwareVendor.Intel,
+                _ => HardwareVendor.Unknown,
             };
         }
         
@@ -48,7 +48,7 @@ namespace MagmaCore
                         string model = obj["Name"]?.ToString() ?? "Unknown";
                         string vendorName = obj["AdapterCompatibility"]?.ToString() ?? "Unknown";
 
-                        GpuVendor vendor = ParseVendor(vendorName);
+                        HardwareVendor vendor = ParseVendor(vendorName);
                         return new GpuMeta(vendor, model);
                     }
                 }
@@ -58,7 +58,7 @@ namespace MagmaCore
                 Console.WriteLine($"Error retrieving GPU information: {ex.Message}");
             }
             
-            return new GpuMeta(GpuVendor.Unknown, "Unknown");
+            return new GpuMeta(HardwareVendor.Unknown, "Unknown");
         }
     }
 }
