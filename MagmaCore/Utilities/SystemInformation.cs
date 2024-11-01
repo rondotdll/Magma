@@ -1,7 +1,7 @@
 
 using System.Management;
 
-namespace MagmaCore
+namespace MagmaCore.Utilities
 {
     public enum HardwareVendor
     {
@@ -45,8 +45,8 @@ namespace MagmaCore
                 {
                     foreach (ManagementObject obj in searcher.Get())
                     {
-                        string model = obj["Name"]?.ToString() ?? "Unknown";
-                        string vendorName = obj["AdapterCompatibility"]?.ToString() ?? "Unknown";
+                        var model = obj["Name"]?.ToString() ?? "Unknown";
+                        var vendorName = obj["AdapterCompatibility"]?.ToString() ?? "Unknown";
 
                         HardwareVendor vendor = ParseVendor(vendorName);
                         return new GpuMeta(vendor, model);
