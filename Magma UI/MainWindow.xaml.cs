@@ -71,6 +71,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ICSharpCode.AvalonEdit.Rendering;
 
 namespace Magma
 {
@@ -157,11 +158,9 @@ namespace Magma
 
             EzAnimate.FadeOut(MainFrame, 280, (a, aa) =>
             {
-                EzAnimate.ResizeMargins(FluidContainer, new Thickness(-10, 70, 10, 10), 400, (b, bb) =>
-                {
-                    MainFrame.Navigate(Globals.MagmaMixPage);
-                    EzAnimate.FadeIn(MainFrame);
-                });
+                ToggleSideBar(false);
+                MainFrame.Navigate(Globals.MagmaMixPage);
+                EzAnimate.FadeIn(MainFrame);
             });
 
             EzAnimate.FadeOut(StatusFrame, 280, (a, aa) =>
@@ -171,12 +170,13 @@ namespace Magma
 
             });
 
-            EzAnimate.FadeOut(SideBarFrame, 280, (a, aa) =>
-            {
-                SideBarFrame.Navigate(Globals.MagmaMixSideBar);
-                EzAnimate.FadeIn(SideBarFrame);
+            // Sidebar only being used for Executor view.
 
-            });
+            //EzAnimate.FadeOut(SideBarFrame, 280, (a, aa) =>
+            //{
+            //    SideBarFrame.Navigate(Globals.MagmaMixSideBar);
+            //    EzAnimate.FadeIn(SideBarFrame);
+            //});
         }
 
         private void KeepOnTopButton_Click(object sender, RoutedEventArgs e)
@@ -209,5 +209,13 @@ namespace Magma
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
         }
+
+        public void ToggleSideBar(bool state)
+        {
+            EzAnimate.FadeOpacity(SideBarFrame, state ? 1 : 0);
+            EzAnimate.ResizeMargins(FluidContainer, new Thickness((state ? -10 : 10), 70, 10, 10));
+            EzAnimate.ResizeGridColumn(SideBarColumn, state ? new GridLength(3, GridUnitType.Star) : new GridLength(0, GridUnitType.Star));
+        }
+        
     }
 }

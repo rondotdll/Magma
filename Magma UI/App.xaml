@@ -22,6 +22,16 @@
             <Color x:Key="GradientLight">#FFE69138</Color>
             <Color x:Key="AccentColor">#FFED6526</Color>
 
+            <Color x:Key="LogoGlowSpotCenter">#FFEF6226</Color>
+            <Color x:Key="LogoGlowSpotOuter">#00F53A16</Color>
+
+            <Color x:Key="FluidContainerGlowStart">#0CEF6226</Color>
+            <Color x:Key="FluidContainerGlowStop">#00EF6226</Color>
+
+
+            <Color x:Key="WatermarkGlowSpotCenter">#FFFF00FF</Color>
+            <Color x:Key="WatermarkGlowSpotOuter">#00A443F3</Color>
+
             <Color x:Key="Success">#FF44CF6C</Color>
             <Color x:Key="WarningMild">#FFA1D369</Color>
             <Color x:Key="Warning">#FFFED766</Color>
@@ -48,6 +58,24 @@
                 <GradientStop Color="{DynamicResource GradientLight}"/>
                 <GradientStop Color="{DynamicResource GradientDark}" Offset="1"/>
             </LinearGradientBrush>
+            <LinearGradientBrush x:Key="FluidContainerGlowDefinition" EndPoint="1,1" StartPoint="0,0">
+                <GradientStop Color="{DynamicResource FluidContainerGlowStart}"/>
+                <GradientStop Color="{DynamicResource FluidContainerGlowStop}" Offset="1"/>
+            </LinearGradientBrush>
+
+            <RadialGradientBrush x:Key="LogoGlowSpotDefinition" GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                <RadialGradientBrush.GradientStops>
+                    <GradientStop Color="{DynamicResource LogoGlowSpotCenter}"/>
+                    <GradientStop Color="{DynamicResource LogoGlowSpotOuter}" Offset="1"/>
+                </RadialGradientBrush.GradientStops>
+            </RadialGradientBrush>
+            <RadialGradientBrush x:Key="WatermarkGlowSpotDefinition" GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                <RadialGradientBrush.GradientStops>
+                    <GradientStop Color="{DynamicResource WatermarkGlowSpotCenter}"/>
+                    <GradientStop Color="{DynamicResource WatermarkGlowSpotOuter}" Offset="1"/>
+                </RadialGradientBrush.GradientStops>
+            </RadialGradientBrush>
+
             <SolidColorBrush x:Key="AccentColorBrush" Color="{DynamicResource AccentColor}"/>
 
             <SolidColorBrush x:Key="SuccessBrush" Color="{DynamicResource Success}"/>
