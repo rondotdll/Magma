@@ -15,7 +15,13 @@ I made Magma because i got sick of seeing all of the other absolute garbage "exe
 Why should we have to pay to get a decent cheat? Magma is completely free to use (and open sourced)! If you see something broken or something that you feel should be improved feel free to open up my code and give it some tinkering, that's the whole point after all! 
 
 > ****Also feel free to recycle UI components, again I have no current plans to complete this project.*
-  
+> **** *See the v3 branch for the latest goodies*
+
+ ### Prototype V3 UI 
+<img width="816" alt="v3_Executor" src="https://github.com/user-attachments/assets/514fc9c0-2601-48b0-be1e-20625c0929fc" />
+<img width="816" alt="v3_Library" src="https://github.com/user-attachments/assets/b6453ca6-1f5d-407f-9024-ab2d44c42a51" />
+
+### Legacy UI
 ![screenshot1](https://user-images.githubusercontent.com/47403033/114762908-3b12a200-9d30-11eb-8c8d-b523235b50ae.png)
 
 ## FAQ  
